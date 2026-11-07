@@ -4,7 +4,7 @@ Self-study course library, built as static web apps. Open the root page for the 
 
 ## Courses
 - **Mississippi Real Estate Course** — `courses/mississippi-real-estate/`
-- **Learn to Code: A Computer Science Course** (coming soon)
+- **Learn to Code: A Computer Science Course** — `courses/learn-to-code/`
 - **Corrective Exercise & Kinesiology** — `courses/kinesiology-degree/`
 - **Nutrition Science** — `courses/nutrition-degree/`
 - **Applied Trading & Market Systems** — `courses/trading-degree/`
