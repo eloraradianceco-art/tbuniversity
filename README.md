@@ -15,6 +15,10 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Leadership & Organizational Psychology** — `courses/leadership-degree/`
 - **Marketing & Brand Strategy** — `courses/marketing-degree/`
 - **Small Business** — `courses/smallbiz-degree/`
+- **Pre-DPT & Health Sciences** — `courses/predpt-degree/`
+- **Residential Construction & Building Science** — `courses/construction-degree/`
+- **Personal Finance & Wealth Building** — `courses/finance-degree/`
+- **Emergency Preparedness & Survival** — `courses/survival-degree/`
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
 ## Use
