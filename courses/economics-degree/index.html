@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economics — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Economics — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Foundations through applied behavioral & financial economics.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "ECON 101", "title": "Principles of Microeconomics", "credits": 3, "desc": "The rational-actor model: how individuals and firms allocate scarce resources. Builds the baseline every later deviation (behavioral, strategic, institutional) gets measured against.", "concepts": ["Utility", "Opportunity cost", "Marginal analysis", "Supply & demand", "Elasticity"]}, {"code": "MATH 115", "title": "Calculus I for Economists", "credits": 3, "desc": "Derivatives and optimization, taught through economic applications — profit maximization, cost minimization, marginal functions.", "concepts": ["Derivatives", "Optimization", "Marginal functions", "Limits"]}, {"code": "STAT 101", "title": "Statistical Reasoning", "credits": 3, "desc": "Probability, distributions, and inference — the toolkit every empirical economics course after this one assumes you already have.", "concepts": ["Probability", "Distributions", "Hypothesis testing", "Sampling"]}]}, {"term": "Spring", "courses": [{"code": "ECON 102", "title": "Principles of Macroeconomics", "credits": 3, "desc": "How individual behavior aggregates into GDP, inflation, unemployment, and growth. The systems-level counterpart to ECON 101.", "concepts": ["GDP", "Inflation", "Unemployment", "Aggregate supply/demand", "Business cycles"]}, {"code": "MATH 116", "title": "Calculus II & Optimization", "credits": 3, "desc": "Constrained optimization and multivariable methods — Lagrangians, the actual math behind 'maximize utility subject to a budget constraint.'", "concepts": ["Constrained optimization", "Lagrange multipliers", "Multivariable calculus"]}, {"code": "ECON 150", "title": "Economic History & Thought", "credits": 3, "desc": "How economic theory evolved — classical, Keynesian, monetarist, and the intellectual conditions that produced each school. Context for why the field argues the way it does.", "concepts": ["Classical economics", "Keynesianism", "Monetarism", "Economic schools of thought"]}]}]}, {"year": 2, "title": "Core Theory", "semesters": [{"term": "Fall", "courses": [{"code": "ECON 201", "title": "Intermediate Microeconomics", "credits": 3, "desc": "Rebuilds ECON 101 with real math — indifference curves, production theory, market structures from perfect competition to monopoly.", "concepts": ["Indifference curves", "Production theory", "Market structure", "Consumer/producer surplus"]}, {"code": "ECON 210", "title": "Econometrics I", "credits": 3, "desc": "Regression as the core tool of empirical economics — how to test a theory against real data instead of just asserting it.", "concepts": ["OLS regression", "Correlation vs causation", "R-squared", "Confidence intervals"]}, {"code": "ECON 220", "title": "Money, Banking & Financial Markets", "credits": 3, "desc": "How monetary policy, interest rates, and the banking system transmit into the real economy — the mechanics behind Fed decisions and their downstream effects on markets.", "concepts": ["Monetary policy", "Interest rates", "Central banking", "Money supply"]}]}, {"term": "Spring", "courses": [{"code": "ECON 202", "title": "Intermediate Macroeconomics", "credits": 3, "desc": "Formal macro models — IS-LM, AD-AS — for reasoning precisely about fiscal and monetary policy tradeoffs instead of headline-level takes.", "concepts": ["IS-LM model", "AD-AS model", "Fiscal policy", "Monetary transmission"]}, {"code": "ECON 211", "title": "Econometrics II", "credits": 3, "desc": "Applied causal inference — how economists try to isolate 'what caused what' when you can't run a controlled experiment.", "concepts": ["Causal inference", "Instrumental variables", "Difference-in-differences", "Regression discontinuity"]}, {"code": "ECON 230", "title": "Industrial Organization", "credits": 3, "desc": "How firms actually compete — pricing strategy, entry barriers, collusion, and antitrust. Direct relevance to competitive positioning for any business you run.", "concepts": ["Market power", "Pricing strategy", "Barriers to entry", "Antitrust"]}]}]}, {"year": 3, "title": "Behavioral & Strategic Economics", "semesters": [{"term": "Fall", "courses": [{"code": "ECON 301", "title": "Behavioral Economics I — Heuristics & Biases", "credits": 3, "desc": "Where real human decision-making departs from the rational-actor model. Sunk cost fallacy, loss aversion, anchoring, and the mental shortcuts (heuristics) that produce predictable errors.", "concepts": ["Bounded rationality", "Heuristics", "Sunk cost fallacy", "Loss aversion", "Anchoring"]}, {"code": "ECON 310", "title": "Game Theory & Strategic Behavior", "credits": 3, "desc": "Decision-making when outcomes depend on what others do too — Nash equilibrium, prisoner's dilemma, and strategic interaction. Core logic for negotiation, pricing wars, and competitive strategy.", "concepts": ["Nash equilibrium", "Prisoner's dilemma", "Dominant strategy", "Zero-sum vs positive-sum"]}, {"code": "ECON 320", "title": "Public Economics & Policy", "credits": 3, "desc": "Why markets sometimes fail on their own — externalities, public goods, and the economic case for (and against) intervention.", "concepts": ["Market failure", "Externalities", "Public goods", "Taxation"]}]}, {"term": "Spring", "courses": [{"code": "ECON 302", "title": "Behavioral Economics II — Prospect Theory & Applications", "credits": 3, "desc": "Kahneman & Tversky's prospect theory in depth, plus applied behavioral design — nudges, choice architecture, and how firms (and you) can ethically shape decisions.", "concepts": ["Prospect theory", "Reference dependence", "Framing effects", "Choice architecture", "Nudge theory"]}, {"code": "ECON 330", "title": "International Trade & Finance", "credits": 3, "desc": "Comparative advantage, exchange rates, and how global capital flows shape domestic conditions — the macro backdrop behind currency and commodity markets.", "concepts": ["Comparative advantage", "Exchange rates", "Trade balance", "Capital flows"]}, {"code": "ECON 340", "title": "Labor Economics", "credits": 3, "desc": "How wages, hiring, and labor markets are actually priced — directly relevant to any business making staffing or compensation decisions.", "concepts": ["Labor supply/demand", "Human capital", "Wage determination", "Minimum wage effects"]}]}]}, {"year": 4, "title": "Applied & Advanced", "semesters": [{"term": "Fall", "courses": [{"code": "ECON 401", "title": "Financial Economics & Asset Pricing", "credits": 3, "desc": "How assets get priced under risk and uncertainty — the theoretical foundation underneath every trading and investment framework.", "concepts": ["Risk & return", "Efficient market hypothesis", "CAPM", "Time value of money"]}, {"code": "ECON 410", "title": "Neuroeconomics & Decision Science", "credits": 3, "desc": "The biological layer under behavioral economics — how the brain actually processes reward, risk, and delayed gratification.", "concepts": ["Reward processing", "Dopamine & decision-making", "Delayed gratification", "Neuroeconomic models"]}, {"code": "ECON 420", "title": "Development Economics", "credits": 3, "desc": "Why nations grow at different rates — institutions, capital, and policy as drivers of long-run prosperity.", "concepts": ["Economic growth theory", "Institutions", "Poverty traps", "Human capital investment"]}]}, {"term": "Spring", "courses": [{"code": "ECON 402", "title": "Behavioral Finance & Market Anomalies", "credits": 3, "desc": "Where behavioral economics meets markets directly — overconfidence, herding, disposition effect, and the anomalies efficient-market theory can't explain.", "concepts": ["Overconfidence bias", "Herding behavior", "Disposition effect", "Market anomalies"]}, {"code": "ECON 430", "title": "Market Microstructure & Trading Systems", "credits": 3, "desc": "How markets actually execute trades — order flow, liquidity, bid-ask spreads, and price discovery. The mechanical layer under any trading strategy.", "concepts": ["Order flow", "Liquidity", "Bid-ask spread", "Price discovery"]}, {"code": "ECON 490", "title": "Capstone Research Project", "credits": 3, "desc": "An independent applied research project connecting theory to a real system — a natural fit for testing a behavioral or trading framework against real data.", "concepts": ["Original research", "Applied methodology", "Data analysis", "Written defense"]}]}]}];
+const GLOSSARY = {"Utility": "The satisfaction or value a person gets from a choice — the unit economists use to model preference. Example: picking the $4 coffee over the $6 one because the extra $2 saved delivers more utility than the marginal taste upgrade.", "Opportunity cost": "The value of the next-best alternative you give up by choosing one option over another. Example: a Saturday spent coding a new feature has an opportunity cost equal to whatever else that time could have gone toward, like client sessions.", "Marginal analysis": "Evaluating decisions by the next unit's added cost or benefit, not the total. Example: deciding whether to take one more client this week by weighing the added revenue against the added time and energy cost, not your total caseload.", "Supply & demand": "The relationship between how much of a good producers offer and how much buyers want, which sets price. Example: a meal prep menu item that sells out every week signals demand outpacing supply, which justifies raising price or production.", "Elasticity": "How much quantity demanded or supplied responds to a change in price. Example: raising a training package price 10% and losing only 2% of clients means demand for that service is fairly inelastic.", "Derivatives": "The rate of change of a function — in economics, how fast cost, revenue, or utility shifts as inputs change. Example: the derivative of a revenue function tells you exactly how much revenue changes per additional client served.", "Optimization": "Finding the input level that maximizes or minimizes an outcome, like profit or cost. Example: finding the exact number of weekly sessions that maximizes income without triggering burnout is an optimization problem.", "Marginal functions": "Functions showing the added effect of one more unit — marginal cost, marginal revenue, marginal utility. Example: marginal cost tells you what the 21st meal prep container actually costs to produce, not the average of all 20 before it.", "Limits": "The value a function approaches as its input approaches a point — the foundation calculus is built on. Example: as your client roster grows toward full capacity, your available hours per client approach a limit near zero.", "Probability": "The likelihood of an outcome, expressed as a number between 0 and 1. Example: a trading setup with a 60% historical win rate has roughly a 0.6 probability of hitting its target on any given trade.", "Distributions": "The pattern of how likely different outcomes are across a range of possible values. Example: plotting your last 100 trade outcomes shows a distribution that reveals whether your wins and losses cluster or scatter widely.", "Hypothesis testing": "A method for checking whether observed data is likely under an assumed claim about the world. Example: testing whether a new corrective exercise protocol actually improves range of motion more than the old one, not just assuming it does.", "Sampling": "Drawing a subset of data from a larger population to estimate something about the whole. Example: reviewing 30 of your last 200 trades to estimate your overall win rate, rather than manually reviewing every single one.", "GDP": "Gross Domestic Product — the total value of goods and services produced in an economy over a period. Example: a GDP report showing slower growth often precedes the kind of risk-off market moves traders watch for.", "Inflation": "The rate at which the general price level rises, eroding purchasing power over time. Example: rising inflation is why the same grocery run for your meal prep business costs noticeably more than it did two years ago.", "Unemployment": "The share of the labor force actively seeking work but not employed. Example: a surprisingly low unemployment report often moves currency and bond markets within minutes of release.", "Aggregate supply/demand": "The total supply and total demand for goods and services across an entire economy. Example: pandemic-era supply chain breakdowns were an aggregate supply shock that pushed prices up economy-wide.", "Business cycles": "The recurring pattern of economic expansion and contraction over time. Example: a meal prep or fitness business feels the business cycle directly when discretionary client spending tightens during a downturn.", "Constrained optimization": "Maximizing or minimizing an outcome subject to a limit, like a fixed budget. Example: designing the best possible client program within a fixed weekly time budget is a constrained optimization problem.", "Lagrange multipliers": "A calculus technique for solving constrained optimization problems, like utility maximization under a budget. Example: used formally to find the exact mix of ad spend across channels that maximizes leads under a fixed marketing budget.", "Multivariable calculus": "Calculus involving functions of more than one variable — needed once a model has more than one input. Example: modeling revenue as a function of both price and marketing spend at once requires multivariable methods.", "Classical economics": "The early school built on Adam Smith's ideas — markets self-correct through the 'invisible hand.' Example: the belief that pricing your services competitively will naturally find its market level without intervention reflects classical thinking.", "Keynesianism": "The school arguing government spending and demand management can smooth recessions markets won't fix alone. Example: stimulus checks during a recession are a textbook Keynesian policy move to prop up consumer demand.", "Monetarism": "The school emphasizing control of the money supply as the primary lever for economic stability. Example: the Fed raising rates aggressively to fight inflation reflects a monetarist view that money supply drives prices.", "Economic schools of thought": "The competing theoretical frameworks (classical, Keynesian, monetarist) economists use to explain how economies work. Example: two economists can look at the same recession and prescribe opposite policies depending on which school they favor.", "Indifference curves": "Curves showing combinations of goods that give a consumer equal satisfaction. Example: a client equally happy with 3 sessions a week at a lower price or 2 sessions at a higher price sits on the same indifference curve.", "Production theory": "How firms combine inputs (labor, capital) to produce output at the lowest cost. Example: deciding whether to hire another chef or invest in kitchen equipment to increase meal prep output is a production theory question.", "Market structure": "The competitive environment a firm operates in — from perfect competition to monopoly. Example: the local personal training market, with many similar competitors and easy entry, behaves closer to monopolistic competition than monopoly.", "Consumer/producer surplus": "The extra value buyers and sellers capture beyond what they'd have accepted in a trade. Example: a client who would have paid $150 but pays $100 for a session captures $50 of consumer surplus.", "OLS regression": "Ordinary Least Squares — the standard method for fitting a line that best explains a relationship in data. Example: running OLS on ad spend versus new client signups estimates roughly how many clients each extra dollar of spend brings.", "Correlation vs causation": "The distinction between two things moving together and one actually causing the other. Example: ice cream sales and gym signups both rise in summer, but one doesn't cause the other — both just track the season.", "R-squared": "A statistic showing how much of the variation in an outcome a regression model explains. Example: an R-squared of 0.7 on a revenue-forecasting model means 70% of the variation in revenue is explained by the model's inputs.", "Confidence intervals": "A range likely to contain the true value of an estimate, given the data. Example: estimating your strategy's true win rate as 55%–65% based on a sample, rather than claiming a single exact number.", "Monetary policy": "Central bank actions — mainly interest rates and money supply — used to manage the economy. Example: a Fed rate cut is a monetary policy move that typically weakens the dollar and lifts risk assets.", "Interest rates": "The cost of borrowing money, and the return on lending it. Example: rising interest rates make a business loan for new kitchen equipment noticeably more expensive to carry.", "Central banking": "The institution (like the Federal Reserve) responsible for a country's monetary policy and banking system. Example: Fed announcements are scheduled, high-impact events that move nearly every asset class within minutes.", "Money supply": "The total amount of money circulating in an economy. Example: rapid expansion of the money supply during 2020–21 is widely cited as a driver of the inflation that followed.", "IS-LM model": "A macro model showing how the goods market and money market jointly determine interest rates and output. Example: used to reason through why a rate cut tends to boost output but also risks stoking inflation.", "AD-AS model": "A macro model showing how aggregate demand and aggregate supply determine price level and output. Example: a supply shock like a shipping crisis shifts the AS curve and raises prices even without any change in demand.", "Fiscal policy": "Government use of spending and taxation to influence the economy. Example: a tax rebate program is fiscal policy aimed at putting more spending power directly into consumers' hands.", "Monetary transmission": "The channels through which a central bank's rate changes ripple through the real economy. Example: a rate hike raises your business loan's interest cost through the same transmission channel that raises mortgage rates.", "Causal inference": "Methods for determining whether one variable actually causes a change in another, not just correlates. Example: testing whether a new ad creative actually caused more signups, versus signups simply rising for unrelated seasonal reasons.", "Instrumental variables": "A technique using an outside variable to isolate a causal effect when direct comparison is biased. Example: economists might use rainfall as an instrument to isolate the causal effect of a harvest shock on food prices.", "Difference-in-differences": "A method comparing changes over time between a treated group and a control group to estimate causal impact. Example: comparing sales growth in a city that got a new ad campaign against a similar city that didn't.", "Regression discontinuity": "A method exploiting a strict cutoff, like an eligibility threshold, to estimate causal effects. Example: comparing outcomes for clients just above versus just below a program's minimum-age cutoff to isolate the program's true effect.", "Market power": "A firm's ability to influence price above what pure competition would allow. Example: a single well-established clinic in a small town can charge more than competitive theory would predict, simply from limited local options.", "Pricing strategy": "The deliberate approach a firm takes to setting prices to maximize revenue or market position. Example: charging a premium for a signature corrective exercise program to position it above generic personal training.", "Barriers to entry": "Obstacles that make it hard for new competitors to enter a market. Example: the licensing and certification requirements for massage therapy act as a real barrier to entry that protects existing practitioners.", "Antitrust": "Laws and regulation designed to prevent monopolies and preserve market competition. Example: antitrust law is why a single company can't simply buy out every competing gym in a city unopposed.", "Bounded rationality": "The idea that humans are rational only within the limits of the information, time, and mental capacity they actually have. Example: a client picking the first training package they see, rather than comparing all five options, reflects bounded rationality.", "Heuristics": "Mental shortcuts people use to make decisions quickly, which work most of the time but produce predictable errors. Example: assuming a trade will work because 'it looks like the last winning setup' is a heuristic, not real analysis.", "Sunk cost fallacy": "Continuing to invest in something because of what's already been spent, rather than what makes sense going forward. Example: staying in a losing trade because you've already 'put so much into it' instead of cutting the loss.", "Loss aversion": "The tendency to feel the pain of a loss more intensely than the pleasure of an equivalent gain — empirically measured at roughly λ ≈ 2.25 (losses weighted about 2.25x more heavily than equivalent gains), the source of the popular '2x' shorthand. Example: a client canceling one session upsets you more than a new client signing up excites you, even though they're equal in value. (Source: Tversky & Kahneman, 'Advances in Prospect Theory,' Journal of Risk and Uncertainty, 1992)", "Anchoring": "The tendency to rely too heavily on the first piece of information offered when making a decision. Example: a client who saw a competitor's $200 price now perceives your $150 offer as cheap, purely from that first anchor.", "Nash equilibrium": "A state where no player can improve their outcome by changing strategy alone, given what others are doing. Example: two competing gyms both holding steady prices, because either one lowering price alone would trigger a price war that hurts both.", "Prisoner's dilemma": "A game showing how two rational players can both end up worse off by each acting in their own self-interest. Example: two nearby studios both discounting aggressively to compete, ending up with lower margins than if neither had.", "Dominant strategy": "A strategy that's the best choice for a player no matter what the other player does. Example: always confirming a client's appointment the day before is a dominant strategy — it reduces no-shows regardless of what else is happening.", "Zero-sum vs positive-sum": "The distinction between games where one side's gain is another's exact loss, versus games where both can gain. Example: a fair trade between two businesses is positive-sum, while a zero-sum framing assumes one side must lose for the other to win.", "Market failure": "A situation where free markets fail to allocate resources efficiently on their own. Example: underinvestment in public health education is a classic market failure, since the benefits spread beyond whoever pays for it.", "Externalities": "Costs or benefits of a transaction that fall on people who weren't part of it. Example: a factory's pollution imposing health costs on nearby residents who had no say in the factory's production decisions.", "Public goods": "Goods that are non-excludable and non-rivalrous, like national defense, which markets tend to under-provide. Example: a public park benefits everyone in the neighborhood regardless of who paid for it, which is why private markets rarely build enough of them.", "Taxation": "How governments raise revenue, and the incentive effects those revenue tools create. Example: a tax credit for small business equipment purchases is designed specifically to incentivize reinvestment.", "Prospect theory": "Kahneman & Tversky's model showing people evaluate outcomes as gains or losses relative to a reference point, not in absolute terms. Example: losing $500 in a trade feels worse than the pleasure of gaining $500, even though the dollar amounts are identical.", "Reference dependence": "The tendency to judge outcomes relative to a reference point, like a starting price, rather than on their own terms. Example: a 10% pay cut feels painful mainly because it's judged against your prior salary, not against some absolute standard.", "Framing effects": "How the way a choice is worded or presented changes the decision, even when the underlying facts are identical. Example: '90% fat-free' sells better than '10% fat' on identical packaging, purely from how the same fact is framed.", "Choice architecture": "The deliberate design of how options are presented to influence the decisions people make. Example: listing your most profitable training package as the default 'recommended' option is a deliberate piece of choice architecture.", "Nudge theory": "Using small changes in choice design to steer behavior without restricting options or changing incentives. Example: sending an automatic appointment reminder text is a nudge that reduces no-shows without changing any actual policy.", "Comparative advantage": "The principle that trade benefits both parties when each specializes in what they produce relatively most efficiently. Example: outsourcing bookkeeping to a specialist frees you to spend that time on the higher-value work of client programming.", "Exchange rates": "The price of one currency in terms of another. Example: the EUR/USD exchange rate is the exact pair most forex day traders watch as their primary instrument.", "Trade balance": "The difference between a country's exports and imports. Example: a persistent trade deficit is one of the recurring macro data points that can pressure a country's currency lower over time.", "Capital flows": "The movement of investment money across borders. Example: large capital flows chasing higher interest rates in one country can strengthen that country's currency sharply.", "Labor supply/demand": "How many workers are willing to work at a given wage, and how many workers firms want to hire at that wage. Example: a shortage of licensed massage therapists in a region reflects labor supply lagging behind local demand.", "Human capital": "The skills, knowledge, and experience a person accumulates that make their labor more productive. Example: earning a CES certification is a direct investment in your own human capital that raises your earning potential.", "Wage determination": "How pay levels are set through the interaction of labor supply, demand, and bargaining power. Example: a specialized skill in short local supply, like advanced manual therapy, commands wage determination well above generic fitness coaching.", "Minimum wage effects": "The debated impact of wage floors on employment, income, and business costs. Example: a minimum wage increase raises take-home pay for entry staff but also raises the labor cost side of a service business's margins.", "Risk & return": "The principle that higher potential returns generally come with higher risk of loss. Example: a high-leverage trading strategy can produce bigger wins, but the risk-and-return tradeoff means bigger losses are just as possible.", "Efficient market hypothesis": "The theory that asset prices already reflect all available information, making consistent outperformance difficult — formalized by Eugene Fama (1970 Nobel Prize, 2013), who identified three forms: weak (prices reflect past price data), semi-strong (prices reflect all public information), and strong (prices reflect public and private information). Example: the theory implies that consistently beating the market through public news alone is far harder than it looks, since semi-strong efficiency claims that public information gets priced in almost instantly. (Source: Fama, 'Efficient Capital Markets,' Journal of Finance, 1970)", "CAPM": "Capital Asset Pricing Model — a formula relating an asset's expected return to its risk relative to the overall market. Example: used to estimate whether a stock's expected return justifies the extra volatility it adds to a portfolio.", "Time value of money": "The idea that a dollar today is worth more than a dollar in the future, because of its earning potential. Example: it's why taking $10,000 now to reinvest in your business usually beats collecting $10,500 spread out over two years.", "Reward processing": "How the brain evaluates and responds to anticipated or received rewards. Example: the anticipation of a winning trade activates reward processing in the brain before the outcome is even known, which fuels overtrading.", "Dopamine & decision-making": "The neurotransmitter linked to anticipation and reward that shapes risk-taking and motivation. Example: a string of winning trades releases dopamine that can push a trader toward riskier position sizing than their plan calls for.", "Delayed gratification": "The ability to forgo a smaller immediate reward for a larger later one. Example: reinvesting profit into equipment instead of spending it immediately is an act of delayed gratification that compounds over time.", "Neuroeconomic models": "Models that combine brain science with economic theory to explain how decisions are actually made. Example: used to explain why people reliably choose a smaller immediate reward over a larger delayed one, contrary to pure rational-choice theory.", "Economic growth theory": "Models explaining what drives long-run increases in a country's output and living standards. Example: growth theory points to investment in skills and technology, not just raw labor hours, as the real long-run driver of prosperity.", "Institutions": "The formal and informal rules — property rights, contracts, governance — that shape economic behavior. Example: strong contract enforcement is an institutional factor that makes a country far more attractive for outside investment.", "Poverty traps": "Self-reinforcing conditions that keep individuals or nations stuck below a threshold of sustained growth. Example: a family unable to afford job training stays stuck in low-wage work, which then keeps them unable to afford training — a classic trap.", "Human capital investment": "Spending on education, training, or health that increases a population's future productivity. Example: a country funding widespread vocational training is making a human capital investment expected to pay off in future output.", "Overconfidence bias": "The tendency to overestimate the accuracy of one's own judgment or predictions. Example: a trader increasing position size after a few wins, convinced their edge is stronger than it's actually been proven to be.", "Herding behavior": "The tendency to follow what others are doing rather than relying on independent analysis. Example: piling into a stock purely because it's trending on social media, without checking the underlying thesis, is classic herding.", "Disposition effect": "The tendency to sell winning investments too early and hold losing ones too long. Example: closing a profitable trade at the first sign of a pullback, while letting a losing trade run far past its stop.", "Market anomalies": "Persistent patterns in asset prices that contradict what efficient-market theory predicts. Example: the well-documented tendency for small-cap stocks to outperform large-caps over long periods is a widely studied market anomaly.", "Order flow": "The stream of buy and sell orders moving through a market at any given time. Example: a sudden surge of large buy orders hitting the tape can push price up sharply even before any news is released.", "Liquidity": "How easily an asset can be bought or sold without significantly moving its price. Example: a major forex pair like EUR/USD has deep liquidity, so even large orders barely move the price.", "Bid-ask spread": "The gap between the highest price a buyer will pay and the lowest price a seller will accept. Example: a wide bid-ask spread on a thinly traded asset means you lose a noticeable edge just entering and exiting the position.", "Price discovery": "The process by which a market determines the price of an asset through the interaction of buyers and sellers. Example: the opening minutes of a major economic release are often when price discovery happens fastest and most violently.", "Original research": "Independent investigation producing new findings, rather than summarizing existing work. Example: testing your own trading strategy against five years of historical data is original research, not just reading about someone else's backtest.", "Applied methodology": "The specific research methods and data techniques used to test a real question. Example: choosing whether to backtest, forward-test, or run a controlled comparison is a methodology decision that shapes how trustworthy your results are.", "Data analysis": "The process of examining data to draw conclusions and support decisions. Example: reviewing a full quarter of client attendance data to see whether a new scheduling system actually reduced no-shows.", "Written defense": "Formally presenting and justifying research findings and methodology to reviewers. Example: writing up exactly why your backtest methodology avoided overfitting, so the results can withstand real scrutiny."};
+const QUIZ = {"ECON 101": {"question": "A client would have paid $150 for a session but only pays $100. What captures this extra $50 of value?", "options": ["Producer surplus", "Consumer surplus", "Opportunity cost", "Marginal utility"], "correctIndex": 1, "explanation": "The extra value a buyer captures beyond what they actually paid is consumer surplus."}, "MATH 115": {"question": "You want to know exactly how much revenue changes with one more client served. Which calculus concept gives you this?", "options": ["A limit", "A derivative (marginal function)", "An integral", "A constant"], "correctIndex": 1, "explanation": "The derivative of a revenue function — a marginal function — tells you exactly how much revenue changes per additional unit."}, "STAT 101": {"question": "You review 30 of your last 200 trades to estimate your overall win rate instead of manually checking all 200. What are you using?", "options": ["A census", "A sample", "A population", "A correlation"], "correctIndex": 1, "explanation": "Drawing a smaller subset from a larger population to estimate something about the whole is sampling."}, "ECON 102": {"question": "Unemployment falls, inflation rises, and GDP grows for several quarters in a row. What phase of the business cycle does this describe?", "options": ["Recession", "Expansion", "Trough", "Depression"], "correctIndex": 1, "explanation": "Falling unemployment, rising output, and growing GDP together describe an economic expansion phase."}, "MATH 116": {"question": "You need to maximize utility subject to a fixed budget constraint. What mathematical technique is specifically built for this?", "options": ["Basic derivatives alone", "Lagrange multipliers", "Simple addition", "Probability distributions"], "correctIndex": 1, "explanation": "Lagrange multipliers are the calculus technique specifically designed to solve constrained optimization problems like this."}, "ECON 150": {"question": "A policymaker argues government spending is needed to smooth a recession markets won't fix alone. Which school of thought are they drawing on?", "options": ["Classical economics", "Keynesianism", "Monetarism", "Austrian economics"], "correctIndex": 1, "explanation": "The argument that government spending and demand management can smooth recessions is the core Keynesian position."}, "ECON 201": {"question": "Two clients are equally satisfied paying $100 for 2 sessions or $150 for 3 sessions. What curve represents these equally-satisfying combinations?", "options": ["A supply curve", "An indifference curve", "A production function", "A demand curve"], "correctIndex": 1, "explanation": "Curves showing combinations that produce equal consumer satisfaction are indifference curves."}, "ECON 210": {"question": "You run a regression of ad spend against new client signups and get an R-squared of 0.7. What does this tell you?", "options": ["70% of clients came from ads specifically", "The model explains about 70% of the variation in signups", "The relationship is definitely causal", "There's a 70% chance the model is wrong"], "correctIndex": 1, "explanation": "R-squared measures how much of the variation in the outcome the regression model explains — here, about 70%."}, "ECON 220": {"question": "The Federal Reserve raises interest rates. What's the most direct effect on a small business loan?", "options": ["The loan becomes cheaper to carry", "The loan becomes more expensive to carry", "Interest rates don't affect business loans", "The loan is automatically forgiven"], "correctIndex": 1, "explanation": "Rising interest rates directly raise the cost of borrowing, making a business loan more expensive to carry."}, "ECON 202": {"question": "You want to reason precisely about how a rate cut affects both interest rates and output at the same time. Which formal model addresses this?", "options": ["The AD-AS model", "The IS-LM model", "CAPM", "A SWOT analysis"], "correctIndex": 1, "explanation": "The IS-LM model specifically shows how the goods market and money market jointly determine interest rates and output."}, "ECON 211": {"question": "You want to test whether a new ad campaign actually caused more signups, not just coincided with a seasonal uptick. What's this general challenge called?", "options": ["Sampling", "Causal inference", "Descriptive statistics", "A confidence interval"], "correctIndex": 1, "explanation": "Determining whether one variable actually causes a change in another, rather than just correlating, is causal inference."}, "ECON 230": {"question": "A single clinic in a small town can charge noticeably more than competitive theory would predict, given limited local options. What does this reflect?", "options": ["Perfect competition", "Market power", "A public good", "An externality"], "correctIndex": 1, "explanation": "The ability to influence price above what pure competition would allow, often from limited competition, is market power."}, "ECON 301": {"question": "A client holds a losing trade far longer than planned, hoping to avoid locking in the loss, even though the data says exit. What bias explains this?", "options": ["Anchoring", "Loss aversion", "The efficient market hypothesis", "Comparative advantage"], "correctIndex": 1, "explanation": "Feeling the pain of a loss more intensely than an equivalent gain, leading to avoiding realized losses, is loss aversion."}, "ECON 310": {"question": "Two nearby gyms both hold steady prices because either one cutting price alone would trigger a price war that hurts both. What does this describe?", "options": ["A dominant strategy for both to cut prices", "A Nash equilibrium", "A public good problem", "Comparative advantage"], "correctIndex": 1, "explanation": "A state where neither player can improve their outcome by unilaterally changing strategy, given the other's behavior, is a Nash equilibrium."}, "ECON 320": {"question": "A factory's pollution imposes health costs on nearby residents who had no say in the factory's decisions. What economic concept is this?", "options": ["A public good", "An externality", "Comparative advantage", "Market power"], "correctIndex": 1, "explanation": "A cost of a transaction that falls on people who weren't part of it is a classic externality."}, "ECON 302": {"question": "Framing a price change as '10% off' rather than 'now costs 90% of before' changes how people respond, even though the math is identical. What is this?", "options": ["Reference dependence only", "A framing effect", "Comparative advantage", "The efficient market hypothesis"], "correctIndex": 1, "explanation": "How the wording or presentation of a choice changes the decision, even when facts are identical, is a framing effect."}, "ECON 330": {"question": "The EUR/USD exchange rate moves from 1.05 to 1.10. What does this specifically represent?", "options": ["A change in GDP", "A change in the price of one currency in terms of another", "A tariff increase", "A change in unemployment"], "correctIndex": 1, "explanation": "An exchange rate is simply the price of one currency expressed in terms of another."}, "ECON 340": {"question": "A specialized skill, like advanced manual therapy, is in short local supply relative to demand. What would basic labor economics predict about its wage?", "options": ["It should be pushed toward the local minimum wage", "It should command a wage premium above generic labor", "Wages are unrelated to supply and demand", "It guarantees unemployment"], "correctIndex": 1, "explanation": "When a specific skill is in short supply relative to demand, basic labor economics predicts it commands a wage premium."}, "ECON 401": {"question": "A trading strategy that consistently beats the market using only public information contradicts which widely-taught theory?", "options": ["CAPM", "The efficient market hypothesis", "Time value of money", "Comparative advantage"], "correctIndex": 1, "explanation": "The efficient market hypothesis argues asset prices already reflect all available public information, making consistent outperformance difficult."}, "ECON 410": {"question": "A trader increases position size right after a string of wins, feeling unusually confident. Which neuroeconomic mechanism helps explain this?", "options": ["The efficient market hypothesis", "Dopamine and reward circuitry reinforcing recent wins", "Comparative advantage", "A public goods problem"], "correctIndex": 1, "explanation": "A string of wins triggers dopamine-driven reward circuitry, which can push risk-taking beyond what a cool, rational plan calls for."}, "ECON 420": {"question": "Two countries with similar resources grow at very different long-run rates. Development economics points most directly to which factor as an explanation?", "options": ["Weather alone", "Institutions like property rights and governance", "Random chance only", "Population size alone"], "correctIndex": 1, "explanation": "Development economics points strongly to institutions — property rights, governance, contract enforcement — as a primary driver of growth differences."}, "ECON 402": {"question": "An investor sells winning positions quickly but holds losing positions far too long, hoping they'll recover. What's this pattern called?", "options": ["The disposition effect", "Comparative advantage", "The efficient market hypothesis", "Herding behavior"], "correctIndex": 0, "explanation": "Selling winners too early and holding losers too long is the well-documented pattern known as the disposition effect."}, "ECON 430": {"question": "You place a large market order in a thinly-traded, illiquid asset and the fill price is noticeably worse than expected. What just happened?", "options": ["Price discovery", "Slippage", "Arbitrage", "A dividend payment"], "correctIndex": 1, "explanation": "The gap between the expected price of a trade and what it actually executes at, common in illiquid markets, is slippage."}, "ECON 490": {"question": "You backtest a trading framework against 5 years of historical data as an independent research project, rather than just reading someone else's analysis. What is this?", "options": ["Secondary research", "Original research", "A literature review only", "Anecdotal evidence"], "correctIndex": 1, "explanation": "Independent investigation producing new findings, rather than summarizing existing work, is original research."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'econ-degree-completed';
+const MASTERED_KEY = 'econ-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

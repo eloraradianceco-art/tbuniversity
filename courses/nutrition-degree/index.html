@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nutrition Science — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Nutrition Science — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Nutrition foundations through performance programming and meal prep business systems.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Foundations of Nutrition", "semesters": [{"term": "Fall", "courses": [{"code": "NUTR 101", "title": "Introduction to Human Nutrition", "credits": 3, "desc": "Macronutrients, micronutrients, and energy balance — the vocabulary every later course assumes.", "concepts": ["Macronutrients", "Micronutrients", "Energy balance", "Caloric density", "Dietary Reference Intakes"]}, {"code": "BIO 110", "title": "Human Physiology I", "credits": 3, "desc": "The digestive system and metabolism basics — how food actually becomes usable energy.", "concepts": ["Digestive system", "Enzymatic digestion", "Nutrient absorption", "Gastrointestinal tract", "Metabolic rate"]}, {"code": "CHEM 101", "title": "Chemistry of Food", "credits": 3, "desc": "The molecular structure of nutrients and how processing changes what's actually in your food.", "concepts": ["Food composition", "Nutrient chemistry", "Molecular structure of macronutrients", "Bioavailability", "Food processing effects"]}]}, {"term": "Spring", "courses": [{"code": "NUTR 102", "title": "Macronutrient Metabolism", "credits": 3, "desc": "How the body actually breaks down and uses protein, carbohydrate, and fat.", "concepts": ["Protein metabolism", "Carbohydrate metabolism", "Fat metabolism", "Glycolysis", "Amino acid profile"]}, {"code": "BIO 120", "title": "Human Physiology II", "credits": 3, "desc": "Endocrine and cardiovascular systems as they relate directly to nutrition and appetite.", "concepts": ["Endocrine regulation", "Insulin & glucagon", "Cardiovascular function", "Hormonal appetite regulation", "Thermogenesis"]}, {"code": "NUTR 110", "title": "Micronutrients & Vitamins", "credits": 3, "desc": "Vitamin and mineral function, and where deficiency or excess actually starts to matter.", "concepts": ["Fat-soluble vitamins", "Water-soluble vitamins", "Mineral function", "Deficiency symptoms", "Toxicity thresholds"]}]}]}, {"year": 2, "title": "Applied Nutrition Science", "semesters": [{"term": "Fall", "courses": [{"code": "NUTR 201", "title": "Sports Nutrition Fundamentals", "credits": 3, "desc": "Fueling, hydration, and timing for training performance and recovery.", "concepts": ["Pre/intra/post-workout nutrition", "Hydration strategy", "Electrolyte balance", "Glycogen replenishment", "Performance fueling"]}, {"code": "NUTR 210", "title": "Nutrition Across the Lifespan", "credits": 3, "desc": "How nutrient needs shift meaningfully from childhood through aging.", "concepts": ["Pediatric nutrition needs", "Pregnancy nutrition", "Aging & nutrient needs", "Growth & development", "Life-stage requirements"]}, {"code": "NUTR 220", "title": "Digestive Health & Gut Microbiome", "credits": 3, "desc": "Gut function and the microbiome's role in digestion, immunity, and overall health.", "concepts": ["Gut microbiome", "Fiber types", "Digestive enzymes", "Gut-brain axis", "Prebiotics & probiotics"]}]}, {"term": "Spring", "courses": [{"code": "NUTR 202", "title": "Body Composition & Metabolic Adaptation", "credits": 3, "desc": "Body comp assessment and what actually happens metabolically during sustained dieting.", "concepts": ["Body composition assessment", "Metabolic adaptation", "Adaptive thermogenesis", "Lean mass preservation", "Set point theory"]}, {"code": "NUTR 230", "title": "Nutrition Assessment Methods", "credits": 3, "desc": "Dietary recall, biomarkers, and the tools used to actually measure what someone is eating.", "concepts": ["Dietary recall methods", "Biomarker assessment", "Food frequency questionnaires", "Anthropometric measurement", "Assessment validity"]}, {"code": "NUTR 240", "title": "Food Science & Preparation", "credits": 3, "desc": "Cooking methods and nutrient retention — the practical science behind how food is prepared.", "concepts": ["Cooking methods", "Nutrient retention", "Food safety basics", "Food storage", "Ingredient substitution"]}]}]}, {"year": 3, "title": "Performance & Clinical Nutrition", "semesters": [{"term": "Fall", "courses": [{"code": "NUTR 301", "title": "Performance Nutrition Programming", "credits": 3, "desc": "Macro programming and periodized nutrition matched to a client's actual training cycle.", "concepts": ["Macro programming", "Periodized nutrition", "Training-day vs rest-day intake", "Caloric cycling", "Nutrient timing"]}, {"code": "NUTR 310", "title": "Weight Management Science", "credits": 3, "desc": "Sustainable deficit design and the behavior science behind weight change that actually sticks.", "concepts": ["Sustainable deficit design", "Behavior-based weight management", "Metabolic flexibility", "Weight regain factors", "Energy balance"]}, {"code": "NUTR 320", "title": "Nutrition & Chronic Disease", "credits": 3, "desc": "Nutrition's role in metabolic syndrome, insulin resistance, and cardiovascular risk.", "concepts": ["Metabolic syndrome", "Insulin resistance", "Cardiovascular risk factors", "Dietary intervention for disease", "Inflammation & diet"]}]}, {"term": "Spring", "courses": [{"code": "NUTR 302", "title": "Supplementation Science", "credits": 3, "desc": "Evidence-based supplement use — what's actually supported by research versus marketing.", "concepts": ["Evidence-based supplementation", "Supplement efficacy", "Third-party testing", "Dosage & safety", "Supplement-drug interactions"]}, {"code": "NUTR 330", "title": "Meal Planning & Menu Design", "credits": 3, "desc": "Building structured, macro-balanced meal plans for individuals and groups.", "concepts": ["Meal plan structure", "Macro-balanced menus", "Portion design", "Recipe scaling", "Grocery/production planning"]}, {"code": "NUTR 340", "title": "Special Populations & Dietary Needs", "credits": 3, "desc": "Allergies, intolerances, and medical nutrition considerations for clients outside the standard case.", "concepts": ["Food allergies", "Food intolerances", "Medical nutrition therapy", "Elimination diets", "Special diet accommodation"]}]}]}, {"year": 4, "title": "Business & Applied Practice", "semesters": [{"term": "Fall", "courses": [{"code": "NUTR 401", "title": "Nutrition Coaching & Behavior Change", "credits": 3, "desc": "Applying behavior-change principles specifically to eating habits, not just prescribing macros.", "concepts": ["Nutrition coaching frameworks", "Behavior change for eating habits", "Habit-based coaching", "Client accountability systems", "Sustainable adherence"]}, {"code": "NUTR 410", "title": "Reading & Evaluating Nutrition Research", "credits": 3, "desc": "Study design literacy — telling real evidence apart from a headline built on a weak study.", "concepts": ["Study design literacy", "Correlational vs causal nutrition claims", "Sample size & bias", "Industry-funded research bias", "Evaluating nutrition headlines"]}, {"code": "BUS 420", "title": "Meal Prep Business Operations", "credits": 3, "desc": "Food costing and production logistics — the operational backbone of a meal prep business.", "concepts": ["Food costing", "Production systems", "Batch cooking logistics", "Inventory & waste management", "Meal prep delivery logistics"]}]}, {"term": "Spring", "courses": [{"code": "NUTR 402", "title": "Menu Development for Meal Prep Businesses", "credits": 3, "desc": "Building a scalable, macro-balanced menu system that holds up at production volume.", "concepts": ["Scalable menu design", "Macro-balanced recipe development", "Menu rotation", "Client customization systems", "Recipe standardization"]}, {"code": "LAW 430", "title": "Food Safety & Regulatory Compliance", "credits": 3, "desc": "Health codes and labeling requirements — the compliance floor for running a real food business.", "concepts": ["Food safety regulations", "Nutrition labeling requirements", "Health code compliance", "Allergen disclosure", "Liability in food service"]}, {"code": "NUTR 490", "title": "Capstone — Full Nutrition Program Build", "credits": 3, "desc": "A complete nutrition program designed, applied to a real case, and presented end to end.", "concepts": ["Program design synthesis", "Client case application", "Outcome tracking", "Program presentation", "Nutrition program documentation"]}]}]}];
+const GLOSSARY = {"Macronutrients": "The three nutrients needed in large amounts — protein, carbohydrate, and fat — that provide the body's energy. Example: a 40/30/30 macro split is one common way meal prep menus balance protein, carbs, and fat.", "Micronutrients": "Vitamins and minerals needed in small amounts that support metabolic and physiological function. Example: iron, a micronutrient, matters directly for a client's energy levels even though they need it only in tiny amounts.", "Energy balance": "The relationship between calories consumed and calories expended, which determines weight change. Example: a client eating slightly more than they burn each day will gain weight over time, regardless of food quality alone.", "Caloric density": "The number of calories a food contains relative to its weight or volume. Example: a handful of nuts and a bowl of vegetables can have wildly different caloric density despite similar-looking portion sizes.", "Dietary Reference Intakes": "Government-established nutrient intake recommendations used to guide dietary planning. Example: using Dietary Reference Intakes as a baseline before adjusting a meal plan for a specific athletic client's higher needs.", "Digestive system": "The organs — stomach, intestines, and accessory organs — that break down food and absorb nutrients. Example: understanding the digestive system explains why a large meal right before training can feel sluggish, not energizing.", "Enzymatic digestion": "The chemical breakdown of food into absorbable nutrients using digestive enzymes. Example: lactase is the specific enzyme responsible for enzymatic digestion of dairy sugar, missing in lactose-intolerant clients.", "Nutrient absorption": "The process by which digested nutrients move from the gut into the bloodstream. Example: pairing iron-rich foods with vitamin C improves nutrient absorption of the iron significantly.", "Gastrointestinal tract": "The full digestive pathway from mouth to intestines that processes food. Example: a client's chronic bloating often points to something happening along the gastrointestinal tract, not just what they last ate.", "Metabolic rate": "The rate at which the body converts food into energy at rest or during activity. Example: two clients eating identical diets can maintain very different weights due to differences in metabolic rate.", "Food composition": "The specific breakdown of macronutrients, micronutrients, and other compounds within a food. Example: comparing the food composition of two 'protein bars' can reveal one is closer to a candy bar nutritionally.", "Nutrient chemistry": "The molecular structure and behavior of nutrients within food and the body. Example: understanding nutrient chemistry explains why certain fats are liquid at room temperature and others are solid.", "Molecular structure of macronutrients": "The chemical composition of proteins, carbohydrates, and fats that determines how the body processes them. Example: a simple sugar's molecular structure lets it be absorbed much faster than a complex starch.", "Bioavailability": "The proportion of a nutrient that's actually absorbed and usable by the body. Example: plant-based iron has lower bioavailability than iron from meat, which matters when planning a vegetarian client's meals.", "Food processing effects": "How cooking, refining, or preserving food changes its nutrient content and structure. Example: lightly steaming vegetables preserves more nutrients than boiling them, a direct food processing effect worth knowing.", "Protein metabolism": "The processes by which the body breaks down and uses dietary protein for repair and function. Example: a client's post-workout protein intake supports muscle repair through the same protein metabolism pathways every time.", "Carbohydrate metabolism": "The processes by which the body converts carbohydrates into usable energy. Example: understanding carbohydrate metabolism explains why a pre-workout carb source can fuel a session while a heavy fat-laden meal might not.", "Fat metabolism": "The processes by which the body breaks down and stores dietary and body fat for energy. Example: fat metabolism ramps up during longer, lower-intensity training, which is why fasted cardio is popular for some goals.", "Glycolysis": "The metabolic pathway that breaks down glucose to produce energy. Example: a hard 60-second sprint relies heavily on glycolysis, which is part of why intense intervals burn through carb stores fast.", "Amino acid profile": "The specific composition of amino acids within a protein source, affecting its nutritional quality. Example: whey protein has a more complete amino acid profile than most single plant protein sources.", "Endocrine regulation": "How hormones released by glands regulate metabolic and physiological processes. Example: a client's thyroid issue affecting endocrine regulation can significantly change how their metabolism responds to a given meal plan.", "Insulin & glucagon": "The two hormones that regulate blood sugar — insulin lowers it, glucagon raises it. Example: a high-sugar meal triggers a strong insulin response, while a fasting period leans more on glucagon.", "Cardiovascular function": "How the heart and blood vessels support the delivery of nutrients and oxygen throughout the body. Example: improved cardiovascular function from consistent training helps nutrients and oxygen reach working muscles more efficiently.", "Hormonal appetite regulation": "The hormones, like leptin and ghrelin, that signal hunger and fullness to the brain. Example: poor sleep disrupts hormonal appetite regulation, which is a big reason tired clients report feeling hungrier than usual.", "Thermogenesis": "The process of heat production in the body, which also burns calories. Example: the calories burned simply digesting a high-protein meal are part of diet-induced thermogenesis.", "Fat-soluble vitamins": "Vitamins A, D, E, and K, which are absorbed and stored along with dietary fat. Example: taking a fat-soluble vitamin like D with a meal containing some fat improves how well it's absorbed.", "Water-soluble vitamins": "Vitamins like C and the B-complex, which dissolve in water and aren't stored long-term in the body. Example: since water-soluble vitamins aren't stored well, clients generally need more consistent daily intake of them.", "Mineral function": "The specific physiological roles minerals like calcium, iron, and magnesium play in the body. Example: magnesium's mineral function in muscle relaxation is one reason low levels are linked to cramping.", "Deficiency symptoms": "The physical signs that appear when intake of a specific nutrient is insufficient over time. Example: unexplained fatigue and pale skin can be deficiency symptoms worth investigating for low iron.", "Toxicity thresholds": "The intake level at which a nutrient becomes harmful rather than beneficial. Example: excessive vitamin A supplementation can cross toxicity thresholds, unlike most water-soluble vitamins which are harder to overdose on.", "Pre/intra/post-workout nutrition": "The specific timing and composition of intake before, during, and after training to support performance and recovery. Example: a light carb-and-protein snack an hour before a session is classic pre-workout nutrition.", "Hydration strategy": "Planning fluid and electrolyte intake to maintain performance and prevent dehydration. Example: a hydration strategy for a client training in Gulf Coast summer heat needs to account for heavy sweat loss.", "Electrolyte balance": "Maintaining proper levels of sodium, potassium, and other minerals critical for muscle and nerve function. Example: a client cramping during long sessions may have an electrolyte balance issue, not just a hydration one.", "Glycogen replenishment": "Restoring the body's stored carbohydrate fuel after depletion through exercise. Example: eating carbs within a few hours after a depleting session supports faster glycogen replenishment before the next workout.", "Performance fueling": "Structuring nutrient intake specifically to support athletic training and competition demands. Example: adjusting a client's carb intake upward on their heaviest training days is performance fueling in action.", "Pediatric nutrition needs": "The specific nutrient requirements that support healthy growth and development in children. Example: a growing teen athlete has meaningfully different pediatric nutrition needs than an adult doing similar training.", "Pregnancy nutrition": "The increased and specific nutrient needs required to support a healthy pregnancy. Example: increased folate and iron needs are a well-known part of pregnancy nutrition guidance.", "Aging & nutrient needs": "How nutritional requirements shift with age, including increased needs for protein and certain micronutrients. Example: an older client often needs relatively more protein per meal to maintain the same muscle-building response as a younger one.", "Growth & development": "The physical maturation process that shapes nutrient needs across childhood and adolescence. Example: a rapid growth spurt in adolescence temporarily raises calorie and protein needs well above baseline.", "Life-stage requirements": "The way nutrient needs differ meaningfully across infancy, adolescence, adulthood, and older age. Example: designing one static meal plan template rarely works well across very different life-stage requirements.", "Gut microbiome": "The community of microorganisms living in the digestive tract that influence digestion and overall health. Example: a client's persistent digestive discomfort can sometimes trace back to an imbalanced gut microbiome.", "Fiber types": "Soluble and insoluble fiber, each supporting digestion and gut health in different ways. Example: oats are high in soluble fiber, while wheat bran leans heavily insoluble — different fiber types serve different roles.", "Digestive enzymes": "Proteins that break down food into absorbable nutrients throughout the digestive tract. Example: insufficient digestive enzymes for a specific food, like dairy, is often what's behind a reported 'intolerance.'", "Gut-brain axis": "The bidirectional communication pathway between the digestive system and the brain. Example: a client's stress levels affecting their digestion, and vice versa, reflects the gut-brain axis at work.", "Prebiotics & probiotics": "Prebiotics feed beneficial gut bacteria; probiotics are live beneficial bacteria themselves. Example: fiber-rich vegetables act as prebiotics, while yogurt with live cultures supplies probiotics directly.", "Body composition assessment": "Methods used to measure the proportion of fat mass versus lean mass in the body. Example: using a body composition assessment, rather than the scale alone, shows a client gaining muscle even if total weight stays flat.", "Metabolic adaptation": "The body's tendency to adjust energy expenditure in response to sustained caloric restriction. Example: a client's weight loss stalling despite eating the same deficit is often metabolic adaptation slowing things down.", "Adaptive thermogenesis": "A decrease in metabolic rate beyond what's expected from weight loss alone, occurring during dieting. Example: adaptive thermogenesis is why a diet break can sometimes help restart stalled progress.", "Lean mass preservation": "Strategies used to retain muscle mass while in a caloric deficit. Example: keeping protein high and continuing resistance training during a cut are the two biggest levers for lean mass preservation.", "Set point theory": "The idea that the body defends a certain weight range through metabolic and hormonal adjustments. Example: set point theory helps explain why the last few pounds of a cut often feel disproportionately hard.", "Dietary recall methods": "Techniques, like a 24-hour recall, used to estimate what someone has actually eaten. Example: a simple 24-hour dietary recall interview often reveals gaps a client didn't realize were in their eating pattern.", "Biomarker assessment": "Using blood or other physiological markers to assess nutritional status. Example: a client's blood panel showing low vitamin D is a biomarker assessment result that directly informs supplementation advice.", "Food frequency questionnaires": "Surveys estimating how often specific foods are consumed over a set period. Example: a food frequency questionnaire might reveal a client eats vegetables far less often than they assumed.", "Anthropometric measurement": "Physical measurements, like height, weight, and circumference, used to assess nutritional status. Example: tracking waist circumference alongside weight gives a fuller anthropometric picture of progress.", "Assessment validity": "How accurately a nutrition assessment method reflects a person's actual intake or status. Example: self-reported food logs have known assessment validity limits, since people often unintentionally underreport.", "Cooking methods": "The techniques used to prepare food, which affect flavor, texture, and nutrient retention. Example: grilling versus deep-frying the same chicken breast produces very different final nutrition profiles.", "Nutrient retention": "How much of a food's original nutrient content survives cooking and storage. Example: overcooking vegetables noticeably reduces nutrient retention of heat-sensitive vitamins like vitamin C.", "Food safety basics": "Core practices — temperature control, cross-contamination prevention — that keep food safe to eat. Example: the FDA Food Code's 'temperature danger zone' is 41°F–135°F, where bacteria can double every 20 minutes; keeping raw chicken separate from ready-to-eat containers is a basic food safety practice, but time-in-zone matters as much as separation. (Source: FDA Food Code; fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/danger-zone-40f-140f)", "Food storage": "Proper methods for storing food to maintain safety, freshness, and nutrient quality. Example: the FDA Food Code requires a two-stage cooling process for a meal prep kitchen — 135°F to 70°F within 2 hours, then 70°F to 41°F within an additional 4 hours (6 hours total) — not just 'cool it and refrigerate it.' (Source: FDA Food Code, 2013 revision; note some state codes still reference the older 40°F threshold, so confirm your specific state's code)", "Ingredient substitution": "Swapping one ingredient for another while preserving a recipe's nutritional or functional intent. Example: swapping Greek yogurt for sour cream is an ingredient substitution that boosts protein without changing the dish much.", "Macro programming": "Setting specific protein, carbohydrate, and fat targets to support a training or body composition goal. Example: the ISSN position stand recommends 1.4–2.0 g/kg/day protein for building or maintaining muscle in most training individuals, rising to 2.3–3.1 g/kg/day during a caloric deficit to protect lean mass — useful anchor numbers when setting a client's macro programming. (Source: International Society of Sports Nutrition Position Stand, J Int Soc Sports Nutr, 2017)", "Periodized nutrition": "Adjusting nutrient intake in planned phases to match different training cycles. Example: periodized nutrition might mean higher calories during a hypertrophy block and a controlled deficit during a cutting phase.", "Training-day vs rest-day intake": "Deliberately varying caloric or carbohydrate intake based on training demand that day. Example: eating meaningfully more carbs on a heavy squat day than on a scheduled rest day.", "Caloric cycling": "Alternating higher and lower calorie days to support performance, adherence, or body composition goals. Example: caloric cycling with higher intake on training days and lower on rest days can improve both performance and adherence.", "Nutrient timing": "Strategically timing intake of specific nutrients around training for performance or recovery benefit. Example: prioritizing protein intake in the hours around a workout is a common nutrient timing strategy.", "Sustainable deficit design": "Structuring a caloric deficit that a person can actually maintain long enough to see results. Example: a modest 300-calorie deficit a client can stick to for months beats an aggressive one they abandon in two weeks.", "Behavior-based weight management": "Approaching weight change through sustainable habit and behavior change rather than short-term restriction. Example: focusing on consistent home-cooked meals rather than a rigid meal plan is behavior-based weight management.", "Metabolic flexibility": "The body's ability to efficiently switch between burning carbohydrate and fat for fuel. Example: a client with good metabolic flexibility handles both a high-carb refeed day and a lower-carb day without major energy crashes.", "Weight regain factors": "The physiological and behavioral factors that contribute to regaining weight after loss. Example: understanding weight regain factors, like adaptive hunger hormones, is why a solid maintenance plan matters as much as the diet itself.", "Metabolic syndrome": "A cluster of conditions — high blood pressure, blood sugar, and body fat — that raise disease risk. Example: a client showing several markers of metabolic syndrome benefits from nutrition changes as much as exercise ones.", "Insulin resistance": "A condition where cells respond poorly to insulin, requiring more of it to manage blood sugar. Example: a client with insulin resistance may respond especially well to lower-carb meal structures and resistance training.", "Cardiovascular risk factors": "The specific dietary and lifestyle factors that raise the likelihood of heart disease. Example: high sodium and low fiber intake are two dietary cardiovascular risk factors worth addressing in a meal plan.", "Dietary intervention for disease": "Using structured nutrition changes as part of managing or preventing chronic disease. Example: a structured dietary intervention alongside a physician's care can meaningfully improve a client's blood sugar markers.", "Inflammation & diet": "How specific dietary patterns can increase or reduce chronic inflammation in the body. Example: a diet heavy in processed sugar and light on omega-3s tends to worsen chronic inflammation over time.", "Evidence-based supplementation": "Choosing supplements based on demonstrated research support rather than marketing claims. Example: creatine monohydrate is the most extensively studied ergogenic supplement available — the ISSN position stand confirms safety at doses up to 30 g/day for 5 years and effective loading at ~0.3 g/kg/day for 5–7 days, then 3–5 g/day maintenance. (Source: ISSN Position Stand, J Int Soc Sports Nutr, 2017)", "Supplement efficacy": "Whether a supplement actually produces a measurable, meaningful effect. Example: protein powder has strong supplement efficacy for meeting daily targets; many fat-burner products don't hold up under scrutiny.", "Third-party testing": "Independent verification that a supplement contains what its label claims, free of contaminants. Example: recommending only third-party tested supplement brands protects clients from mislabeled or contaminated products.", "Dosage & safety": "The appropriate amount of a supplement to take, and the risks of exceeding it. Example: knowing the safe dosage range for a fat-soluble vitamin supplement matters more than for a water-soluble one.", "Supplement-drug interactions": "Ways certain supplements can interfere with the effectiveness or safety of medications. Example: asking about a client's medications before recommending certain supplements avoids a harmful supplement-drug interaction.", "Meal plan structure": "The overall framework — meals per day, macro targets, food choices — that organizes a nutrition plan. Example: a simple three-meals-plus-one-snack meal plan structure that's easy for a busy client to actually follow.", "Macro-balanced menus": "Menus designed to hit specific protein, carbohydrate, and fat targets across meals. Example: designing meal prep menus that hit a consistent macro-balanced target across every option, so any choice fits the plan.", "Portion design": "Structuring serving sizes to match a specific caloric or macronutrient target. Example: standardizing each meal prep container to a specific portion design keeps every client's macros predictable.", "Recipe scaling": "Adjusting a recipe's ingredient quantities up or down while preserving its ratios and quality. Example: scaling a recipe from serving 4 to serving 200 for a full week of meal prep orders without losing consistency.", "Grocery/production planning": "Organizing ingredient purchasing and food prep logistics to support a meal plan efficiently. Example: batching grocery orders around the week's confirmed meal prep orders is basic production planning.", "Food allergies": "Immune system reactions to specific foods that can range from mild to life-threatening. Example: cross-contamination risk from shared prep surfaces is a serious concern for clients with real food allergies.", "Food intolerances": "Non-immune digestive reactions to specific foods, distinct from a true allergy. Example: a client's bloating after dairy is more likely a food intolerance than a true allergy, though both need accommodating.", "Medical nutrition therapy": "Nutrition intervention specifically designed and monitored to manage a medical condition. Example: coordinating with a client's physician on medical nutrition therapy for a diagnosed condition like diabetes.", "Elimination diets": "A structured process of removing and reintroducing foods to identify triggers of a reaction. Example: a supervised elimination diet can help pinpoint exactly which food is causing a client's ongoing digestive issues.", "Special diet accommodation": "Adjusting meals or menus to meet a specific dietary restriction or medical need. Example: offering a gluten-free menu option is special diet accommodation that widens who your meal prep service can serve.", "Nutrition coaching frameworks": "Structured approaches for guiding a client through sustainable dietary change. Example: using a stepwise nutrition coaching framework that introduces one new habit at a time, rather than overhauling everything at once.", "Behavior change for eating habits": "Applying behavior-change principles specifically to how someone eats, not just what they're told to eat. Example: addressing why a client stress-eats at night, not just prescribing a lower calorie target.", "Habit-based coaching": "A coaching approach focused on building small, sustainable habits rather than rigid rules. Example: 'add a vegetable to lunch' is habit-based coaching, versus a rigid rule like 'never eat past 7pm.'", "Client accountability systems": "Structures — check-ins, tracking, milestones — that keep a client consistent with a nutrition plan. Example: a weekly check-in photo and log is a simple client accountability system that keeps a plan on track.", "Sustainable adherence": "Designing a plan a client can realistically stick to long-term, not just in the short term. Example: building in a weekly flexible meal is often what makes the difference for sustainable adherence over months.", "Study design literacy": "The ability to evaluate whether a nutrition study's methodology actually supports its conclusions. Example: study design literacy is what lets you spot that a headline is based on a tiny, poorly controlled study.", "Correlational vs causal nutrition claims": "Distinguishing between foods merely associated with an outcome and foods actually shown to cause it. Example: 'people who eat X live longer' is often correlational, not proof that X itself causes longer life.", "Sample size & bias": "Evaluating whether a study had enough participants and appropriate controls to trust its results. Example: a supplement study with 12 participants and no control group has serious sample size and bias limitations.", "Industry-funded research bias": "The tendency for studies funded by an interested industry to produce more favorable results. Example: noticing a sugar-industry-funded study happens to downplay sugar's health effects is a classic case of industry-funded research bias.", "Evaluating nutrition headlines": "Critically reading popular nutrition claims against what the underlying research actually shows. Example: checking the actual study behind a viral 'superfood cures everything' headline usually reveals a far more modest finding.", "Food costing": "Calculating the actual cost per ingredient and per meal to price a food product or service correctly. Example: accurate food costing reveals that a popular menu item is actually barely breaking even once labor is included.", "Production systems": "The organized workflow used to prepare food consistently and efficiently at volume. Example: a documented production system means any kitchen staff member can prep a week's orders the same way, every time.", "Batch cooking logistics": "Planning and executing large-scale food preparation efficiently and safely. Example: sequencing which proteins and grains cook simultaneously is core batch cooking logistics for a busy prep day.", "Inventory & waste management": "Tracking ingredient stock and minimizing spoilage or overproduction in a food business. Example: tighter inventory and waste management directly protects already-thin meal prep margins.", "Meal prep delivery logistics": "The systems for packaging, storing, and delivering prepared meals to customers. Example: insulated packaging and a reliable delivery window are core to solid meal prep delivery logistics.", "Scalable menu design": "Building a menu system that can grow in volume without breaking consistency or quality. Example: a scalable menu design means adding 50 more weekly orders doesn't require reinventing your prep process.", "Macro-balanced recipe development": "Creating recipes engineered to hit specific nutritional targets, not just taste good. Example: adjusting a recipe's protein source and portion until it hits an exact macro target for the menu.", "Menu rotation": "Planning a cycle of menu options to maintain variety while keeping production manageable. Example: a 4-week menu rotation keeps clients from getting bored without requiring an entirely new recipe every single week.", "Client customization systems": "Processes that let individual clients adjust a standard menu to their own needs. Example: letting clients swap out one protein or side within a standard menu is a manageable client customization system.", "Recipe standardization": "Documenting a recipe precisely so it produces the same result every time it's made. Example: a fully standardized recipe means the dish tastes and portions identically whether you or a new hire makes it.", "Food safety regulations": "The legal requirements governing safe food handling, storage, and preparation. Example: following your state's specific food safety regulations for commercial kitchens is non-negotiable before selling meals.", "Nutrition labeling requirements": "The legal standards for what nutritional information must be disclosed on food products. Example: meeting nutrition labeling requirements means your meal prep containers need accurate calorie and macro info listed.", "Health code compliance": "Meeting local and state health department requirements for food service operations. Example: passing a routine health inspection depends entirely on ongoing health code compliance, not just a one-time setup.", "Allergen disclosure": "The legal obligation under FALCPA (2004) and the FASTER Act (2023) to declare any of the nine major allergens — milk, eggs, fish, crustacean shellfish, tree nuts, peanuts, wheat, soybeans, and sesame — either in the ingredient list or a 'Contains' statement, naming the specific tree nut or fish/shellfish species, not just the generic category. Example: labeling an ingredient just 'nuts' instead of naming 'almonds' specifically doesn't meet FALCPA's requirement. For a meal prep business this is a real compliance item, not just good practice — worth confirming your exact labeling meets current FDA guidance, not assuming it does. (Source: FDA, Food Allergen Labeling and Consumer Protection Act — fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies)", "Liability in food service": "The legal responsibility a food business holds for the safety of what it serves. Example: a documented food safety process is one of your best protections against liability in food service if something ever goes wrong.", "Program design synthesis": "Pulling assessment, goals, and strategy together into one coherent nutrition program. Example: combining a client's lab results, goals, and training schedule into one coherent program design synthesis.", "Client case application": "Applying nutrition principles to a specific, real client scenario rather than in the abstract. Example: showing exactly how macro programming principles apply to one real client's specific weekly schedule and preferences.", "Outcome tracking": "Measuring and recording whether a nutrition program is producing its intended results over time. Example: tracking a client's energy levels and body composition monthly, not just weight, for fuller outcome tracking.", "Program presentation": "Formally presenting a nutrition program's design, rationale, and expected outcomes. Example: walking a client through exactly why their plan is structured the way it is builds buy-in through clear program presentation.", "Nutrition program documentation": "Written records defining a client's nutrition plan, adjustments, and progress over time. Example: dated documentation showing exactly when and why a client's macros were adjusted over a 12-week program."};
+const QUIZ = {"NUTR 101": {"question": "A client eats slightly more calories than they burn every day for months and gains weight, regardless of food quality alone. What principle does this illustrate?", "options": ["Bioavailability", "Energy balance", "Nutrient timing", "The gut-brain axis"], "correctIndex": 1, "explanation": "The relationship between calories consumed and calories expended, which determines weight change, is energy balance."}, "BIO 110": {"question": "A client feels sluggish, not energized, after eating a large meal right before training. What system explains this?", "options": ["The endocrine system alone", "The digestive system diverting resources to digestion", "The gut microbiome alone", "Thermogenesis"], "correctIndex": 1, "explanation": "A large meal right before activity diverts energy toward digestion via the digestive system."}, "CHEM 101": {"question": "Lightly steaming vegetables preserves more nutrients than boiling them. What concept explains this difference?", "options": ["Bioavailability", "Food processing effects", "Amino acid profile", "Molecular structure of macronutrients alone"], "correctIndex": 1, "explanation": "How cooking method changes a food's nutrient content is a direct example of food processing effects."}, "NUTR 102": {"question": "A hard 60-second sprint burns through carbohydrate stores fast. Which metabolic pathway is most responsible?", "options": ["Fat metabolism", "Glycolysis", "Protein metabolism", "Enzymatic digestion"], "correctIndex": 1, "explanation": "The metabolic pathway that breaks down glucose to produce energy quickly is glycolysis."}, "BIO 120": {"question": "A client's thyroid issue seems to be affecting how their body responds to the same meal plan that worked for other clients. What system does this point to?", "options": ["The gut microbiome", "Endocrine regulation", "The gastrointestinal tract alone", "Thermogenesis alone"], "correctIndex": 1, "explanation": "Hormonal regulation of metabolism, including thyroid function, falls under endocrine regulation."}, "NUTR 110": {"question": "You recommend taking a vitamin D supplement with a meal containing some fat. Why does this matter?", "options": ["Vitamin D is water-soluble and needs no fat", "Vitamin D is fat-soluble and absorbs better with dietary fat", "Fat blocks vitamin D absorption entirely", "It has no effect either way"], "correctIndex": 1, "explanation": "Fat-soluble vitamins like D are absorbed and stored along with dietary fat, so taking them with fat improves absorption."}, "NUTR 201": {"question": "You plan a client's carbohydrate intake specifically for the hours immediately following a depleting training session. What are you supporting?", "options": ["Electrolyte balance alone", "Glycogen replenishment", "Thermogenesis", "Nutrient absorption alone"], "correctIndex": 1, "explanation": "Eating carbs soon after depleting exercise supports glycogen replenishment."}, "NUTR 210": {"question": "A growing teen athlete needs meaningfully more calories and protein than an adult doing similar training. What explains this?", "options": ["Pediatric nutrition needs tied to growth & development", "The gut-brain axis", "Adaptive thermogenesis", "Set point theory"], "correctIndex": 0, "explanation": "Growth and development during adolescence temporarily raise nutrient needs above what similar activity would require in an adult."}, "NUTR 220": {"question": "A client's persistent bloating and digestive discomfort might trace back to an imbalance in which system?", "options": ["The endocrine system alone", "The gut microbiome", "The cardiovascular system", "The central nervous system alone"], "correctIndex": 1, "explanation": "The community of microorganisms in the digestive tract, the gut microbiome, plays a major role in digestive comfort."}, "NUTR 202": {"question": "A client's weight-loss progress stalls despite eating the exact same deficit that worked for the first month. What's the most likely explanation?", "options": ["They stopped trying", "Metabolic adaptation slowing their expenditure", "A vitamin deficiency", "Improved nutrient absorption"], "correctIndex": 1, "explanation": "The body's tendency to adjust energy expenditure downward in response to sustained caloric restriction is metabolic adaptation."}, "NUTR 230": {"question": "You interview a client using a simple 24-hour recall and discover gaps they didn't realize were in their diet. What method did you use?", "options": ["A food frequency questionnaire", "A dietary recall method", "A biomarker assessment", "Anthropometric measurement"], "correctIndex": 1, "explanation": "Asking someone to recall exactly what they ate over the past 24 hours is a dietary recall method."}, "NUTR 240": {"question": "You keep raw chicken separate from ready-to-eat meal prep containers. What are you preventing?", "options": ["Nutrient loss", "Cross-contamination", "Caloric density changes", "Ingredient substitution issues"], "correctIndex": 1, "explanation": "Keeping raw and ready-to-eat foods separate is a basic food safety practice that prevents cross-contamination."}, "NUTR 301": {"question": "You program meaningfully more carbs on a client's heaviest lifting day than on their scheduled rest day. What are you doing?", "options": ["Caloric cycling based on training-day vs rest-day intake", "Elimination dieting", "A nutrition assessment", "Medical nutrition therapy"], "correctIndex": 0, "explanation": "Deliberately varying intake based on that day's training demand is training-day vs rest-day nutrient cycling."}, "NUTR 310": {"question": "A client sticks to a modest 300-calorie deficit for months versus abandoning an aggressive 1,000-calorie deficit after two weeks. What principle does this illustrate?", "options": ["Metabolic flexibility", "Sustainable deficit design", "Adaptive thermogenesis", "Set point theory"], "correctIndex": 1, "explanation": "Structuring a deficit a person can actually maintain long enough to see results is sustainable deficit design."}, "NUTR 320": {"question": "A client shows elevated blood pressure, blood sugar, and body fat together. What cluster of conditions does this reflect?", "options": ["A single vitamin deficiency", "Metabolic syndrome", "A food intolerance", "Central sensitization"], "correctIndex": 1, "explanation": "A cluster of conditions like elevated blood pressure, blood sugar, and body fat together defines metabolic syndrome."}, "NUTR 302": {"question": "You recommend creatine over a trendy fat-burner because one has strong research support and the other largely doesn't. What are you practicing?", "options": ["Evidence-based supplementation", "Third-party testing alone", "Dosage & safety alone", "A supplement-drug interaction check"], "correctIndex": 0, "explanation": "Choosing supplements based on demonstrated research support rather than marketing claims is evidence-based supplementation."}, "NUTR 330": {"question": "You standardize every meal prep container to a specific serving size to hit a consistent macro target. What are you doing?", "options": ["Recipe scaling only", "Portion design", "Menu rotation", "Grocery planning alone"], "correctIndex": 1, "explanation": "Structuring serving sizes to match a specific caloric or macronutrient target is portion design."}, "NUTR 340": {"question": "A client's bloating after dairy is likely a non-immune digestive reaction rather than a true allergic response. What is this?", "options": ["A food allergy", "A food intolerance", "An elimination diet", "Medical nutrition therapy"], "correctIndex": 1, "explanation": "A non-immune digestive reaction to a specific food, distinct from a true allergy, is a food intolerance."}, "NUTR 401": {"question": "You address why a client stress-eats at night rather than just prescribing a lower calorie target. What are you applying?", "options": ["Medical nutrition therapy", "Behavior change specifically for eating habits", "A biomarker assessment", "Recipe standardization"], "correctIndex": 1, "explanation": "Applying behavior-change principles specifically to how and why someone eats is behavior change for eating habits."}, "NUTR 410": {"question": "A viral headline claims a 'superfood cures everything,' but the actual study behind it had only 12 participants and no control group. What should this raise?", "options": ["Full confidence in the claim", "Concerns about sample size and study design", "No concerns, since it's published", "Confirmation the food is dangerous"], "correctIndex": 1, "explanation": "A tiny, poorly controlled study has serious sample size and bias limitations that should raise real doubt about a sweeping claim."}, "BUS 420": {"question": "Accurate food costing reveals a popular menu item is actually barely breaking even once labor is included. What should this prompt?", "options": ["Ignoring the numbers since it's popular", "Reassessing pricing or portioning on that item", "Immediately discontinuing all menu items", "Cutting all ingredient quality"], "correctIndex": 1, "explanation": "Food costing that reveals thin margins on a popular item should prompt a pricing or recipe reassessment."}, "NUTR 402": {"question": "Adding 50 more weekly orders doesn't require reinventing your entire prep process. What quality does this reflect in your menu?", "options": ["Recipe standardization alone", "Scalable menu design", "Client customization systems alone", "Menu rotation alone"], "correctIndex": 1, "explanation": "A menu system built to grow in volume without breaking consistency or quality is scalable menu design."}, "LAW 430": {"question": "You clearly list allergens like tree nuts and shellfish on every menu item. What obligation are you meeting?", "options": ["Nutrition labeling requirements only", "Allergen disclosure", "Health code compliance alone", "Liability in food service alone"], "correctIndex": 1, "explanation": "The legal and ethical obligation to inform customers of allergens present in food is allergen disclosure."}, "NUTR 490": {"question": "You track a client's energy levels and body composition monthly, not just their scale weight, throughout a 12-week program. What are you doing?", "options": ["Client case application alone", "Outcome tracking", "Program presentation alone", "Nutrition program documentation alone"], "correctIndex": 1, "explanation": "Measuring and recording whether a program is producing its intended results over time is outcome tracking."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'nutrition-degree-completed';
+const MASTERED_KEY = 'nutrition-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

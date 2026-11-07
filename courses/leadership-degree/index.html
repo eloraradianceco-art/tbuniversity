@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership & Organizational Psychology — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Leadership & Organizational Psychology — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Leadership theory through executive practice, built for leading multiple ventures at once.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Foundations of Leadership", "semesters": [{"term": "Fall", "courses": [{"code": "LEAD 101", "title": "Introduction to Leadership Theory", "credits": 3, "desc": "Trait, behavioral, situational, and transformational models — the major lenses leadership theory is built from.", "concepts": ["Trait theory of leadership", "Behavioral leadership theory", "Situational leadership", "Transformational leadership", "Servant leadership"]}, {"code": "ORG 110", "title": "Organizational Behavior Fundamentals", "credits": 3, "desc": "How individuals and groups actually behave inside an organization, and why.", "concepts": ["Organizational behavior", "Individual vs group behavior", "Motivation in organizations", "Job satisfaction", "Organizational citizenship"]}, {"code": "COMM 101", "title": "Executive Communication Foundations", "credits": 3, "desc": "Clarity and framing for communicating decisions and direction to people who need to act on them.", "concepts": ["Audience awareness", "Message framing", "Executive summary writing", "Clarity under pressure", "Nonverbal presence"]}]}, {"term": "Spring", "courses": [{"code": "LEAD 102", "title": "Leadership Styles & Self-Assessment", "credits": 3, "desc": "Style inventories and self-awareness as the starting point for developing as a leader.", "concepts": ["Leadership style inventories", "Self-awareness", "Adaptive leadership", "Strengths-based leadership", "Blind spots"]}, {"code": "ORG 120", "title": "Organizational Structure & Design", "credits": 3, "desc": "Hierarchy, span of control, and the logic behind how organizations get structured.", "concepts": ["Organizational structure", "Span of control", "Hierarchy vs flat structure", "Centralization vs decentralization", "Org chart design"]}, {"code": "PSY 110", "title": "Psychology of Influence", "credits": 3, "desc": "Authority, reciprocity, and the persuasion principles that shape how leaders actually move people.", "concepts": ["Principles of influence", "Authority bias", "Reciprocity", "Social proof", "Ethical persuasion"]}]}]}, {"year": 2, "title": "Decision-Making & Culture", "semesters": [{"term": "Fall", "courses": [{"code": "DEC 201", "title": "Decision-Making Under Uncertainty", "credits": 3, "desc": "Heuristics, risk assessment, and the frameworks leaders use when information is incomplete.", "concepts": ["Decision-making frameworks", "Heuristics under uncertainty", "Risk assessment", "Cognitive biases in decisions", "Satisficing vs optimizing"]}, {"code": "CULT 210", "title": "Organizational Culture & Values", "credits": 3, "desc": "Culture design and values alignment — what actually shapes how people behave when no one's watching.", "concepts": ["Organizational culture", "Values alignment", "Culture vs climate", "Subcultures", "Culture change strategy"]}, {"code": "LEAD 210", "title": "Emotional Intelligence in Leadership", "credits": 3, "desc": "Self-regulation and empathy as core leadership competencies, not soft extras.", "concepts": ["Emotional intelligence", "Self-regulation", "Empathy in leadership", "Social skill", "Self-awareness"]}]}, {"term": "Spring", "courses": [{"code": "DEC 202", "title": "Strategic Thinking & Planning", "credits": 3, "desc": "Long-term vision and prioritization — thinking several moves ahead of the current sprint.", "concepts": ["Strategic thinking", "Long-term vision", "Strategic frameworks", "Prioritization", "SWOT & strategic analysis"]}, {"code": "CULT 220", "title": "Change Management", "credits": 3, "desc": "Resistance to change and structured change models for leading a team through real transition.", "concepts": ["Change management models", "Resistance to change", "Kotter's 8-step process", "Change communication", "Stakeholder buy-in"]}, {"code": "COMM 210", "title": "Difficult Conversations & Conflict Resolution", "credits": 3, "desc": "Confrontation and negotiation skill for the conversations most leaders try to avoid.", "concepts": ["Difficult conversations", "Conflict resolution styles", "Negotiation basics", "De-escalation techniques", "Active listening in conflict"]}]}]}, {"year": 3, "title": "Power, Teams & People", "semesters": [{"term": "Fall", "courses": [{"code": "POWER 301", "title": "Power & Influence in Organizations", "credits": 3, "desc": "Sources of power and organizational politics — the informal dynamics underneath the org chart.", "concepts": ["Sources of power", "Positional vs personal power", "Organizational politics", "Coalition building", "Influence without authority"]}, {"code": "TEAM 310", "title": "High-Performance Team Building", "credits": 3, "desc": "Team formation stages and psychological safety as the foundation of a genuinely high-performing team.", "concepts": ["Team formation stages (forming-storming-norming-performing)", "Psychological safety", "Team accountability", "Role clarity", "High-performance team traits"]}, {"code": "HR 320", "title": "Strategic Human Resources", "credits": 3, "desc": "Hiring, performance management, and talent development as leadership functions, not just HR functions.", "concepts": ["Strategic hiring", "Performance management", "Talent development", "Succession pipelines", "Compensation strategy"]}]}, {"term": "Spring", "courses": [{"code": "POWER 302", "title": "Negotiation & Persuasion", "credits": 3, "desc": "BATNA and principled negotiation — reaching agreements that actually hold up.", "concepts": ["Negotiation tactics", "BATNA", "Principled negotiation", "Win-win vs win-lose", "Anchoring in negotiation"]}, {"code": "TEAM 320", "title": "Delegation & Empowerment", "credits": 3, "desc": "Delegation frameworks for handing off real ownership without losing accountability.", "concepts": ["Delegation frameworks", "Empowerment", "Micromanagement risks", "Ownership culture", "Accountability structures"]}, {"code": "LEAD 320", "title": "Leading Through Crisis", "credits": 3, "desc": "Crisis leadership and composure under pressure when the stakes and uncertainty both spike at once.", "concepts": ["Crisis leadership", "Decision-making under pressure", "Crisis communication", "Composure under stress", "Post-crisis recovery"]}]}]}, {"year": 4, "title": "Executive Practice", "semesters": [{"term": "Fall", "courses": [{"code": "EXEC 401", "title": "Executive Presence & Personal Branding", "credits": 3, "desc": "Gravitas and credibility — how a leader is actually perceived, and why it's earned, not performed.", "concepts": ["Executive presence", "Personal branding", "Gravitas", "Credibility building", "Communication style"]}, {"code": "LEAD 410", "title": "Succession Planning & Leadership Development", "credits": 3, "desc": "Building a real leadership pipeline instead of leaving succession to chance.", "concepts": ["Succession planning", "Leadership pipeline", "Mentoring frameworks", "Talent identification", "Development planning"]}, {"code": "ETH 420", "title": "Leadership Ethics & Integrity", "credits": 3, "desc": "Ethical decision-making and integrity under pressure — what leadership costs when it's done right.", "concepts": ["Ethical decision-making", "Moral leadership", "Accountability", "Integrity under pressure", "Ethical frameworks"]}]}, {"term": "Spring", "courses": [{"code": "LEAD 402", "title": "Leading Multiple Ventures & Divided Attention", "credits": 3, "desc": "Leading effectively across several organizations or roles at once without any one going neglected.", "concepts": ["Divided attention leadership", "Cross-organizational leadership", "Priority triage", "Delegation across ventures", "Systems thinking"]}, {"code": "ORG 430", "title": "Organizational Systems & Scaling", "credits": 3, "desc": "Scaling culture and process together as an organization grows past what one person can hold.", "concepts": ["Scaling organizations", "Process systemization", "Scaling culture", "Operational bottlenecks", "Organizational maturity"]}, {"code": "LEAD 490", "title": "Capstone — Personal Leadership Philosophy & Case Study", "credits": 3, "desc": "A fully articulated leadership philosophy, tested against a real applied case and presented.", "concepts": ["Leadership philosophy", "Applied leadership case study", "Self-assessment synthesis", "Leadership narrative", "Case presentation"]}]}]}];
+const GLOSSARY = {"Trait theory of leadership": "The early leadership theory proposing that certain inherent personal traits make someone an effective leader. Example: assuming someone will lead well purely because they're naturally confident and charismatic reflects trait theory's core assumption.", "Behavioral leadership theory": "A leadership theory focused on what leaders actually do, rather than who they inherently are. Example: judging a manager by whether they actually give clear feedback, not by their personality, reflects behavioral leadership theory.", "Situational leadership": "A model proposing that effective leadership style should shift based on the readiness of the people being led. Example: giving detailed direction to a brand-new hire but full autonomy to a seasoned team lead is situational leadership in practice.", "Transformational leadership": "A leadership style focused on inspiring and elevating followers toward a shared vision beyond self-interest. Example: a leader who gets a team genuinely excited about a mission, not just compliant with a task list, is leading transformationally.", "Servant leadership": "A leadership philosophy prioritizing serving others' growth and needs over exercising authority. Example: a leader who asks 'what do you need from me to succeed?' before assigning more work is practicing servant leadership.", "Organizational behavior": "The study of how individuals and groups act and interact within an organizational setting. Example: noticing that a team behaves very differently under one manager than another, despite identical job descriptions, is organizational behavior in action.", "Individual vs group behavior": "The distinction between how a person acts alone versus how that same person behaves within a group. Example: a normally outspoken employee staying quiet in a large team meeting shows the gap between individual and group behavior.", "Motivation in organizations": "The factors that drive employee effort and engagement within a workplace. Example: discovering that autonomy matters more to a key employee than a raise reveals something real about motivation in organizations.", "Job satisfaction": "An employee's overall contentment with their role, which strongly influences performance and retention. Example: a talented employee quietly disengaging despite good pay often signals a deeper job satisfaction issue.", "Organizational citizenship": "Voluntary employee behavior that benefits the organization beyond formal job requirements. Example: a team member helping a struggling coworker without being asked is organizational citizenship, not part of any job description.", "Audience awareness": "Tailoring communication based on what a specific audience needs, knows, and cares about. Example: explaining a strategy decision in plain outcomes to staff, versus in financial detail to investors, is audience awareness.", "Message framing": "Deliberately shaping how information is presented to influence how it's received and understood. Example: framing a tough restructuring as 'positioning the team to grow' rather than 'cutting costs' changes how it lands, even with identical facts.", "Executive summary writing": "Distilling complex information into a concise, decision-focused summary for leadership. Example: opening a report with three bullet-point takeaways before the full detail respects a busy leader's time.", "Clarity under pressure": "The ability to communicate clearly and precisely even in high-stakes or fast-moving situations. Example: giving calm, specific instructions during an unexpected crisis, rather than vague urgency, is clarity under pressure.", "Nonverbal presence": "The impression created by body language, tone, and demeanor independent of the words spoken. Example: a leader's steady tone and posture during bad news can reassure a team as much as the actual words used.", "Leadership style inventories": "Structured assessments used to identify a person's default leadership tendencies. Example: a leadership style inventory revealing you default to directive leadership even in situations that call for more coaching.", "Self-awareness": "An accurate understanding of one's own strengths, weaknesses, values, and impact on others. Example: recognizing that your own urgency reads as impatience to a slower-paced team member is real self-awareness.", "Adaptive leadership": "The ability to adjust leadership approach based on the specific challenge and context at hand. Example: shifting from hands-on guidance during a crisis to hands-off delegation once things stabilize is adaptive leadership.", "Strengths-based leadership": "A leadership approach focused on maximizing natural strengths rather than fixing every weakness. Example: putting a naturally detail-oriented team member on quality control instead of forcing them into big-picture strategy work.", "Blind spots": "Aspects of one's own behavior or impact that a person is unaware of, often visible only to others. Example: learning from direct feedback that your 'quick questions' actually feel like interruptions to your team is a genuine blind spot surfacing.", "Organizational structure": "The formal system defining how roles, authority, and communication flow within an organization. Example: deciding whether a new hire reports directly to you or to a lead trainer is an organizational structure decision.", "Span of control": "The number of direct reports a single manager or leader effectively oversees. Example: one person personally managing 15 staff members likely has too wide a span of control to give anyone real attention.", "Hierarchy vs flat structure": "The tradeoff between many layers of authority versus fewer layers with broader autonomy. Example: a small team of five operating with a flat structure moves faster on decisions than a team buried under four approval layers.", "Centralization vs decentralization": "Whether decision-making authority sits concentrated at the top or distributed throughout an organization. Example: requiring every pricing decision to go through you personally is centralization; letting location leads set their own local pricing is decentralization.", "Org chart design": "How an organization's structure is formally mapped and communicated. Example: a clear org chart prevents confusion over who actually approves a new hire's request.", "Principles of influence": "The established psychological levers — reciprocity, authority, scarcity — that shape persuasion. Example: offering something of value first before asking for buy-in leverages the reciprocity principle of influence.", "Authority bias": "The tendency to give more weight to the opinion of a perceived authority figure, regardless of the argument's merit. Example: a team accepting a flawed plan mainly because the founder proposed it shows authority bias at work.", "Reciprocity": "The social tendency to want to return a favor or concession once one has been received. Example: covering a shift for a team member once often makes them far more willing to step up for you later.", "Social proof": "The tendency to look to others' behavior as a guide for one's own, especially under uncertainty. Example: showing a hesitant team 'here's how three other successful teams handled this exact change' leverages social proof.", "Ethical persuasion": "Influencing others in ways that respect their autonomy and serve their genuine interests. Example: honestly explaining why a change benefits the team, rather than manufacturing urgency to force compliance, is ethical persuasion.", "Decision-making frameworks": "Structured processes used to evaluate options and reach a sound decision. Example: using a simple 'impact vs effort' framework to decide which of five competing priorities to tackle first.", "Heuristics under uncertainty": "Mental shortcuts used to make decisions quickly when full information isn't available. Example: defaulting to 'what would our best client want here?' as a quick heuristic when a decision needs to be made fast.", "Risk assessment": "Systematically evaluating the likelihood and impact of potential negative outcomes before deciding. Example: weighing the real financial downside of a new hire against the upside of added capacity before committing.", "Cognitive biases in decisions": "Predictable errors in judgment that can distort otherwise rational decision-making. Example: continuing to fund a failing initiative mainly because of how much has already been invested reflects a cognitive bias, not sound strategy.", "Satisficing vs optimizing": "Choosing a good-enough option quickly (satisficing) versus exhaustively searching for the best one (optimizing). Example: picking a solid vendor after two solid options rather than exhaustively comparing twenty is satisficing, and often the smarter call.", "Organizational culture": "The shared values, norms, and behaviors that define how things actually get done in an organization. Example: whether staff feel safe admitting a mistake immediately, or hide it out of fear, reveals the real organizational culture.", "Values alignment": "The degree to which individual and organizational values genuinely match. Example: a new hire who talks about client care but consistently cuts corners on quality reveals a values alignment problem.", "Culture vs climate": "The distinction between deep, stable organizational values (culture) and the current felt mood (climate). Example: a team's culture of high standards can stay intact even during a rough month's climate of stress and fatigue.", "Subcultures": "Distinct value or behavior patterns that develop within specific teams or departments inside a larger organization. Example: a sales team's fast, informal subculture can clash visibly with a clinical team's careful, documentation-heavy one.", "Culture change strategy": "A deliberate plan for shifting an organization's shared values and norms over time. Example: deliberately celebrating and rewarding the specific behaviors you want more of is a concrete culture change strategy, not just a memo announcing new values.", "Emotional intelligence": "The ability to recognize, understand, and manage one's own emotions and those of others. Example: noticing your own frustration rising in a tense meeting and choosing to pause before responding is emotional intelligence in real time.", "Self-regulation": "The ability to manage one's own impulses and emotional reactions, especially under stress. Example: not firing off a sharp email the moment you're frustrated, and waiting an hour instead, is self-regulation.", "Empathy in leadership": "A leader's ability to genuinely understand and respond to what others are experiencing. Example: recognizing that a normally reliable employee's recent slip-ups might reflect something going on outside work, not laziness.", "Social skill": "The ability to build relationships and navigate social situations effectively. Example: smoothing tension between two disagreeing team members in a meeting without either feeling dismissed is strong social skill.", "Strategic thinking": "The ability to see the bigger picture and long-term implications behind day-to-day decisions. Example: asking 'does this decision still make sense if we're double the size in two years?' is strategic thinking applied to a present choice.", "Long-term vision": "A clearly defined picture of a desired future state that guides present-day decisions. Example: a clear long-term vision of 'three locations by 2028' shapes which opportunities you say yes to today.", "Strategic frameworks": "Structured models used to analyze a situation and generate strategic options. Example: running a quick SWOT before committing to a new service line is applying a strategic framework, not just going with gut feel.", "Prioritization": "Determining which actions or goals matter most given limited time and resources. Example: choosing to fix a broken client onboarding process before launching a new marketing campaign is prioritization in action.", "SWOT & strategic analysis": "Using structured frameworks like SWOT to assess a strategic position before making decisions. Example: a SWOT analysis revealing your clinical credentials are a strength but your limited hours are a real weakness worth addressing.", "Change management models": "Structured frameworks used to guide an organization through a significant transition. Example: following a defined change management model, rather than improvising, when rolling out a new scheduling system across the team.", "Resistance to change": "The natural pushback people give to change, and the strategies used to work through it. Example: a team quietly reverting to the old process within a week of a new rollout is a classic sign of unaddressed resistance to change.", "Kotter's 8-step process": "A widely used model outlining eight sequential steps for leading organizational change. Example: skipping straight to 'implement the change' without first building urgency, a core early step in Kotter's 8-step process, is why many rollouts stall.", "Change communication": "How change is explained and reinforced to the people affected by it. Example: explaining not just what's changing but why, repeatedly, over several weeks, is effective change communication, not a single announcement.", "Stakeholder buy-in": "Securing genuine support and commitment from the people whose cooperation a change requires. Example: getting your lead trainers genuinely on board before announcing a new system to the whole team secures real stakeholder buy-in.", "Difficult conversations": "Conversations involving high stakes, strong emotion, or disagreement that require deliberate skill. Example: telling a loyal but underperforming team member their role is changing is a difficult conversation worth preparing for deliberately.", "Conflict resolution styles": "The different approaches — competing, collaborating, avoiding, accommodating, compromising — people use to handle conflict. Example: recognizing that one team member always avoids conflict and another always competes helps you mediate between them more effectively.", "Negotiation basics": "The foundational principles of reaching an agreement that satisfies both parties' core interests. Example: understanding what a vendor actually needs, not just their stated price, is negotiation basics applied practically.", "De-escalation techniques": "Specific communication strategies used to reduce tension in a heated interaction. Example: lowering your own voice and slowing down when a conversation gets heated is a simple, effective de-escalation technique.", "Active listening in conflict": "Fully attending to and confirming understanding of the other party before responding, especially under tension. Example: repeating back an upset team member's concern before responding keeps a tense conversation from escalating further.", "Sources of power": "The different bases of power — positional, expert, referent, coercive — a leader can draw on. Example: a junior team member with deep technical expertise can hold real expert power, even without any formal title.", "Positional vs personal power": "The distinction between authority granted by a title versus influence earned through relationships and credibility. Example: a manager whose team follows them out of respect, not just because of their title, has real personal power beyond their position.", "Organizational politics": "The informal dynamics of influence and self-interest that shape decisions within an organization. Example: noticing that a decision got delayed because two department heads quietly disagreed is organizational politics at work.", "Coalition building": "Deliberately building alliances and support to advance an initiative within an organization. Example: getting two key team leads on board privately before proposing a change publicly is coalition building.", "Influence without authority": "The ability to move others toward action without holding formal power over them. Example: getting a peer in another department to prioritize your request, despite having no authority over them, is influence without authority.", "Team formation stages (forming-storming-norming-performing)": "Bruce Tuckman's 1965 model describing the predictable stages a team moves through as it develops — he added a fifth stage, Adjourning, in 1977 for when a team disbands after completing its purpose. Example: expecting early friction as a new team hits the 'storming' stage helps you respond with patience instead of alarm; teams also don't move strictly linearly — a new member or major conflict can knock a team back from Norming to Storming. (Source: Tuckman, 'Developmental Sequence in Small Groups,' Psychological Bulletin, 1965; Tuckman & Jensen, 1977)", "Psychological safety": "A shared belief within a team that it's safe to take interpersonal risks, like speaking up or admitting mistakes. Example: a team member immediately flagging their own mistake, rather than hiding it, signals real psychological safety.", "Team accountability": "The degree to which team members hold themselves and each other responsible for commitments. Example: a team member calling out a missed deadline to a peer, not just waiting for you to notice, reflects real team accountability.", "Role clarity": "The degree to which each team member clearly understands their specific responsibilities. Example: two staff members both assuming the other was handling client follow-up reveals a role clarity gap.", "High-performance team traits": "The recurring characteristics — trust, clear goals, accountability — shared by consistently effective teams. Example: a team that argues openly about ideas but still fully commits once a decision is made shows classic high-performance team traits.", "Strategic hiring": "Making hiring decisions deliberately aligned with long-term organizational needs, not just immediate gaps. Example: hiring someone with growth potential for a future leadership role, not just to fill today's schedule gap, is strategic hiring.", "Performance management": "The ongoing process of setting expectations, giving feedback, and evaluating employee performance. Example: a consistent monthly check-in reviewing goals and feedback is performance management, not just an annual review.", "Talent development": "Deliberate investment in growing employees' skills and capabilities over time. Example: funding a promising trainer's advanced certification is a direct investment in talent development.", "Succession pipelines": "A structured process for identifying and preparing future leaders within an organization. Example: deliberately mentoring your most capable staff member toward a future lead role is building a succession pipeline.", "Compensation strategy": "How an organization structures pay and benefits to attract and retain the people it needs. Example: offering a performance bonus tied to client retention, not just base pay, reflects a specific compensation strategy.", "Negotiation tactics": "Specific techniques used within a negotiation to move toward a favorable outcome. Example: proposing a package of terms together, rather than negotiating price alone, is a common negotiation tactic.", "BATNA": "Best Alternative to a Negotiated Agreement — a term coined by Roger Fisher and William Ury in their 1981 book 'Getting to Yes' — what you'll do if the current negotiation fails, and your real source of leverage. Example: knowing you have two other qualified candidates gives you a strong BATNA when negotiating salary with a top pick. (Source: Fisher & Ury, 'Getting to Yes: Negotiating Agreement Without Giving In,' Harvard Program on Negotiation)", "Principled negotiation": "A negotiation approach focused on interests rather than positions, aiming for mutually beneficial outcomes. Example: asking a vendor why they need a certain price, not just refusing it, opens up principled negotiation toward a deal that works for both sides.", "Win-win vs win-lose": "The distinction between negotiation outcomes that benefit both parties versus those that benefit one at the other's expense. Example: pushing a vendor into an unsustainably low price might feel like a win, but a win-lose deal often unravels later.", "Anchoring in negotiation": "The tendency for an initial offer to disproportionately influence the final negotiated outcome. Example: opening a salary negotiation with a specific, well-researched number sets a strong anchor that shapes the entire conversation.", "Delegation frameworks": "Structured approaches for deciding what to delegate, to whom, and with how much authority. Example: using a simple framework, like 'do it, decide it, or just inform me,' to clarify exactly how much authority you're handing off.", "Empowerment": "Giving team members genuine authority and trust to make decisions within their role. Example: letting a lead trainer approve minor program adjustments themselves, instead of routing everything back through you, is real empowerment.", "Micromanagement risks": "The costs — disengagement, bottlenecks, stunted growth — created by over-controlling leadership. Example: a capable employee quietly disengaging because every decision gets second-guessed is a classic micromanagement risk.", "Ownership culture": "An organizational culture where people take genuine personal responsibility for outcomes, not just tasks. Example: a staff member fixing a process problem on their own initiative, without being asked, reflects real ownership culture.", "Accountability structures": "The systems and checkpoints that ensure commitments are actually followed through on. Example: a shared weekly dashboard everyone can see is an accountability structure that makes missed commitments visible early.", "Crisis leadership": "Leading effectively during high-stakes, high-uncertainty situations that demand fast, clear decisions. Example: making a fast, clear call during a sudden equipment failure, rather than freezing while gathering more information, is crisis leadership.", "Decision-making under pressure": "Making sound decisions despite time constraints, incomplete information, and emotional intensity. Example: deciding how to handle an upset client in the moment, with limited information, tests real decision-making under pressure.", "Crisis communication": "Communicating clearly and credibly with stakeholders during an unfolding crisis. Example: sending a clear, honest update to the whole team the same day a serious problem happens is effective crisis communication.", "Composure under stress": "The ability to remain calm and think clearly when a situation is highly stressful. Example: staying visibly calm while addressing an angry client is composure under stress that reassures everyone watching, not just the client.", "Post-crisis recovery": "The process of stabilizing, learning from, and rebuilding after a crisis has passed. Example: a debrief meeting after a rough incident, asking 'what do we change going forward,' is post-crisis recovery done well.", "Executive presence": "The combination of gravitas, communication, and appearance that signals leadership credibility. Example: walking into a tense meeting calm and prepared, rather than rattled, projects real executive presence.", "Personal branding": "Deliberately shaping how you're perceived professionally, based on your actual strengths and values. Example: consistently being known as the person who backs claims with data is a personal brand built through repeated behavior, not a slogan.", "Gravitas": "The quality of seriousness, confidence, and weight a leader projects in high-stakes situations. Example: delivering hard news steadily and directly, without over-explaining or apologizing excessively, carries real gravitas.", "Credibility building": "The deliberate, consistent actions that earn others' trust in a leader's competence and character. Example: following through on every small commitment you make is what actually builds credibility over time, more than any single big promise.", "Communication style": "A leader's characteristic way of expressing ideas, giving feedback, and engaging others. Example: a direct, no-frills communication style works well with some team members and needs softening with others.", "Succession planning": "Deliberately preparing for the future transition of key leadership roles. Example: identifying and training a backup lead trainer now, well before you'd ever actually need them, is succession planning done right.", "Leadership pipeline": "The structured pathway through which future leaders are identified and developed. Example: a clear leadership pipeline means you're never caught scrambling when a key leader unexpectedly leaves.", "Mentoring frameworks": "Structured approaches for pairing developing leaders with more experienced ones. Example: a defined mentoring framework with regular check-ins works better than an informal 'shadow me sometimes' arrangement.", "Talent identification": "Recognizing individuals with strong leadership potential early, before a role formally requires it. Example: noticing a junior staff member naturally stepping up to help newer hires is early talent identification worth nurturing.", "Development planning": "Creating a specific, actionable plan to grow an individual's leadership capability over time. Example: a written development plan outlining specific skills and milestones for a rising team lead over the next year.", "Ethical decision-making": "Making choices that hold up against a clear, consistent set of moral principles. Example: refusing a lucrative but misleading marketing claim, even under revenue pressure, reflects ethical decision-making in practice.", "Moral leadership": "Leading in a way that consistently prioritizes what's right over what's merely convenient or profitable. Example: admitting a mistake publicly to clients, even when it's costly, is moral leadership that builds long-term trust.", "Accountability": "Taking ownership for outcomes, including admitting and correcting mistakes. Example: a leader saying 'that was my call and it didn't work, here's the fix' models accountability the whole team notices.", "Integrity under pressure": "Maintaining honest, consistent principles even when circumstances make cutting corners tempting. Example: sticking to your stated quality standards even when a shortcut would meet a tight deadline is integrity under pressure.", "Ethical frameworks": "Structured approaches — like consequentialism or duty-based ethics — for reasoning through moral decisions. Example: weighing 'what produces the best overall outcome' versus 'what's simply the right thing to do' reflects two different ethical frameworks.", "Divided attention leadership": "Leading effectively across multiple simultaneous responsibilities without any one suffering neglect. Example: running True Balance Therapy, Elora Radiance, and a meal prep venture at once requires deliberate divided attention leadership, not just more hours.", "Cross-organizational leadership": "Applying consistent leadership principles across genuinely different organizations or ventures at once. Example: using the same clear communication and accountability standards across a therapy practice and a skincare brand is cross-organizational leadership.", "Priority triage": "Rapidly sorting competing demands to determine what genuinely needs attention first. Example: deciding a client emergency takes precedence over a marketing deadline in the moment is priority triage in real time.", "Delegation across ventures": "Extending trust and authority to capable people across multiple businesses or initiatives at once. Example: trusting a operations lead to run daily decisions at one venture while you focus elsewhere is delegation across ventures.", "Systems thinking": "Seeing an organization as an interconnected system rather than a set of isolated parts. Example: recognizing that a scheduling bottleneck in one venture is actually starving another of your attention reflects systems thinking.", "Scaling organizations": "Growing an organization's capacity without proportionally growing its complexity or cost. Example: adding client capacity through better systems, rather than just adding headcount one-for-one, is how you scale efficiently.", "Process systemization": "Turning ad hoc work into documented, repeatable processes that don't depend on one person. Example: documenting your exact client onboarding steps so a new hire can run it without asking you constantly.", "Scaling culture": "Preserving an organization's core values and identity as it grows in size. Example: making sure a tenth hire still understands 'we lead with assessment, not guesswork' as clearly as your first hire did is scaling culture.", "Operational bottlenecks": "The specific points in a business that break down or create strain as volume grows. Example: every new client program still requiring your personal sign-off is an operational bottleneck capping how fast you can grow.", "Organizational maturity": "The degree to which an organization's systems, culture, and processes are stable and repeatable. Example: a business that runs smoothly for two weeks while you're away demonstrates real organizational maturity.", "Leadership philosophy": "A leader's clearly articulated, personally held set of principles guiding how they lead. Example: 'lead by serving first, hold high standards, and never ask someone to do what I wouldn't' is a concrete, statable leadership philosophy.", "Applied leadership case study": "A real leadership situation analyzed in depth to extract concrete, transferable lessons. Example: breaking down exactly how you handled a difficult staff transition, and what you'd do differently, is an applied leadership case study.", "Self-assessment synthesis": "Pulling together accumulated self-knowledge into one coherent understanding of one's leadership identity. Example: combining feedback, style assessments, and reflection into one honest picture of your real leadership strengths and gaps.", "Leadership narrative": "The story a leader tells about their own development, values, and purpose as a leader. Example: being able to clearly explain why you lead the way you do, rooted in real experience, is your leadership narrative.", "Case presentation": "Formally presenting a leadership case, including context, decisions, and outcomes. Example: presenting a full leadership case, including what went wrong and what you learned, to a peer group or mentor for honest feedback."};
+const QUIZ = {"LEAD 101": {"question": "A leader gets a team genuinely excited about a mission, not just compliant with a task list. What leadership style is this?", "options": ["Trait theory in action", "Transformational leadership", "Behavioral leadership theory only", "Situational leadership alone"], "correctIndex": 1, "explanation": "Inspiring and elevating followers toward a shared vision beyond self-interest is transformational leadership."}, "ORG 110": {"question": "A talented employee quietly disengages despite good pay. What does this most directly point to?", "options": ["Organizational citizenship", "A job satisfaction issue", "Organizational structure", "Motivation theory being irrelevant"], "correctIndex": 1, "explanation": "Disengagement despite good pay usually signals a deeper job satisfaction issue, not just a compensation problem."}, "COMM 101": {"question": "You explain a strategy decision in plain outcomes to staff, but in financial detail to investors. What are you practicing?", "options": ["Nonverbal presence", "Audience awareness", "Clarity under pressure alone", "Executive summary writing alone"], "correctIndex": 1, "explanation": "Tailoring communication based on what a specific audience needs and cares about is audience awareness."}, "LEAD 102": {"question": "You learn from direct feedback that your 'quick questions' actually feel like interruptions to your team. What just surfaced?", "options": ["A strength", "A blind spot", "Adaptive leadership", "A leadership style inventory result only"], "correctIndex": 1, "explanation": "An aspect of your own behavior you were unaware of, visible to others, surfacing through feedback is a blind spot."}, "ORG 120": {"question": "One person personally manages 15 staff members and can't give anyone real attention. What problem does this describe?", "options": ["Centralization alone", "Too wide a span of control", "A flat structure benefit", "Decentralization"], "correctIndex": 1, "explanation": "The number of direct reports a manager effectively oversees is span of control — 15 is likely too wide."}, "PSY 110": {"question": "Covering a shift for a team member once makes them far more willing to step up for you later. What principle of influence is this?", "options": ["Authority bias", "Reciprocity", "Social proof", "Scarcity"], "correctIndex": 1, "explanation": "The social tendency to want to return a favor once one has been received is reciprocity."}, "DEC 201": {"question": "You continue funding a failing initiative mainly because of how much has already been invested in it. What's distorting this decision?", "options": ["Satisficing", "A cognitive bias (sunk cost thinking)", "Risk assessment done correctly", "A decision-making framework working properly"], "correctIndex": 1, "explanation": "Continuing to invest based on past spending rather than future value is a classic cognitive bias distorting decision-making."}, "CULT 210": {"question": "Staff feel safe admitting a mistake immediately rather than hiding it out of fear. What does this reveal?", "options": ["Weak organizational culture", "A healthy organizational culture", "Poor values alignment", "A subculture problem"], "correctIndex": 1, "explanation": "Whether people feel safe admitting mistakes reveals the real, lived organizational culture."}, "LEAD 210": {"question": "You notice your own frustration rising in a tense meeting and choose to pause before responding. What are you demonstrating?", "options": ["Social skill alone", "Self-regulation, a piece of emotional intelligence", "Empathy alone", "Executive presence alone"], "correctIndex": 1, "explanation": "Managing your own impulses and emotional reactions under stress is self-regulation."}, "DEC 202": {"question": "You ask 'does this decision still make sense if we're double the size in two years?' before committing. What are you practicing?", "options": ["Satisficing", "Strategic thinking", "A SWOT analysis only", "Prioritization alone"], "correctIndex": 1, "explanation": "Seeing the bigger picture and long-term implications behind a present-day decision is strategic thinking."}, "CULT 220": {"question": "A team quietly reverts to the old process within a week of a new system rollout. What does this signal?", "options": ["Successful change communication", "Unaddressed resistance to change", "Strong stakeholder buy-in", "A completed change management process"], "correctIndex": 1, "explanation": "Reverting to old habits shortly after a rollout is a classic sign of unaddressed resistance to change."}, "COMM 210": {"question": "You lower your voice and slow down when a conversation with a team member gets heated. What technique is this?", "options": ["Active listening only", "A de-escalation technique", "Negotiation basics alone", "A conflict resolution style"], "correctIndex": 1, "explanation": "Specific communication strategies used to reduce tension in a heated interaction are de-escalation techniques."}, "POWER 301": {"question": "A junior team member with deep technical expertise holds real influence, even without a formal title. What kind of power is this?", "options": ["Positional power", "Personal/expert power", "Coercive power", "No real power at all"], "correctIndex": 1, "explanation": "Influence earned through expertise and credibility, rather than granted by a title, is personal power."}, "TEAM 310": {"question": "A new team hits an early stretch of friction and disagreement before settling into a rhythm. What stage of Tuckman's model is this?", "options": ["Performing", "Storming", "Norming", "Forming only, with no friction expected"], "correctIndex": 1, "explanation": "The stage marked by friction and disagreement as a team develops is the 'storming' stage of Tuckman's model."}, "HR 320": {"question": "You hire someone with growth potential for a future leadership role, not just to fill today's immediate gap. What are you practicing?", "options": ["Compensation strategy alone", "Strategic hiring", "Performance management alone", "A succession pipeline by itself"], "correctIndex": 1, "explanation": "Making hiring decisions deliberately aligned with long-term organizational needs is strategic hiring."}, "POWER 302": {"question": "Knowing you have two other qualified candidates gives you real leverage when negotiating salary with a top pick. What concept is this?", "options": ["Anchoring", "BATNA (Best Alternative to a Negotiated Agreement)", "Principled negotiation alone", "Win-win framing alone"], "correctIndex": 1, "explanation": "Your best alternative if the current negotiation fails, and your real source of leverage, is your BATNA."}, "TEAM 320": {"question": "A capable employee quietly disengages because every decision they make gets second-guessed. What risk is this?", "options": ["A benefit of close oversight", "A micromanagement risk", "Strong ownership culture", "Proper accountability structures"], "correctIndex": 1, "explanation": "Disengagement caused by over-controlling leadership is exactly the cost described by micromanagement risks."}, "LEAD 320": {"question": "You make a fast, clear call during a sudden equipment failure rather than freezing while gathering more information. What are you demonstrating?", "options": ["Post-crisis recovery", "Crisis leadership", "Change management", "Organizational politics"], "correctIndex": 1, "explanation": "Leading effectively during a high-stakes, high-uncertainty situation that demands a fast, clear decision is crisis leadership."}, "EXEC 401": {"question": "A leader delivers hard news steadily and directly, without over-explaining or excessive apology. What quality does this project?", "options": ["Personal branding alone", "Gravitas", "Communication style alone", "Credibility building alone"], "correctIndex": 1, "explanation": "The seriousness, confidence, and weight a leader projects in high-stakes moments is gravitas."}, "LEAD 410": {"question": "You identify and train a backup lead trainer well before you'd ever actually need them. What are you building?", "options": ["A development plan only", "A succession pipeline", "Talent identification alone", "A mentoring framework alone"], "correctIndex": 1, "explanation": "A structured process for identifying and preparing future leaders before they're needed is a succession pipeline."}, "ETH 420": {"question": "You stick to your stated quality standards even when a shortcut would meet a tight deadline. What are you demonstrating?", "options": ["Moral leadership alone", "Integrity under pressure", "Accountability alone", "An ethical framework by itself"], "correctIndex": 1, "explanation": "Maintaining honest, consistent principles even when circumstances make cutting corners tempting is integrity under pressure."}, "LEAD 402": {"question": "You run a therapy practice, a skincare brand, and a meal prep venture, applying the same clear standards to each without any going neglected. What are you practicing?", "options": ["Organizational politics", "Divided attention leadership", "A single-venture leadership style", "Coalition building alone"], "correctIndex": 1, "explanation": "Leading effectively across multiple simultaneous responsibilities without any one suffering neglect is divided attention leadership."}, "ORG 430": {"question": "You document your exact client onboarding steps so a new hire can run it without constantly asking you. What are you doing?", "options": ["Scaling culture alone", "Process systemization", "Organizational maturity by itself", "An operational bottleneck"], "correctIndex": 1, "explanation": "Turning ad hoc work into documented, repeatable processes that don't depend on one person is process systemization."}, "LEAD 490": {"question": "You can clearly explain 'lead by serving first, hold high standards, never ask someone to do what I wouldn't,' rooted in real experience. What have you articulated?", "options": ["A leadership narrative only", "A leadership philosophy", "A case presentation alone", "A self-assessment synthesis alone"], "correctIndex": 1, "explanation": "A leader's clearly articulated, personally held set of principles guiding how they lead is a leadership philosophy."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'leadership-degree-completed';
+const MASTERED_KEY = 'leadership-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

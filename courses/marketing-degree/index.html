@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing & Brand Strategy — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Marketing & Brand Strategy — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Marketing foundations through integrated brand strategy and go-to-market execution.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Marketing Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "MKT 101", "title": "Marketing Principles", "credits": 3, "desc": "The Four Ps and the customer-needs logic underneath every marketing decision that follows.", "concepts": ["Four Ps of marketing", "Market research", "Customer needs", "Target audience", "Value proposition"]}, {"code": "MKT 110", "title": "Consumer Behavior & Psychology", "credits": 3, "desc": "What actually drives a purchase decision — motivation, bias, and the emotional/rational split.", "concepts": ["Consumer decision journey", "Motivation theory", "Cognitive biases in marketing", "Purchase triggers", "Emotional vs rational appeal"]}, {"code": "COMM 101", "title": "Copywriting Fundamentals", "credits": 3, "desc": "Clarity and persuasive structure — writing that actually moves a reader toward a decision.", "concepts": ["Clarity & brevity", "Persuasive structure", "Headlines & hooks", "Call to action", "Tone of voice"]}]}, {"term": "Spring", "courses": [{"code": "MKT 102", "title": "Brand Strategy Foundations", "credits": 3, "desc": "Positioning and differentiation as the strategic core every later branding course builds on.", "concepts": ["Brand positioning", "Brand archetypes", "Differentiation", "Unique selling proposition", "Brand promise"]}, {"code": "MKT 120", "title": "Market Research & Analytics", "credits": 3, "desc": "Surveys, competitive analysis, and reading data correctly before it shapes a strategy.", "concepts": ["Surveys & focus groups", "Competitive analysis", "Market segmentation", "Data interpretation", "SWOT analysis"]}, {"code": "COMM 110", "title": "Visual Communication & Design Principles", "credits": 3, "desc": "Layout, color, and typography — the visual grammar every brand asset gets built from.", "concepts": ["Visual hierarchy", "Color theory", "Typography", "Layout & composition", "Brand consistency"]}]}]}, {"year": 2, "title": "Digital & Content", "semesters": [{"term": "Fall", "courses": [{"code": "DIG 201", "title": "Digital Marketing Fundamentals", "credits": 3, "desc": "Channels and funnels — the map of where digital marketing actually happens.", "concepts": ["Marketing funnel", "Digital channels", "Customer acquisition cost", "Conversion rate", "Marketing ecosystem"]}, {"code": "CONTENT 210", "title": "Content Strategy & Storytelling", "credits": 3, "desc": "Content pillars and narrative structure for building an editorial system, not just one-off posts.", "concepts": ["Content pillars", "Storytelling structure", "Editorial calendar", "Audience-first content", "Narrative arc"]}, {"code": "SEO 220", "title": "Search Engine Optimization", "credits": 3, "desc": "Keyword research and on/off-page SEO — how content actually gets found.", "concepts": ["Keyword research", "On-page SEO", "Off-page SEO", "Search intent", "Domain authority"]}]}, {"term": "Spring", "courses": [{"code": "DIG 202", "title": "Social Media Strategy", "credits": 3, "desc": "Platform strategy and community building for organic growth that doesn't depend on paid spend.", "concepts": ["Platform strategy", "Organic reach", "Community building", "Content calendar", "Engagement rate"]}, {"code": "PAID 230", "title": "Paid Advertising & Media Buying", "credits": 3, "desc": "Targeting, bidding, and budget allocation across paid ad platforms.", "concepts": ["Ad targeting", "Cost per acquisition", "Bid strategy", "Ad creative testing", "Budget allocation"]}, {"code": "EMAIL 240", "title": "Email Marketing & Automation", "credits": 3, "desc": "Segmentation and automated sequences for lifecycle marketing that runs without manual sends.", "concepts": ["Email segmentation", "Automation sequences", "Open & click-through rate", "Lifecycle marketing", "List hygiene"]}]}]}, {"year": 3, "title": "Brand Systems & Growth", "semesters": [{"term": "Fall", "courses": [{"code": "BRAND 301", "title": "Brand Identity & Visual Systems", "credits": 3, "desc": "Logo, voice, and brand guidelines — turning brand strategy into a usable, consistent system.", "concepts": ["Logo & visual identity", "Brand voice", "Brand guidelines", "Visual consistency", "Brand touchpoints"]}, {"code": "GROWTH 310", "title": "Growth Marketing & Funnels", "credits": 3, "desc": "Acquisition and retention loops — engineering growth as a repeatable system, not a campaign.", "concepts": ["Acquisition loops", "Activation metrics", "Retention strategy", "Growth funnel", "Viral coefficient"]}, {"code": "CX 320", "title": "Customer Experience & Journey Design", "credits": 3, "desc": "Mapping every touchpoint a customer experiences to find and fix friction.", "concepts": ["Customer journey mapping", "Touchpoint design", "Service design", "Friction points", "Customer satisfaction"]}]}, {"term": "Spring", "courses": [{"code": "BRAND 302", "title": "Positioning & Competitive Differentiation", "credits": 3, "desc": "Category design and messaging hierarchy for owning a specific position competitors can't easily copy.", "concepts": ["Category design", "Messaging hierarchy", "Competitive differentiation", "Positioning statement", "Perceptual mapping"]}, {"code": "ANALYTICS 330", "title": "Marketing Analytics & Attribution", "credits": 3, "desc": "Tracking and attribution — knowing which marketing actually drove the result, not just correlated with it.", "concepts": ["Attribution modeling", "Conversion tracking", "ROI measurement", "Marketing dashboards", "Multi-touch attribution"]}, {"code": "PARTNER 340", "title": "Partnerships & Influencer Marketing", "credits": 3, "desc": "Collaboration structures for extending reach through aligned partners rather than paid media alone.", "concepts": ["Influencer partnerships", "Affiliate marketing", "Co-marketing", "Partnership structures", "Brand alignment"]}]}]}, {"year": 4, "title": "Applied Strategy & Leadership", "semesters": [{"term": "Fall", "courses": [{"code": "STRAT 401", "title": "Integrated Marketing Campaigns", "credits": 3, "desc": "Designing one campaign that runs coherently across every channel at once.", "concepts": ["Integrated campaigns", "Multi-channel strategy", "Campaign briefs", "Message consistency", "Media mix"]}, {"code": "LAUNCH 410", "title": "Product Launch Strategy", "credits": 3, "desc": "Go-to-market planning and launch sequencing for a product's first real moment in market.", "concepts": ["Go-to-market strategy", "Launch sequencing", "Pre-launch buzz", "Launch metrics", "Market timing"]}, {"code": "LEAD 420", "title": "Marketing Leadership & Team Building", "credits": 3, "desc": "Creative direction and agency/vendor management — leading the people and partners who execute the strategy.", "concepts": ["Creative direction", "Agency management", "Creative briefs", "Vendor coordination", "Team leadership"]}]}, {"term": "Spring", "courses": [{"code": "BRAND 402", "title": "Brand Equity & Long-Term Value", "credits": 3, "desc": "Building brand value that compounds over years, not just campaign-cycle wins.", "concepts": ["Brand equity", "Customer loyalty", "Reputation management", "Brand valuation", "Long-term brand value"]}, {"code": "PR 430", "title": "Public Relations & Reputation Management", "credits": 3, "desc": "Media relations and crisis communication for protecting and shaping public perception.", "concepts": ["Media relations", "Press releases", "Crisis communication", "Reputation monitoring", "Public perception"]}, {"code": "MKT 490", "title": "Capstone — Full Brand & Go-to-Market Plan", "credits": 3, "desc": "A complete brand strategy and launch plan, built and presented end to end.", "concepts": ["Go-to-market plan", "Brand strategy synthesis", "Campaign presentation", "Strategic rationale", "Launch roadmap"]}]}]}];
+const GLOSSARY = {"Four Ps of marketing": "The classic marketing mix framework — Product, Price, Place, Promotion — for structuring a go-to-market approach. Example: a new coaching package needs a defined product (what's included), price, place (where it's sold), and promotion (how people hear about it).", "Market research": "Gathering and analyzing information about a target market to inform business and marketing decisions. Example: surveying past clients about what almost stopped them from booking is market research that directly informs your messaging.", "Customer needs": "The underlying problems or desires a product or service is meant to satisfy. Example: a client's stated need might be 'lose weight,' but the real underlying need is often 'feel confident again.'", "Target audience": "The specific group of people a marketing effort is designed to reach and persuade. Example: 'women in their 40s recovering from a running injury' is specific enough to actually build an ad campaign around.", "Value proposition": "The specific reason a customer should choose your offer over any alternative, including doing nothing. Example: 'we fix the root cause your last three trainers missed' is a value proposition, not just a feature list.", "Consumer decision journey": "The stages a buyer moves through from awareness of a need to a completed purchase. Example: someone noticing hip pain, researching causes online, then finally booking an assessment traces the full decision journey.", "Motivation theory": "Frameworks explaining what actually drives people to want or choose something. Example: understanding that a client is driven more by fear of re-injury than by aesthetic goals should change how you talk to them.", "Cognitive biases in marketing": "Predictable mental shortcuts, like social proof or scarcity, that marketers can ethically or unethically leverage. Example: showing 'only 3 spots left this month' leverages a scarcity bias to prompt faster decisions.", "Purchase triggers": "The specific events or emotions that push a prospect from considering a purchase to actually making it. Example: a new injury flare-up is often the exact purchase trigger that finally moves someone from browsing to booking.", "Emotional vs rational appeal": "The balance between persuading through feeling versus persuading through logic and evidence. Example: leading with 'imagine playing with your kids pain-free' is emotional appeal; following with client outcome data is rational appeal.", "Clarity & brevity": "Saying exactly what needs to be said in as few words as possible, without losing meaning. Example: 'Book your free assessment' beats 'We would love the opportunity to schedule a complimentary initial consultation.'", "Persuasive structure": "Organizing writing in a sequence — problem, agitation, solution — designed to move a reader toward action. Example: naming the pain, describing what happens if it's ignored, then presenting your program as the fix.", "Headlines & hooks": "The opening line or idea designed to capture attention and pull a reader further in. Example: 'Still icing that shoulder every night?' is a hook that speaks directly to a specific reader's exact situation.", "Call to action": "The specific instruction telling a reader exactly what to do next. Example: 'Tap below to book your free movement assessment' is a clear, specific call to action, not just 'learn more.'", "Tone of voice": "The consistent personality and style a brand uses across all its written communication. Example: keeping every client-facing message clinical, direct, and warm, rather than switching between casual and corporate.", "Brand positioning": "How a brand is defined in the customer's mind relative to competitors. Example: positioning as 'the clinical, assessment-first option' versus 'the fun neighborhood gym down the street.'", "Brand archetypes": "Universal character patterns, like the hero or the sage, used to give a brand a consistent personality. Example: a brand built on the 'sage' archetype leans into expertise and evidence-based guidance in every message.", "Differentiation": "What makes an offer genuinely distinct from competitors, beyond price. Example: a documented, repeatable assessment methodology is real differentiation — a generic price cut isn't.", "Unique selling proposition": "The single, specific claim that separates a product from every competing option. Example: 'the only local practice combining licensed massage therapy with corrective exercise programming' is a real, defensible USP.", "Brand promise": "The consistent commitment a brand makes to customers about what they'll experience every time. Example: promising 'every session starts with an assessment, not a guess' and delivering on that promise every single time.", "Surveys & focus groups": "Structured methods for gathering direct feedback and insight from real customers. Example: a short post-program survey asking clients what almost made them not sign up in the first place.", "Competitive analysis": "Systematically studying competitors' positioning, pricing, and messaging to inform your own strategy. Example: reviewing five local competitors' websites to see where they all say the exact same thing, and positioning against that gap.", "Market segmentation": "Dividing a broad market into distinct groups with shared needs, to target each more precisely. Example: separating 'post-injury clients' from 'performance athletes' as segments, since each needs completely different messaging.", "Data interpretation": "Drawing accurate, actionable conclusions from research or analytics data. Example: noticing that most bookings come from a specific zip code and adjusting local ad targeting accordingly.", "SWOT analysis": "A framework for assessing Strengths, Weaknesses, Opportunities, and Threats facing a brand. Example: a SWOT might reveal your clinical credentials are a strength, but limited weekend availability is a real weakness.", "Visual hierarchy": "Arranging design elements so the eye is guided to the most important information first. Example: making the price and 'book now' button visually dominant on a landing page, not buried below three paragraphs of text.", "Color theory": "The study of how colors interact and the emotional or perceptual effects they produce. Example: choosing gold and deep green for a brand to signal premium and grounded, rather than bright neon for energy.", "Typography": "The art of arranging type — font choice, size, spacing — to communicate clearly and set tone. Example: a serif display font for headlines paired with a clean sans-serif for body text signals both craft and clarity.", "Layout & composition": "How visual elements are arranged on a page or screen to create balance and clarity. Example: enough white space around a call-to-action button so it doesn't compete visually with everything else on the page.", "Brand consistency": "Maintaining the same visual and verbal identity across every touchpoint a customer encounters. Example: the same color palette and tone across your website, Instagram, and client intake forms.", "Marketing funnel": "The staged path a prospect moves through from first awareness to becoming a customer. Example: seeing an Instagram post → visiting the website → booking a free assessment → signing up for a program is the funnel in action.", "Digital channels": "The specific online platforms — search, social, email, display — used to reach an audience. Example: choosing Instagram and local Google search as your two primary digital channels because that's where your ideal client actually spends attention.", "Customer acquisition cost": "The total cost of marketing and sales required to win one new customer. Example: spending $300 on ads in a month that brought in 5 new clients means a $60 customer acquisition cost.", "Conversion rate": "The percentage of people who take a desired action out of everyone who had the opportunity to. Example: if 100 people visit your booking page and 8 actually book, your conversion rate is 8%.", "Marketing ecosystem": "The full interconnected set of channels, tools, and touchpoints that make up a brand's marketing presence. Example: your website, email list, Instagram, and referral program together make up your full marketing ecosystem.", "Content pillars": "The core themes or topics a brand consistently creates content around. Example: 'assessment education,' 'client transformations,' and 'corrective exercise myths' could be three content pillars for a clinical practice.", "Storytelling structure": "The narrative framework — setup, conflict, resolution — used to make content memorable and persuasive. Example: 'client in chronic pain → tried everything else → found the root cause here' is a repeatable storytelling structure.", "Editorial calendar": "A planned schedule of what content gets published, where, and when. Example: a monthly editorial calendar mapping one client story, one education post, and one behind-the-scenes post per week.", "Audience-first content": "Content built around what the audience actually wants to know, not just what the brand wants to say. Example: a post answering 'why does my knee still hurt after PT?' rather than one that just promotes your services.", "Narrative arc": "The shape a story takes as it builds tension and moves toward resolution. Example: a client testimonial that builds from frustration, through the turning point, to the resolved outcome follows a clear narrative arc.", "Keyword research": "Identifying the specific search terms an audience uses, to inform content and SEO strategy. Example: discovering people search 'why does my shoulder click' far more than 'shoulder impingement' should shape your content's actual wording.", "On-page SEO": "Optimization done directly on a webpage — content, headers, meta tags — to improve search visibility. Example: making sure your homepage title tag actually includes 'corrective exercise' and your city name.", "Off-page SEO": "Optimization efforts outside your own site, like backlinks, that influence search ranking. Example: getting listed in a local business directory or linked from a partner clinic's site is off-page SEO.", "Search intent": "The underlying goal behind a search query — informational, navigational, or transactional. Example: 'what is corrective exercise' is informational intent, while 'corrective exercise near me' is transactional intent — each needs different content.", "Domain authority": "A score estimating how likely a website is to rank in search results, based on its overall credibility. Example: a new website typically starts with low domain authority and builds it up through consistent, quality content and links.", "Platform strategy": "Deciding which social platforms to prioritize based on where a specific audience actually spends time. Example: prioritizing Instagram and local Facebook groups over TikTok, because that's genuinely where your target client is.", "Organic reach": "The number of people who see content without paid promotion. Example: a client transformation post that gets shared widely without any ad spend behind it is organic reach at work.", "Community building": "Deliberately cultivating an engaged audience that interacts with a brand and each other. Example: an active client Facebook group where people encourage each other is real community building, not just a follower count.", "Content calendar": "A scheduled plan of what content will be published across channels and when. Example: a content calendar that maps exactly which post goes out each day for the next month, tied to your content pillars.", "Engagement rate": "The percentage of an audience that interacts with content, relative to how many saw it. Example: a post with 1,000 views and 80 likes/comments/shares has an 8% engagement rate.", "Ad targeting": "Defining the specific audience characteristics an ad campaign is shown to. Example: targeting ads specifically to people within 15 miles who've shown interest in fitness or physical therapy topics.", "Cost per acquisition": "The amount spent on advertising to acquire a single customer or conversion. Example: if $500 in ad spend brought in 4 new clients, your cost per acquisition on that campaign was $125.", "Bid strategy": "The approach used to determine how much to bid for ad placement in an auction-based platform. Example: choosing an automated bid strategy that optimizes for booked appointments, rather than just clicks.", "Ad creative testing": "Systematically testing different ad variations to see which performs best. Example: running two versions of the same ad, one emphasizing pain relief and one emphasizing performance, to see which converts better.", "Budget allocation": "Deciding how much ad spend to assign across different campaigns, platforms, or audiences. Example: shifting more budget toward Instagram once it consistently outperforms Facebook for booked assessments.", "Email segmentation": "Dividing an email list into groups based on behavior or characteristics, to send more relevant messages. Example: sending a different email to past clients than to people who only downloaded a free guide.", "Automation sequences": "Pre-built series of emails triggered automatically by a specific user action or timeline. Example: a 3-email welcome sequence that automatically fires after someone books their first free assessment.", "Open & click-through rate": "The percentage of recipients who open an email, and the percentage who then click a link inside it. Example: a subject line change that lifts open rate from 20% to 35% is a measurable email improvement.", "Lifecycle marketing": "Tailoring marketing messages to where a customer sits in their relationship with a brand — new, active, lapsed. Example: sending a re-engagement offer specifically to clients who haven't booked in 90 days.", "List hygiene": "Regularly removing inactive or invalid contacts to keep an email list healthy and deliverable. Example: removing addresses that haven't opened an email in a year to protect your sender reputation.", "Logo & visual identity": "The core visual mark and system that makes a brand instantly recognizable. Example: a consistent logo mark used identically across your website, business cards, and social profiles.", "Brand voice": "The consistent personality and word choice a brand uses in all its communication. Example: writing every client message in the same first-person clinical voice, whether it's a text reminder or a full proposal.", "Brand guidelines": "A documented reference defining exactly how a brand's visual and verbal identity should be used. Example: a one-page guide specifying exact colors, fonts, and tone so any new hire can create on-brand content immediately.", "Visual consistency": "Applying the same design language across every asset and touchpoint a brand produces. Example: using the same gold-and-charcoal palette on every app and document, so they all feel like one connected brand.", "Brand touchpoints": "Every point of contact a customer has with a brand, from ads to packaging to customer service. Example: an intake form, a follow-up text, and a signed program agreement are all brand touchpoints, not just your ads.", "Acquisition loops": "Repeatable mechanisms that consistently bring new customers into a business. Example: a referral incentive that turns every satisfied client into a source of new leads is a repeatable acquisition loop.", "Activation metrics": "Measures of whether a new customer actually experiences a product's core value early on. Example: tracking whether a new client completes their first assessment within a week is an activation metric.", "Retention strategy": "Deliberate efforts to keep existing customers engaged and purchasing over time. Example: a monthly progress check-in call is a retention strategy that keeps clients engaged beyond just the initial sale.", "Growth funnel": "The staged framework — acquisition, activation, retention, referral, revenue — used to structure growth strategy, popularized by investor Dave McClure in 2007 as 'AARRR' or 'pirate metrics.' Example: mapping exactly where prospects drop off between 'booked assessment' and 'signed program' inside the growth funnel. (Source: Dave McClure, 'Startup Metrics for Pirates,' 2007)", "Viral coefficient": "A measure of how many new users each existing user brings in, used to gauge organic growth potential. Example: a referral program generating an average of 0.3 new clients per existing client has a viral coefficient of 0.3.", "Customer journey mapping": "Laying out every step a customer takes from awareness to purchase to identify friction points. Example: journey mapping might reveal clients drop off specifically at the online scheduling step, not the pricing page.", "Touchpoint design": "Deliberately shaping every point of contact a customer has with the brand. Example: designing the intake paperwork itself to feel clinical and professional, not just an afterthought form.", "Service design": "Designing the end-to-end experience of a service, not just its individual parts. Example: mapping the entire experience from first phone call through final session to spot gaps between individual touchpoints.", "Friction points": "Specific moments in a customer's experience that create unnecessary difficulty or hesitation. Example: a booking page that requires seven fields before showing a price is a friction point costing you conversions.", "Customer satisfaction": "A measure of how well a product or experience met a customer's expectations. Example: a simple post-session survey asking clients to rate their experience gives a direct read on customer satisfaction.", "Category design": "Defining or redefining a market category so a brand can own the position of leader within it. Example: positioning as 'the clinical corrective exercise practice,' a category few local competitors are even claiming.", "Messaging hierarchy": "Organizing a brand's core messages by priority, from the most important claim down. Example: leading every piece of content with 'root cause, not symptoms' before any secondary message about pricing or convenience.", "Competitive differentiation": "The specific, defensible ways a brand stands apart from direct competitors. Example: being the only practice in the area combining a licensed massage therapist with a certified corrective exercise specialist.", "Positioning statement": "A concise internal statement defining who a product is for, what it does, and why it's different. Example: 'For people in chronic pain who've tried generic fitness programs, we're the assessment-driven alternative that finds the actual cause.'", "Perceptual mapping": "A visual tool plotting how brands are perceived relative to each other across key attributes. Example: plotting local competitors on a 'clinical vs casual' and 'premium vs budget' map to spot an open position.", "Attribution modeling": "The method used to assign credit for a conversion to the specific marketing touchpoints that led to it. Example: crediting both the Instagram ad someone first saw and the email that finally converted them, not just the last click.", "Conversion tracking": "Measuring when and how users complete a desired action after interacting with marketing. Example: setting up tracking so you know exactly which ad campaign a booked assessment actually came from.", "ROI measurement": "Calculating the return generated relative to the cost of a marketing investment. Example: spending $500 on ads that generated $3,000 in new client revenue is a 6x return on that marketing investment.", "Marketing dashboards": "Consolidated views of key marketing metrics built for fast, ongoing decision-making. Example: a single dashboard showing weekly leads, bookings, and ad spend so you don't have to check five separate platforms.", "Multi-touch attribution": "An attribution approach that credits multiple touchpoints along a customer's path, not just the last one. Example: recognizing that a client saw three Instagram posts and one email before finally booking, not just the final click.", "Influencer partnerships": "Collaborating with individuals who have an engaged audience to promote a brand or product. Example: partnering with a local wellness influencer for an honest review of your assessment process.", "Affiliate marketing": "A performance-based partnership where a partner earns commission for driving sales or leads. Example: paying a local physical therapist a referral fee for every client they send who signs up for a program.", "Co-marketing": "Two brands collaborating on a joint campaign to share reach and resources. Example: partnering with a local nutritionist on a joint workshop, splitting promotion and sharing both audiences.", "Partnership structures": "The specific terms and arrangement governing how two parties collaborate commercially. Example: a formal referral agreement spelling out exactly what percentage each party earns keeps a partnership structure clean and disputes rare.", "Brand alignment": "Ensuring a partnership or collaboration fits naturally with a brand's values and audience. Example: partnering with a clinical nutritionist fits your brand's evidence-based positioning far better than a fad-diet influencer would.", "Integrated campaigns": "Marketing campaigns coordinated consistently across multiple channels at once. Example: a new-program launch that runs the same core message across email, Instagram, and in-studio signage simultaneously.", "Multi-channel strategy": "Deliberately using several marketing channels together in a coordinated way. Example: running Instagram ads to drive traffic, then following up leads by email, is a coordinated multi-channel approach.", "Campaign briefs": "A document defining a campaign's goals, audience, message, and constraints before work begins. Example: a one-page brief outlining the launch's goal, audience, and key message before any content gets created.", "Message consistency": "Keeping a campaign's core message aligned across every channel and format it appears in. Example: the same 'find the root cause' message appearing in your ads, emails, and in-person consultations for a launch.", "Media mix": "The specific combination of channels and formats used to deliver a campaign. Example: a launch's media mix might be 60% Instagram ads, 30% email, and 10% local print for a targeted community push.", "Go-to-market strategy": "The specific plan for how a product or service will actually reach and win its first customers. Example: launching a new program to your existing client base first, before spending on ads to strangers.", "Launch sequencing": "The deliberate order and timing of activities leading up to and following a product launch. Example: teasing a new program for two weeks, opening early access to past clients, then opening to the public.", "Pre-launch buzz": "Anticipation and awareness deliberately built before a product officially becomes available. Example: a countdown post series in the week before a new program opens is designed purely to build pre-launch buzz.", "Launch metrics": "The specific numbers used to judge whether a launch succeeded against its goals. Example: setting a specific target, like 15 signups in the first week, as the launch metric that defines success.", "Market timing": "Choosing the right moment to launch or promote based on external conditions and audience readiness. Example: launching a New Year program in late December, when interest in fitness goals is naturally spiking.", "Creative direction": "Guiding the overall look, feel, and message of creative work toward a consistent vision. Example: deciding every launch asset should feel clinical and grounded, not flashy, and holding every design to that standard.", "Agency management": "Overseeing external creative or marketing partners to ensure work aligns with brand goals. Example: giving a hired designer clear brand guidelines upfront so their work doesn't need three rounds of revisions.", "Creative briefs": "A document giving creative teams the context and objectives needed to produce on-target work. Example: a brief specifying tone, audience, and key message before commissioning a freelance photographer for brand photos.", "Vendor coordination": "Managing multiple outside partners and suppliers so their work integrates smoothly. Example: making sure your web designer, copywriter, and photographer are all working from the same brand brief and timeline.", "Team leadership": "Guiding and developing a marketing team toward consistent execution and growth. Example: training a staff member to write in your brand voice so content stays consistent even when you're not writing it yourself.", "Brand equity": "The accumulated value a brand holds in customers' minds, beyond the product itself. Example: a client choosing your practice over a cheaper competitor purely because of your established reputation is brand equity at work.", "Customer loyalty": "The degree to which customers consistently choose a brand over alternatives. Example: a client who's referred five friends over three years is showing exactly the kind of loyalty every business wants more of.", "Reputation management": "Actively monitoring and shaping public perception of a brand. Example: responding thoughtfully and promptly to every review, positive or negative, is active reputation management.", "Brand valuation": "Estimating the financial worth of a brand as a standalone asset. Example: a recognizable, trusted local brand name adds real dollar value beyond its physical assets if the business is ever sold.", "Long-term brand value": "The cumulative value a brand builds over time through consistent positioning and customer trust. Example: years of consistent, evidence-based messaging is what eventually lets you charge a premium without resistance.", "Media relations": "Building and maintaining relationships with journalists and outlets to earn coverage. Example: building a relationship with a local news reporter who covers health topics, so they think of you for future stories.", "Press releases": "Formal written announcements distributed to media to generate coverage of news or events. Example: a press release announcing a new clinic location, sent to local news outlets and business journals.", "Crisis communication": "A planned approach for communicating clearly and credibly during a reputational emergency. Example: having a prepared, honest statement ready in case a negative review or incident ever goes public.", "Reputation monitoring": "Tracking what's being said about a brand across media and public channels. Example: setting up alerts for your business name so you know immediately if a new review or mention appears anywhere online.", "Public perception": "How the general public views and feels about a brand at a given time. Example: consistently positive client testimonials shape public perception long before someone ever books their first session.", "Go-to-market plan": "A complete, structured plan for launching and growing a product in its market. Example: a full go-to-market plan covering audience, message, channels, and timeline for a new signature program.", "Brand strategy synthesis": "Pulling positioning, identity, and messaging together into one coherent strategic direction. Example: making sure your positioning statement, visual identity, and content pillars all reinforce the exact same brand strategy.", "Campaign presentation": "Formally presenting a campaign's strategy, creative, and rationale to stakeholders. Example: walking a business partner through the full launch plan, creative, and expected results before it goes live.", "Strategic rationale": "The reasoning that justifies why a specific strategic direction was chosen. Example: documenting exactly why you're targeting post-injury clients over general fitness clients this quarter, and what data supports it.", "Launch roadmap": "A sequenced timeline of the activities and milestones leading to and following a launch. Example: a week-by-week roadmap from teaser content through opening day through the first follow-up email sequence."};
+const QUIZ = {"MKT 101": {"question": "'We fix the root cause your last three trainers missed' gives a specific reason to choose you over any alternative. What is this?", "options": ["A target market", "A value proposition", "A brand archetype", "A KPI"], "correctIndex": 1, "explanation": "The specific reason a customer should choose your offer over any alternative is the value proposition."}, "MKT 110": {"question": "A client's stated goal is 'lose weight,' but the deeper driver is really 'feel confident again.' What are you distinguishing between?", "options": ["Emotional vs rational appeal only", "Stated needs vs deeper underlying customer needs", "A positioning statement", "A SWOT analysis"], "correctIndex": 1, "explanation": "Recognizing the underlying problem or desire behind a stated goal is understanding real customer needs."}, "COMM 101": {"question": "'Book your free assessment' is far more effective than 'We would love the opportunity to schedule a complimentary consultation.' What principle explains why?", "options": ["Persuasive structure", "Clarity & brevity", "Tone of voice", "A headline hook"], "correctIndex": 1, "explanation": "Saying exactly what needs to be said in as few words as possible, without losing meaning, is clarity & brevity."}, "MKT 102": {"question": "You position as 'the clinical, assessment-first option' rather than 'the fun neighborhood gym.' What are you establishing?", "options": ["A content calendar", "Brand positioning", "An SEO strategy", "A media mix"], "correctIndex": 1, "explanation": "How a brand is defined in the customer's mind relative to competitors is brand positioning."}, "MKT 120": {"question": "You survey five local competitors' websites and find they all say the exact same generic thing. What are you conducting?", "options": ["A focus group", "Competitive analysis", "A SWOT analysis only", "Attribution modeling"], "correctIndex": 1, "explanation": "Systematically studying competitors' positioning, pricing, and messaging is competitive analysis."}, "COMM 110": {"question": "You make the price and 'book now' button visually dominant on a landing page instead of burying them below three paragraphs. What principle are you applying?", "options": ["Color theory", "Visual hierarchy", "Brand consistency", "Typography alone"], "correctIndex": 1, "explanation": "Arranging design elements so the eye is guided to the most important information first is visual hierarchy."}, "DIG 201": {"question": "A prospect sees an Instagram post, visits your website, then books a free assessment. What is this full path called?", "options": ["A KPI dashboard", "The marketing funnel", "A content pillar", "A brand touchpoint alone"], "correctIndex": 1, "explanation": "The staged path a prospect moves through from first awareness to becoming a customer is the marketing funnel."}, "CONTENT 210": {"question": "'Client in chronic pain → tried everything else → found the root cause here' is a reusable narrative shape for testimonials. What is this?", "options": ["A content calendar", "A storytelling structure", "A keyword research strategy", "Off-page SEO"], "correctIndex": 1, "explanation": "The narrative framework used to make content memorable and persuasive is storytelling structure."}, "SEO 220": {"question": "You discover people search 'why does my shoulder click' far more often than 'shoulder impingement.' What should this discovery shape?", "options": ["Off-page SEO only", "Your content's actual wording, via keyword research", "Your pricing strategy", "Your brand guidelines"], "correctIndex": 1, "explanation": "Identifying the specific search terms an audience actually uses is keyword research, which should directly shape content wording."}, "DIG 202": {"question": "A client transformation post gets shared widely without any ad spend behind it. What is this an example of?", "options": ["Paid acquisition", "Organic reach", "Cost per acquisition", "A media mix"], "correctIndex": 1, "explanation": "The number of people who see content without paid promotion is organic reach."}, "PAID 230": {"question": "You spend $500 on ads that brought in 4 new clients. What have you just calculated?", "options": ["ROI measurement", "Cost per acquisition", "Engagement rate", "A conversion rate alone"], "correctIndex": 1, "explanation": "The amount spent on advertising to acquire a single customer is cost per acquisition — here, $125 per client."}, "EMAIL 240": {"question": "A 3-email sequence automatically fires the moment someone books their first free assessment. What is this called?", "options": ["List hygiene", "An automation sequence", "A content pillar", "Ad creative testing"], "correctIndex": 1, "explanation": "A pre-built series of emails triggered automatically by a specific user action is an automation sequence."}, "BRAND 301": {"question": "You write a one-page guide specifying exact colors, fonts, and tone so any new hire creates on-brand content immediately. What have you built?", "options": ["A positioning statement", "Brand guidelines", "A perceptual map", "A campaign brief"], "correctIndex": 1, "explanation": "A documented reference defining exactly how a brand's visual and verbal identity should be used is brand guidelines."}, "GROWTH 310": {"question": "A referral incentive turns every satisfied client into a source of new leads, repeatedly. What is this an example of?", "options": ["An activation metric", "An acquisition loop", "A retention strategy alone", "A viral coefficient calculation"], "correctIndex": 1, "explanation": "A repeatable mechanism that consistently brings new customers into a business is an acquisition loop."}, "CX 320": {"question": "Journey mapping reveals clients drop off specifically at the online scheduling step, not the pricing page. What have you identified?", "options": ["A brand touchpoint only", "A friction point", "A content pillar", "A positioning statement"], "correctIndex": 1, "explanation": "A specific moment in a customer's experience that creates unnecessary difficulty or hesitation is a friction point."}, "BRAND 302": {"question": "You position as 'the clinical corrective exercise practice,' a category few local competitors are even claiming. What strategic move is this?", "options": ["Category design", "A perceptual map alone", "A media mix", "List hygiene"], "correctIndex": 0, "explanation": "Defining or redefining a market category so a brand can own the position of leader within it is category design."}, "ANALYTICS 330": {"question": "You credit both the Instagram ad someone first saw and the email that finally converted them, not just the last click. What kind of attribution is this?", "options": ["Last-click attribution only", "Multi-touch attribution", "ROI measurement alone", "A marketing dashboard"], "correctIndex": 1, "explanation": "Crediting multiple touchpoints along a customer's path, not just the final one, is multi-touch attribution."}, "PARTNER 340": {"question": "You pay a local physical therapist a fee for every client they send who signs up for a program. What structure is this?", "options": ["Co-marketing", "Affiliate marketing", "Brand alignment alone", "A creative brief"], "correctIndex": 1, "explanation": "A performance-based partnership where a partner earns commission for driving sales or leads is affiliate marketing."}, "STRAT 401": {"question": "The same core message appears in your ads, emails, and in-studio signage during a launch. What are you maintaining?", "options": ["A single-channel strategy", "Message consistency across an integrated campaign", "A perceptual map", "List hygiene"], "correctIndex": 1, "explanation": "Keeping a campaign's core message aligned across every channel it appears in is message consistency."}, "LAUNCH 410": {"question": "You teased a new program for two weeks, opened early access to past clients, then opened to the public. What have you built?", "options": ["A media mix only", "Launch sequencing", "A content pillar", "A perceptual map"], "correctIndex": 1, "explanation": "The deliberate order and timing of activities leading up to and following a launch is launch sequencing."}, "LEAD 420": {"question": "You give a hired designer clear brand guidelines upfront so their work doesn't need three rounds of revisions. What are you practicing?", "options": ["Creative direction and agency management", "List hygiene", "A KPI dashboard", "Attribution modeling"], "correctIndex": 0, "explanation": "Guiding external creative partners with clear direction so work aligns with brand goals is creative direction and agency management."}, "BRAND 402": {"question": "A client chooses your practice over a cheaper competitor purely because of your established reputation. What is this reflecting?", "options": ["A content calendar", "Brand equity", "A conversion rate", "A perceptual map"], "correctIndex": 1, "explanation": "The accumulated value a brand holds in customers' minds, beyond the product itself, is brand equity."}, "PR 430": {"question": "You have a prepared, honest statement ready in case a negative review or incident ever goes public. What are you practicing?", "options": ["Media relations only", "Crisis communication", "A press release", "Reputation monitoring alone"], "correctIndex": 1, "explanation": "A planned approach for communicating clearly and credibly during a reputational emergency is crisis communication."}, "MKT 490": {"question": "You build a full plan covering audience, message, channels, and timeline for a new signature program launch. What have you created?", "options": ["A campaign brief only", "A go-to-market plan", "A perceptual map", "A content calendar alone"], "correctIndex": 1, "explanation": "A complete, structured plan for launching and growing a product in its market is a go-to-market plan."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'marketing-degree-completed';
+const MASTERED_KEY = 'marketing-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

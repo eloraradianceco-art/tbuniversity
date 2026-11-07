@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TB University</title>
+<meta name="description" content="Self-study courses: licensing prep, coding, and four-year degree curricula.">
+<meta name="theme-color" content="#0e120f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TB University">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e120f;--panel:#161d18;--hover:#202a22;--text:#ece5d3;--dim:#9aa393;--faint:#6b7367;--gold:#b98b3e;--gold2:#d9a94f;--border:#2a332b;--fd:'Fraunces',serif;--fb:'Inter',sans-serif;--fm:'IBM Plex Mono',ui-monospace,monospace}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);-webkit-font-smoothing:antialiased;line-height:1.5;padding-bottom:calc(40px + env(safe-area-inset-bottom))}
+.wrap{max-width:760px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top)) 16px 0}
+.eyebrow{font-family:var(--fm);font-size:11px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin:0 0 6px}
+h1{font-family:var(--fd);font-weight:600;font-size:34px;line-height:1.1;margin:0 0 8px}
+h2{font-family:var(--fd);font-weight:600;font-size:20px;margin:30px 0 10px}
+.sub{color:var(--dim);font-size:14.5px;margin:0 0 18px;max-width:52ch}
+input.search{width:100%;background:#0b0f0c;border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:6px;font:400 15px var(--fb);margin:0 0 6px}
+input.search:focus{outline:1px solid var(--gold);border-color:var(--gold)}
+.card{display:block;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px 14px 12px;margin:0 0 10px;color:inherit;text-decoration:none}
+a.card:hover{background:var(--hover);border-color:var(--gold)}
+.card.soon{opacity:.6}
+.card h3{font-family:var(--fd);font-weight:600;font-size:18px;margin:0 0 4px}
+.card p{margin:0 0 8px;font-size:13.5px;color:var(--dim)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font:500 10.5px var(--fm);letter-spacing:.06em;color:var(--faint);border:1px solid var(--border);border-radius:10px;padding:2px 8px}
+.tag.s{color:var(--gold2);border-color:var(--gold)}
+.resume{border-color:var(--gold)}
+.row{display:flex;gap:10px;align-items:center}.grow{flex:1;min-width:0}
+.go{font:600 13px var(--fb);color:var(--gold2);white-space:nowrap}
+.extra{display:inline-block;margin-top:2px;font-size:12.5px;color:var(--gold2)}
+.foot{font-size:12px;color:var(--faint);margin-top:34px;border-top:1px solid var(--border);padding-top:14px}
+.empty{color:var(--faint);font-size:14px;padding:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <p class="eyebrow">Self-study library</p>
+ <h1>TB University</h1>
+ <p class="sub">Licensing prep, coding, and four-year degree curricula. Everything runs in your browser. Your progress saves on this device.</p>
+ <div id="resume"></div>
+ <input class="search" id="q" type="search" placeholder="Search courses" autocomplete="off">
+ <div id="list"></div>
+ <div class="foot">These are study aids built to help you learn. They are not a substitute for textbooks, licensing bodies or qualified professionals. Check anything you plan to rely on in real life against primary sources.</div>
+</div>
+<script>
+const COURSES=[{"slug": "mississippi-real-estate", "title": "Mississippi Real Estate Course", "section": "career", "blurb": "Salesperson pre-licensing prep: 18 units covering national principles and Mississippi law, 229 practice questions, math drills and tools, and a 120-question exam simulator.", "tags": ["Licensing", "Quizzes", "Exam simulator", "Installable"], "soon": false}, {"slug": "learn-to-code", "title": "Learn to Code: A Computer Science Course", "section": "skills", "blurb": "Hands-on JavaScript and computer science. Write real code in the app and get instant, automatic feedback on every exercise.", "tags": ["Coding", "Auto-graded", "Works offline"], "soon": true}, {"slug": "kinesiology-degree", "title": "Corrective Exercise & Kinesiology", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review. Fact-checked against NASM, NSCA and primary literature.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "nutrition-degree", "title": "Nutrition Science", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "trading-degree", "title": "Applied Trading & Market Systems", "section": "degree", "blurb": "Four-year curriculum covering markets, risk and systems, with glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "theology-degree", "title": "Theology & Biblical Studies", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "swe-degree", "title": "Full-Stack Software Engineering", "section": "degree", "blurb": "Four-year curriculum from fundamentals to full-stack systems, with glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "economics-degree", "title": "Economics", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "psychology-degree", "title": "Applied Psychology & Behavioral Science", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "leadership-degree", "title": "Leadership & Organizational Psychology", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "marketing-degree", "title": "Marketing & Brand Strategy", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "smallbiz-degree", "title": "Small Business", "section": "degree", "blurb": "Four-year curriculum with expanded glossary, quizzes and flashcard review.", "tags": ["Degree", "Quizzes", "Flashcards"], "soon": false}, {"slug": "kinesiology-visual", "title": "Kinesiology Visual Companion", "section": "companion", "blurb": "24 diagrams and worked cases that go with the Kinesiology degree.", "tags": ["Diagrams", "Worked cases"], "soon": false}];
+const SECTIONS=[['career','Career & licensing'],['skills','Skills'],['degree','Degree programs'],['companion','Companions']];
+const LK='tbu-last';
+function lastSlug(){try{return localStorage.getItem(LK)}catch(e){return null}}
+function card(c,resume){
+ const href='courses/'+c.slug+'/';
+ const tags=c.tags.map((t,i)=>`<span class="tag${i===0?' s':''}">${t}</span>`).join('')+(c.soon?'<span class="tag">Coming soon</span>':'');
+ const extra=c.slug==='mississippi-real-estate'?`<a class="extra" href="courses/mississippi-real-estate/real-estate-vocabulary.pdf" data-x="1">Vocabulary PDF (120 terms) →</a>`:'';
+ if(c.soon)return `<div class="card soon"><h3>${c.title}</h3><p>${c.blurb}</p><div class="tags">${tags}</div></div>`;
+ return `<div class="card${resume?' resume':''}" data-href="${href}" data-slug="${c.slug}" style="cursor:pointer"><div class="row"><div class="grow"><h3>${c.title}</h3><p>${c.blurb}</p><div class="tags">${tags}</div>${extra?'<div>'+extra+'</div>':''}</div><span class="go">${resume?'Continue':'Open'} →</span></div></div>`}
+function render(){
+ const q=document.getElementById('q').value.trim().toLowerCase();
+ const match=c=>!q||(c.title+' '+c.blurb+' '+c.tags.join(' ')).toLowerCase().includes(q);
+ let h='',n=0;
+ for(const [k,t] of SECTIONS){const cs=COURSES.filter(c=>c.section===k&&match(c));if(!cs.length)continue;n+=cs.length;h+=`<h2>${t}</h2>`+cs.map(c=>card(c)).join('')}
+ document.getElementById('list').innerHTML=h||'<div class="empty">No courses match your search.</div>';
+}
+function renderResume(){
+ const s=lastSlug();const c=COURSES.find(x=>x.slug===s&&!x.soon);
+ document.getElementById('resume').innerHTML=c?`<div class="eyebrow" style="margin-top:4px">Pick up where you left off</div>`+card(c,true):'';
+}
+document.addEventListener('click',e=>{
+ const x=e.target.closest('[data-x]');if(x)return;
+ const el=e.target.closest('[data-href]');if(!el)return;
+ try{localStorage.setItem(LK,el.dataset.slug)}catch(err){}
+ location.href=el.dataset.href;
+});
+document.getElementById('q').addEventListener('input',render);
+render();renderResume();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>

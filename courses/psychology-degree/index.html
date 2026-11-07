@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Psychology & Behavioral Science — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Applied Psychology & Behavioral Science — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Foundational psychology through applied behavior change and coaching practice.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Foundations of Psychology", "semesters": [{"term": "Fall", "courses": [{"code": "PSY 101", "title": "Introduction to Psychology", "credits": 3, "desc": "The major theoretical perspectives and research foundations the rest of the field builds on.", "concepts": ["Major psychological perspectives", "History of psychology", "Research methods", "Nature vs nurture", "Scientific method in psychology"]}, {"code": "PSY 110", "title": "Research Methods & Statistics", "credits": 3, "desc": "How psychological claims actually get tested — design, validity, and basic statistical reasoning.", "concepts": ["Experimental design", "Validity & reliability", "Correlation vs causation", "Descriptive statistics", "Sampling methods"]}, {"code": "PSY 120", "title": "Biological Psychology", "credits": 3, "desc": "The brain and nervous system as the physical substrate underneath every psychological process.", "concepts": ["Neurons & neurotransmitters", "Brain structures", "Central nervous system", "Endocrine system", "Neuroplasticity"]}]}, {"term": "Spring", "courses": [{"code": "PSY 102", "title": "Developmental Psychology", "credits": 3, "desc": "How personality, attachment, and identity form and shift across the full lifespan.", "concepts": ["Attachment theory", "Lifespan stages", "Identity formation", "Critical periods", "Erikson's stages"]}, {"code": "PSY 130", "title": "Social Psychology", "credits": 3, "desc": "How the presence and influence of others shapes individual belief and behavior.", "concepts": ["Conformity", "Social influence", "Group dynamics", "Persuasion principles", "Cognitive dissonance"]}, {"code": "PSY 140", "title": "Cognitive Psychology", "credits": 3, "desc": "Memory, attention, and decision-making — how the mind actually processes information.", "concepts": ["Memory systems", "Attention", "Perception", "Decision-making", "Information processing"]}]}]}, {"year": 2, "title": "Behavior & Motivation", "semesters": [{"term": "Fall", "courses": [{"code": "PSY 201", "title": "Personality Psychology", "credits": 3, "desc": "Trait theory and assessment — how psychology measures and describes individual differences.", "concepts": ["Trait theory", "Big Five personality traits", "Personality assessment", "Individual differences", "Self-concept"]}, {"code": "PSY 210", "title": "Motivation & Emotion", "credits": 3, "desc": "What actually drives goal pursuit, and how emotion shapes and gets shaped by it.", "concepts": ["Drive theory", "Intrinsic vs extrinsic motivation", "Emotional regulation", "Goal-setting theory", "Self-determination theory"]}, {"code": "PSY 220", "title": "Behavioral Psychology & Conditioning", "credits": 3, "desc": "Classical and operant conditioning — the mechanics of how behavior gets learned and reinforced.", "concepts": ["Classical conditioning", "Operant conditioning", "Reinforcement schedules", "Punishment", "Stimulus-response"]}]}, {"term": "Spring", "courses": [{"code": "PSY 202", "title": "Habit Formation & Behavior Change", "credits": 3, "desc": "The habit loop and applied behavior-change models for building or breaking a pattern deliberately.", "concepts": ["Habit loop", "Cue-routine-reward", "Behavior change models", "Implementation intentions", "Habit stacking"]}, {"code": "PSY 230", "title": "Positive Psychology", "credits": 3, "desc": "Flourishing and resilience — the science of what makes life go well, not just what goes wrong.", "concepts": ["Flourishing", "Resilience", "Character strengths", "Gratitude practice", "Positive emotion broaden-and-build"]}, {"code": "PSY 240", "title": "Cognitive Biases & Heuristics", "credits": 3, "desc": "The predictable mental shortcuts that quietly distort judgment — the applied bridge into behavioral economics.", "concepts": ["Cognitive biases", "Heuristics", "Anchoring", "Availability heuristic", "Bounded rationality"]}]}]}, {"year": 3, "title": "Applied & Clinical Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "PSY 301", "title": "Abnormal Psychology", "credits": 3, "desc": "How psychological disorders are classified and differentiated — clinical literacy for applied work.", "concepts": ["Diagnostic classification", "Anxiety disorders", "Mood disorders", "Symptom clusters", "Differential diagnosis"]}, {"code": "PSY 310", "title": "Health Psychology", "credits": 3, "desc": "The mind-body connection — how stress and psychological state shape physical health outcomes.", "concepts": ["Mind-body connection", "Stress physiology", "Cortisol response", "Health behavior change", "Psychosomatic factors"]}, {"code": "PSY 320", "title": "Coaching Psychology", "credits": 3, "desc": "Motivational interviewing and goal-setting frameworks for helping someone else actually change.", "concepts": ["Motivational interviewing", "Goal-setting frameworks", "Coaching alliance", "Readiness for change", "Solution-focused questioning"]}]}, {"term": "Spring", "courses": [{"code": "PSY 302", "title": "Group Dynamics & Team Psychology", "credits": 3, "desc": "How groups make decisions well or badly, and what shapes team cohesion.", "concepts": ["Team roles", "Group decision-making", "Groupthink", "Social loafing", "Group cohesion"]}, {"code": "PSY 330", "title": "Trauma-Informed Approaches", "credits": 3, "desc": "Recognizing trauma responses and practicing in a way that doesn't inadvertently re-trigger them.", "concepts": ["Trauma response", "Fight-flight-freeze", "Window of tolerance", "Trauma-informed care", "Psychological safety"]}, {"code": "PSY 340", "title": "Applied Behavioral Design", "credits": 3, "desc": "Nudges and choice architecture — shaping real-world decisions ethically, not manipulatively.", "concepts": ["Nudge theory", "Choice architecture", "Default effects", "Ethical influence", "Behavioral design principles"]}]}]}, {"year": 4, "title": "Integration & Practice", "semesters": [{"term": "Fall", "courses": [{"code": "PSY 401", "title": "Neuroscience of Habit & Performance", "credits": 3, "desc": "Dopamine and reward circuitry — the brain-level mechanics underneath habit and performance.", "concepts": ["Dopamine & reward circuitry", "Habit neuroscience", "Performance psychology", "Neuroplasticity in skill acquisition", "Stress and cognition"]}, {"code": "PSY 410", "title": "Client-Centered Communication", "credits": 3, "desc": "Active listening and rapport building — the relational skill every applied intervention depends on.", "concepts": ["Active listening", "Empathy", "Rapport building", "Nonverbal communication", "Reflective listening"]}, {"code": "PSY 420", "title": "Ethics in Applied Psychology", "credits": 3, "desc": "Informed consent and professional boundaries — the ethical floor for working with real people.", "concepts": ["Informed consent", "Dual relationships", "Professional boundaries", "Confidentiality", "Scope of practice"]}]}, {"term": "Spring", "courses": [{"code": "PSY 402", "title": "Behavior Change Program Design", "credits": 3, "desc": "Building a full, structured behavior-change intervention from stages of change through relapse prevention.", "concepts": ["Intervention design", "Behavior change stages", "Program evaluation", "Relapse prevention", "Outcome measurement"]}, {"code": "PSY 430", "title": "Psychology of High Performance", "credits": 3, "desc": "Flow state and mental toughness — the conditions that reliably produce someone's best performance.", "concepts": ["Flow state", "Mental toughness", "Peak performance conditions", "Deliberate practice", "Performance anxiety"]}, {"code": "PSY 490", "title": "Capstone — Applied Case Study", "credits": 3, "desc": "A full behavior-change case built, applied, and presented from formulation through outcome.", "concepts": ["Case formulation", "Applied intervention", "Outcome measurement", "Ethical practice review", "Case documentation"]}]}]}];
+const GLOSSARY = {"Major psychological perspectives": "The broad theoretical lenses — biological, cognitive, behavioral, humanistic — psychology uses to explain behavior. Example: explaining a client's procrastination through a biological lens (dopamine) versus a behavioral lens (reinforcement history) leads to different interventions.", "History of psychology": "The development of psychology as a field, from philosophy through the major schools of thought. Example: understanding why behaviorism dominated for decades explains why so much older coaching advice focuses purely on rewards and consequences.", "Research methods": "The systematic approaches — experiments, surveys, case studies — used to study behavior and mental processes. Example: a case study of one client's progress is a different, less generalizable research method than a controlled experiment across 200 people.", "Nature vs nurture": "The ongoing debate over how much behavior is shaped by genetics versus environment and experience. Example: a client's tendency toward anxiety may reflect both an inherited temperament and years of stressful environment, not one or the other.", "Scientific method in psychology": "Applying hypothesis testing and controlled observation to study mental processes and behavior. Example: testing whether a specific coaching technique actually improves adherence, rather than just assuming it does because it feels right.", "Experimental design": "Structuring a study to isolate cause and effect, typically using control and experimental groups. Example: comparing a group that gets weekly check-ins against a group that doesn't isolates whether check-ins actually drive better outcomes.", "Validity & reliability": "Whether a study measures what it claims to (validity) and produces consistent results (reliability). Example: a client questionnaire that gives wildly different scores on retest, with no real change in their situation, has a reliability problem.", "Correlation vs causation": "The distinction between two things moving together and one actually causing the other. Example: clients who journal daily also tend to hit their goals more — but journaling might not be what's causing the success.", "Descriptive statistics": "Numerical summaries — mean, median, standard deviation — used to describe a data set. Example: reporting that your clients average 12 weeks to reach their first milestone is a descriptive statistic summarizing real outcomes.", "Sampling methods": "The techniques used to select participants that represent a larger population. Example: surveying only your most engaged clients about satisfaction will give a skewed picture compared to a random sample of everyone.", "Neurons & neurotransmitters": "Nerve cells and the chemical messengers they use to communicate signals throughout the brain and body. Example: serotonin and dopamine are neurotransmitters that play a major role in mood and motivation.", "Brain structures": "The major regions of the brain — prefrontal cortex, amygdala, hippocampus — and their functional roles. Example: the amygdala's role in fear response helps explain why a client can react intensely before consciously 'deciding' to.", "Central nervous system": "The brain and spinal cord, which process and coordinate information throughout the body. Example: chronic pain can involve the central nervous system amplifying signals, not just the original site of injury.", "Endocrine system": "The network of glands that release hormones influencing mood, stress, and behavior. Example: cortisol released by the endocrine system under chronic stress can affect a client's sleep, appetite, and motivation.", "Neuroplasticity": "The brain's ability to reorganize and form new neural connections throughout life. Example: neuroplasticity is the reason consistent new habits genuinely get easier over months, not just willpower improving.", "Attachment theory": "The framework describing how early bonds with caregivers shape relationship patterns later in life. Example: a client's difficulty trusting a coach's guidance may trace back to attachment patterns formed decades earlier.", "Lifespan stages": "The recognized developmental phases a person moves through from infancy to late adulthood. Example: coaching a client through a major life-stage transition, like becoming a parent, requires different support than coaching a teenager.", "Identity formation": "The psychological process of developing a coherent sense of self, especially during adolescence. Example: a young client's inconsistent motivation may partly reflect identity formation still very much in progress.", "Critical periods": "Specific developmental windows when certain experiences have an outsized impact on development. Example: early childhood is considered a critical period for language acquisition in a way adulthood simply isn't.", "Erikson's stages": "Erik Erikson's model of eight psychosocial stages, each centered on a key developmental conflict. Example: Erikson's 'generativity vs. stagnation' stage helps explain why some midlife clients suddenly prioritize mentoring others.", "Conformity": "Adjusting one's behavior or beliefs to match a group, even without direct pressure to do so. Example: a client skipping their program because 'nobody else at the gathering was eating that way' reflects conformity.", "Social influence": "The ways other people's presence, opinions, or behavior shape an individual's actions. Example: a client's motivation noticeably rising after joining a group class shows social influence at work.", "Group dynamics": "The patterns of interaction, roles, and influence that emerge within a group. Example: one dominant personality steering every decision in a client cohort is a group dynamic worth actively managing.", "Persuasion principles": "The established psychological levers — reciprocity, authority, social proof — that influence attitude and behavior change. Example: sharing that '90% of clients who follow this protocol see results in 6 weeks' leverages social proof.", "Cognitive dissonance": "The mental discomfort experienced when holding two conflicting beliefs, often resolved by changing one. Example: a client who believes they're healthy but keeps skipping workouts often resolves the discomfort by rationalizing the skipped sessions.", "Memory systems": "The distinct types of memory — working, short-term, long-term — and how information moves between them. Example: giving a client too many cues at once overloads working memory, so almost none of it sticks.", "Attention": "The cognitive process of selectively focusing on certain information while filtering out the rest. Example: a distracted client checking their phone mid-session is a straightforward attention problem, not a motivation problem.", "Perception": "How the brain interprets and organizes sensory information into a coherent experience. Example: two clients can feel the exact same exercise intensity very differently, purely based on how each perceives effort.", "Decision-making": "The cognitive process of selecting a course of action among alternatives. Example: simplifying a client's meal choices down to three clear options reduces decision fatigue and improves follow-through.", "Information processing": "The cognitive model describing how the mind takes in, stores, and retrieves information, similar to a computer. Example: breaking a new movement pattern into small chunks respects how information processing actually works.", "Trait theory": "The view that personality can be described through a set of stable, measurable characteristics. Example: describing a client as consistently high in conscientiousness helps predict how they'll respond to a structured plan.", "Big Five personality traits": "The five broad dimensions — openness, conscientiousness, extraversion, agreeableness, neuroticism (acronym OCEAN) — used to describe personality; developed through the lexical hypothesis by Tupes & Christal (1961), later confirmed and popularized by Costa & McCrae and Goldberg. It's the most widely researched personality model, cross-culturally validated, though it's descriptive (organizing traits) rather than explaining what causes them. Example: a client high in neuroticism may need more reassurance and structure than one who's naturally low in it. (Source: John & Srivastava, 1999; McCrae & Terracciano, 2005, cross-cultural validation)", "Personality assessment": "Structured tools and methods used to measure and describe an individual's personality traits. Example: using a validated personality assessment to tailor coaching style, rather than guessing from a single conversation.", "Individual differences": "The study of how and why people vary psychologically from one another. Example: two clients given the identical program respond completely differently, which individual differences research helps explain.", "Self-concept": "A person's overall understanding and evaluation of who they are. Example: a client who sees themselves as 'not an athlete' may unconsciously sabotage progress that conflicts with that self-concept.", "Drive theory": "The idea that behavior is motivated by the desire to reduce internal states of tension, like hunger. Example: a client's late-night snacking driven by stress tension fits classic drive theory more than genuine hunger.", "Intrinsic vs extrinsic motivation": "The distinction between doing something for its own sake versus doing it for an external reward. Example: a client who trains because it genuinely feels good sticks with it longer than one training purely for a prize or praise.", "Emotional regulation": "The ability to manage and respond to emotional experiences in a controlled, adaptive way. Example: coaching a client to pause and breathe before reacting to a frustrating setback is teaching emotional regulation directly.", "Goal-setting theory": "The framework showing that specific, challenging goals lead to higher performance than vague ones. Example: 'lose 15 pounds by June 1st' drives more consistent behavior than a vague 'get healthier.'", "Self-determination theory": "A motivation theory centered on autonomy, competence, and relatedness as core psychological needs. Example: letting a client choose between two workout options, rather than dictating one, supports their sense of autonomy.", "Classical conditioning": "Learning through association, where a neutral stimulus comes to trigger a response through repeated pairing. Example: a client who now feels anxious just walking into a gym after a past bad experience there is showing classical conditioning.", "Operant conditioning": "Learning through consequences, where behavior is shaped by reinforcement or punishment. Example: praising a client immediately after a completed session reinforces that behavior through operant conditioning.", "Reinforcement schedules": "The specific timing and pattern by which reinforcement is delivered, affecting how reliably a behavior is learned. Example: praising every single completed workout builds the habit faster than only occasionally acknowledging it.", "Punishment": "A consequence applied to decrease the likelihood of a behavior recurring. Example: relying on guilt or shame as punishment for a missed session tends to backfire and reduce engagement rather than improve it.", "Stimulus-response": "The basic behavioral model linking an environmental trigger directly to a learned reaction. Example: a phone notification triggering an automatic scroll session is a simple stimulus-response loop worth interrupting.", "Habit loop": "The cue-routine-reward cycle that underlies how habits form and persist. Example: seeing gym shoes by the door (cue), putting them on and going (routine), feeling accomplished afterward (reward) is a complete habit loop.", "Cue-routine-reward": "The three-part structure of a habit — a trigger, the behavior itself, and the payoff that reinforces it. Example: redesigning the cue, like moving snacks out of sight, is often easier than fighting the routine directly.", "Behavior change models": "Structured frameworks, like the stages of change model, used to guide how people modify behavior. Example: recognizing a client is still in the 'contemplation' stage, not 'action,' changes what kind of support actually helps.", "Implementation intentions": "Specific if-then plans that link a situational cue directly to an intended behavior. Example: 'if it's 6am, then I put on my workout clothes immediately' is a concrete implementation intention.", "Habit stacking": "Attaching a new habit to an existing one to make it easier to remember and repeat. Example: 'after I brush my teeth, I do 10 pushups' stacks a new habit onto an already automatic one.", "Flourishing": "A state of overall psychological well-being that goes beyond the mere absence of distress. Example: a client who's pain-free but still describes life as flat isn't yet flourishing, even though the original problem is solved.", "Resilience": "The capacity to adapt and recover well in the face of adversity or stress. Example: a client who bounces back from a missed week without spiraling into giving up entirely is demonstrating real resilience.", "Character strengths": "Positive traits, like curiosity or perseverance, identified as core to individual well-being. Example: leaning into a client's natural perseverance as a strength, rather than only focusing on their weaknesses.", "Gratitude practice": "Deliberate exercises focused on noticing and appreciating positive aspects of life, shown to improve well-being. Example: having a client write down three wins each week is a simple, evidence-backed gratitude practice.", "Positive emotion broaden-and-build": "The theory that positive emotions expand thinking and build lasting psychological resources over time. Example: a client feeling genuine joy during training tends to explore more, try harder, and build lasting motivation, not just burn calories.", "Cognitive biases": "Predictable patterns of deviation from rational judgment in how people think and decide. Example: a client remembering only their bad weeks, not their good ones, reflects a cognitive bias worth gently correcting with real data.", "Heuristics": "Mental shortcuts people use to make decisions quickly, which work most of the time but produce predictable errors. Example: a client assuming a program 'must be working' just because it's hard is relying on a heuristic, not evidence.", "Anchoring": "The tendency to rely too heavily on the first piece of information offered when making a decision. Example: a client anchored on a friend's dramatic weight-loss number now judges their own solid progress as disappointing.", "Availability heuristic": "Judging the likelihood of an event based on how easily examples come to mind. Example: a client overestimating injury risk because they just heard about someone else's injury is the availability heuristic in action.", "Bounded rationality": "The idea that humans are rational only within the limits of the information, time, and mental capacity they actually have. Example: a client making a rushed decision with incomplete information isn't being irrational, just bounded by what they actually knew.", "Diagnostic classification": "The formal system used to categorize and define psychological disorders. Example: understanding diagnostic classification helps you recognize when a client's presentation goes beyond what coaching alone should address.", "Anxiety disorders": "A category of psychological disorders characterized by excessive fear or worry. Example: recognizing signs consistent with an anxiety disorder is a cue to refer out, not to try to coach through it yourself.", "Mood disorders": "A category of psychological disorders centered on significant disturbances in emotional state. Example: a client's persistent low mood lasting months, not just a rough week, may point toward a mood disorder worth a referral.", "Symptom clusters": "Groups of symptoms that commonly occur together and inform diagnostic categories. Example: noticing a client's fatigue, appetite change, and low motivation together as a symptom cluster, rather than three unrelated issues.", "Differential diagnosis": "The process of distinguishing between disorders with overlapping symptoms to reach an accurate diagnosis. Example: differential diagnosis is squarely a clinician's job, but recognizing overlap helps you know when to refer confidently.", "Mind-body connection": "The bidirectional relationship between psychological state and physical health. Example: a client's chronic stress showing up as physical tension and pain demonstrates the mind-body connection directly.", "Stress physiology": "The body's biological response to stress, including hormonal and nervous system changes. Example: understanding stress physiology explains why a stressed client's resting heart rate and recovery both suffer, even with good training.", "Cortisol response": "The release of the stress hormone cortisol in response to perceived threat or pressure. Example: chronically elevated cortisol response from work stress can blunt a client's training recovery and sleep quality.", "Health behavior change": "Applying behavior change principles specifically to habits that affect physical health. Example: helping a client build a sustainable sleep routine is health behavior change, not just a training tweak.", "Psychosomatic factors": "The ways psychological states can produce or worsen physical symptoms. Example: a client's tension headaches worsening during high-stress weeks reflects real psychosomatic factors, not imagination.", "Motivational interviewing": "A collaborative, person-centered counseling style developed by psychologists William R. Miller and Stephen Rollnick (first described 1983, refined through multiple editions) that helps people find and strengthen their own motivation for change, built on OARS skills (Open questions, Affirmations, Reflective listening, Summaries). Example: asking 'what would it mean for you to finally fix this?' instead of lecturing is motivational interviewing in practice. (Source: Miller & Rollnick, 'Motivational Interviewing,' Guilford Press)", "Goal-setting frameworks": "Structured methods, like SMART goals, for defining clear and achievable objectives. Example: turning 'get stronger' into a SMART goal like 'add 20 pounds to my squat by June' makes progress trackable.", "Coaching alliance": "The collaborative, trust-based relationship between a coach and client that supports change. Example: a strong coaching alliance is often a bigger predictor of client success than the specific program itself.", "Readiness for change": "Assessing how prepared a person actually is to take action, which shapes the right coaching approach. Example: pushing an aggressive plan on a client who's not yet ready for change usually backfires into disengagement.", "Solution-focused questioning": "A coaching technique that directs attention toward solutions and strengths rather than problems. Example: asking 'what's worked before, even a little?' instead of dwelling on what's failed is solution-focused questioning.", "Team roles": "The distinct functions individuals take on within a group to support its overall performance. Example: recognizing that one client naturally becomes the group's encourager helps you use that role intentionally.", "Group decision-making": "The processes and dynamics that shape how groups arrive at collective choices. Example: a group class voting on their next challenge together is group decision-making that boosts buy-in.", "Groupthink": "A pattern where a group's desire for harmony leads to poor, unchallenged decision-making. Example: a client group agreeing to skip a hard workout together, each afraid to be the one who objects, is groupthink.", "Social loafing": "The tendency for individuals to exert less effort when working in a group than working alone. Example: a client putting in noticeably less effort during partner workouts than solo sessions may be showing social loafing.", "Group cohesion": "The degree to which group members feel connected and committed to staying together. Example: a client group with strong cohesion shows up for each other even when individual motivation dips.", "Trauma response": "The psychological and physiological reactions that occur following a traumatic experience. Example: a client freezing up during a specific exercise that echoes a past injury may be showing a trauma response, not just fear.", "Fight-flight-freeze": "The body's automatic survival response to perceived threat. Example: a client's sudden urge to quit mid-session during an intense moment can reflect a fight-flight-freeze response, not a lack of willpower.", "Window of tolerance": "The zone of arousal within which a person can function and respond effectively to stress. Example: pushing a stressed client too hard, too fast can push them outside their window of tolerance and shut them down.", "Trauma-informed care": "An approach to practice that recognizes and actively avoids re-triggering trauma responses. Example: always asking before physical contact and explaining what's coming next reflects trauma-informed care principles.", "Psychological safety": "A shared belief within a team that it's safe to take interpersonal risks, like speaking up or admitting mistakes. Example: a client who feels safe admitting 'I skipped my program this week' without judgment is far more likely to stay engaged.", "Nudge theory": "Using small changes in choice design to steer behavior without restricting options or changing incentives. Example: pre-scheduling a client's next session before they leave is a small nudge that meaningfully boosts follow-through.", "Choice architecture": "The deliberate design of how options are presented to influence the decisions people make. Example: offering three clear program tiers, with the recommended one highlighted, is deliberate choice architecture.", "Default effects": "The tendency for people to stick with a pre-set option rather than actively choosing an alternative. Example: auto-enrolling clients into a recurring session slot, which they can opt out of, leverages the default effect to boost consistency.", "Ethical influence": "Shaping behavior in ways that respect autonomy and serve the person's actual interests. Example: highlighting genuine risks of skipping recovery, rather than exaggerating fear, is ethical influence, not manipulation.", "Behavioral design principles": "The applied guidelines for using behavioral science to shape real-world choices and environments. Example: designing a client's home environment so healthy snacks are visible and junk food isn't uses behavioral design principles directly.", "Dopamine & reward circuitry": "The brain system that drives motivation and reinforces behavior through anticipated reward. Example: a client's excitement checking off a streak tracker is dopamine and reward circuitry reinforcing the habit.", "Habit neuroscience": "The brain-level mechanisms, like basal ganglia activity, underlying how habits form and persist. Example: understanding habit neuroscience explains why an old, deeply ingrained habit resurfaces so easily under stress.", "Performance psychology": "The study and application of psychological principles to optimize performance under pressure. Example: teaching a client a pre-performance routine to manage nerves before a competition is applied performance psychology.", "Neuroplasticity in skill acquisition": "How the brain physically reorganizes as new skills are learned and practiced. Example: a new movement pattern feeling awkward at first, then smooth after weeks of practice, reflects neuroplasticity in skill acquisition.", "Stress and cognition": "How stress affects mental functions like memory, focus, and decision-making. Example: a highly stressed client forgetting simple instructions mid-session is a direct effect of stress on cognition, not carelessness.", "Active listening": "Fully concentrating on, understanding, and responding thoughtfully to what someone is saying. Example: pausing a session to fully hear a client's frustration, rather than jumping straight to a fix, is active listening.", "Empathy": "The ability to understand and share another person's feelings and perspective. Example: genuinely understanding why a client dreads a specific exercise, rather than dismissing it, is empathy in practice.", "Rapport building": "Establishing a trusting, comfortable connection with another person. Example: remembering small personal details a client mentioned weeks ago is a simple, powerful rapport-building habit.", "Nonverbal communication": "Communicating through body language, tone, and facial expression rather than words alone. Example: a client's crossed arms and short answers can signal disengagement well before they say anything directly.", "Reflective listening": "Restating what someone has said in your own words to confirm understanding and show engagement. Example: 'so it sounds like the mornings are what's actually hard for you' is reflective listening in action.", "Informed consent": "The ethical and legal requirement to fully inform a client of risks and obtain agreement before proceeding. Example: clearly explaining what a new technique involves and getting explicit agreement before starting it.", "Dual relationships": "Situations where a practitioner holds more than one role with a client, raising potential ethical conflicts. Example: coaching a close personal friend creates a dual relationship worth thinking through carefully before agreeing to it.", "Professional boundaries": "The limits that define an appropriate practitioner-client relationship. Example: keeping session communication to business hours and defined channels maintains clear professional boundaries.", "Confidentiality": "The ethical obligation to protect a client's private information. Example: never discussing a client's personal disclosures with other clients, even casually, upholds confidentiality.", "Scope of practice": "The specific services a practitioner is legally and professionally qualified to provide. Example: referring a client showing signs of a clinical disorder to a licensed therapist respects scope of practice.", "Intervention design": "Structuring a deliberate plan to produce a specific behavioral or psychological change. Example: designing a 4-week intervention specifically targeting sleep consistency, with clear steps and check-ins.", "Behavior change stages": "The sequential phases — precontemplation through maintenance — people move through when changing behavior. Example: a client who's relapsed isn't back at zero; they're often cycling back through an earlier behavior change stage.", "Program evaluation": "Assessing whether an intervention or program actually achieved its intended outcomes. Example: reviewing whether your habit-change program actually improved adherence rates across clients, not just assuming it did.", "Relapse prevention": "Strategies designed to help sustain a behavior change and prevent reverting to old patterns. Example: planning in advance for a known high-risk situation, like holidays, is relapse prevention done proactively.", "Outcome measurement": "Tracking specific, defined results to determine whether an intervention worked. Example: tracking a specific, agreed-upon metric like weekly session adherence to measure real outcomes, not just impressions.", "Flow state": "A state of complete absorption in an activity, marked by focus and a loss of self-consciousness. Example: a client so absorbed in a challenging set that they lose track of time is experiencing flow state.", "Mental toughness": "The psychological capacity to perform consistently well under pressure and adversity. Example: a client pushing through a tough final set despite wanting to quit is demonstrating real mental toughness.", "Peak performance conditions": "The specific internal and external conditions that reliably produce a person's best performance. Example: noticing a client always performs best in morning sessions points to their personal peak performance conditions.", "Deliberate practice": "Focused, structured practice specifically designed to improve performance, not just repeat it. Example: drilling a specific weak point in technique with focused feedback, rather than just doing more reps, is deliberate practice.", "Performance anxiety": "Fear or worry specifically tied to being evaluated or performing in front of others. Example: a client who lifts confidently alone but freezes up during a group class is showing performance anxiety.", "Case formulation": "Synthesizing a client's history, symptoms, and context into a coherent understanding that guides treatment. Example: connecting a client's injury history, stress levels, and goals into one coherent case formulation before programming.", "Applied intervention": "Putting a specific, planned behavior-change or psychological strategy into real-world practice. Example: rolling out a planned habit-stacking strategy with a real client is the applied intervention, not just the theory behind it.", "Ethical practice review": "Formally evaluating a case or intervention against professional ethical standards. Example: reviewing whether a coaching approach stayed within scope of practice and respected client autonomy throughout.", "Case documentation": "Written records tracking a client's assessment findings, program, and progress over time. Example: dated notes tracking a client's stated goals, interventions used, and measured progress over several months."};
+const QUIZ = {"PSY 101": {"question": "You explain a client's procrastination through dopamine and reward circuitry rather than through reinforcement history. What are you choosing between?", "options": ["Two different research methods", "Two different major psychological perspectives (biological vs behavioral)", "Two sampling methods", "Nature vs nurture only"], "correctIndex": 1, "explanation": "Explaining behavior through brain chemistry versus through learned reinforcement reflects two different major psychological perspectives."}, "PSY 110": {"question": "A client questionnaire gives wildly different scores on retest, with no real change in the client's situation. What problem does this reveal?", "options": ["A validity problem", "A reliability problem", "A sampling problem", "A causation problem"], "correctIndex": 1, "explanation": "Producing inconsistent results on repeated measurement is specifically a reliability problem."}, "PSY 120": {"question": "A client's difficulty trusting new guidance seems tied to how their nervous system processes threat and safety. Which brain structure is most associated with fear response?", "options": ["The hippocampus", "The amygdala", "The prefrontal cortex", "The cerebellum"], "correctIndex": 1, "explanation": "The amygdala's role in processing fear and threat helps explain reactions that happen before conscious 'deciding' occurs."}, "PSY 102": {"question": "A client's difficulty trusting a coach's guidance seems to trace back to early relationship patterns from childhood. What theory addresses this directly?", "options": ["Erikson's stages", "Attachment theory", "Social influence", "Cognitive dissonance"], "correctIndex": 1, "explanation": "The framework describing how early bonds with caregivers shape relationship patterns later in life is attachment theory."}, "PSY 130": {"question": "A client's motivation noticeably rises after joining a group fitness class rather than training alone. What concept explains this shift?", "options": ["Cognitive dissonance", "Social influence", "Self-concept", "Attention"], "correctIndex": 1, "explanation": "The way other people's presence and behavior shape an individual's actions is social influence."}, "PSY 140": {"question": "Giving a client too many coaching cues at once means almost none of them stick. What cognitive system is being overloaded?", "options": ["Long-term memory", "Working memory", "The endocrine system", "Perception alone"], "correctIndex": 1, "explanation": "Overloading a client with too much information at once overwhelms working memory."}, "PSY 201": {"question": "You notice a client high in neuroticism seems to need more reassurance and structure than one who's naturally low in it. What framework are you using?", "options": ["Attachment theory", "Big Five personality traits", "Erikson's stages", "Operant conditioning"], "correctIndex": 1, "explanation": "Neuroticism is one of the five broad dimensions in the Big Five personality trait model."}, "PSY 210": {"question": "A client who trains because it genuinely feels good sticks with it longer than one training purely for an external reward. What distinction explains this?", "options": ["Drive theory alone", "Intrinsic vs extrinsic motivation", "Goal-setting theory alone", "Emotional regulation"], "correctIndex": 1, "explanation": "The difference between doing something for its own sake versus for an external reward is intrinsic vs extrinsic motivation."}, "PSY 220": {"question": "Praising a client immediately after every completed session reinforces that behavior through consequences. What learning process is this?", "options": ["Classical conditioning", "Operant conditioning", "Reciprocal inhibition", "Habituation"], "correctIndex": 1, "explanation": "Shaping behavior through consequences like reinforcement is operant conditioning."}, "PSY 202": {"question": "'If it's 6am, then I put on my workout clothes immediately' is a concrete if-then plan linking a cue to a behavior. What is this called?", "options": ["A habit loop only", "An implementation intention", "Habit stacking alone", "A behavior change stage"], "correctIndex": 1, "explanation": "A specific if-then plan linking a situational cue directly to an intended behavior is an implementation intention."}, "PSY 230": {"question": "A client is pain-free but still describes life as flat and unfulfilling. What does this reveal about the goal of positive psychology?", "options": ["Pain-free equals flourishing by definition", "Flourishing is more than just the absence of distress", "There's nothing more to address", "The client needs more medication"], "correctIndex": 1, "explanation": "Flourishing is a state of overall well-being that goes beyond simply not having distress or pain."}, "PSY 240": {"question": "A client anchored on a friend's dramatic 50-pound weight loss now judges their own solid 15-pound progress as disappointing. What bias is this?", "options": ["Availability heuristic", "Anchoring", "Bounded rationality", "Confirmation bias"], "correctIndex": 1, "explanation": "Relying too heavily on the first piece of information encountered, like a friend's dramatic number, is anchoring."}, "PSY 301": {"question": "A client's low mood has persisted for many months, not just a rough week. What might this pattern point toward?", "options": ["A normal, brief mood dip", "A possible mood disorder worth a referral", "Simple laziness", "Nothing worth noting"], "correctIndex": 1, "explanation": "Persistent low mood lasting months, beyond normal fluctuation, may point toward a mood disorder warranting a referral."}, "PSY 310": {"question": "A stressed client's resting heart rate and recovery both suffer despite consistent training. What concept explains this connection?", "options": ["Operant conditioning", "Stress physiology and the mind-body connection", "Cognitive dissonance", "Group cohesion"], "correctIndex": 1, "explanation": "How psychological stress produces measurable physical effects reflects stress physiology and the mind-body connection."}, "PSY 320": {"question": "Instead of lecturing a hesitant client, you ask 'what would it mean for you to finally fix this?' What coaching approach are you using?", "options": ["Operant conditioning", "Motivational interviewing", "Trait theory", "Groupthink prevention"], "correctIndex": 1, "explanation": "A client-centered approach that helps people find their own motivation for change is motivational interviewing."}, "PSY 302": {"question": "A client group agrees to skip a hard workout together, with each person privately afraid to be the one who objects. What pattern is this?", "options": ["Social loafing", "Groupthink", "Group cohesion alone", "Role clarity"], "correctIndex": 1, "explanation": "A group's desire for harmony leading to poor, unchallenged decisions is groupthink."}, "PSY 330": {"question": "A client freezes up during a specific exercise that echoes a past injury. What is this most likely reflecting?", "options": ["Simple lack of effort", "A trauma response", "Poor motivation", "Low intelligence"], "correctIndex": 1, "explanation": "A reaction tied to a past traumatic experience, like freezing during a triggering movement, is a trauma response."}, "PSY 340": {"question": "You pre-schedule a client's next session before they leave, which they could easily skip, but rarely do. What behavioral principle is at work?", "options": ["Ethical influence only", "Default effects/choice architecture", "Cognitive dissonance", "Groupthink"], "correctIndex": 1, "explanation": "People tend to stick with a pre-set option rather than actively choosing otherwise — the default effect."}, "PSY 401": {"question": "A client's excitement checking off a workout streak tracker reinforces the habit further. What's driving this?", "options": ["The endocrine system alone", "Dopamine and reward circuitry", "The gut-brain axis", "Reciprocal inhibition"], "correctIndex": 1, "explanation": "The brain system that reinforces behavior through anticipated reward, like a streak, is dopamine and reward circuitry."}, "PSY 410": {"question": "You pause a session to fully hear a client's frustration rather than jumping straight to a fix. What skill are you practicing?", "options": ["Reflective listening only", "Active listening", "Nonverbal communication alone", "Rapport building alone"], "correctIndex": 1, "explanation": "Fully concentrating on and understanding what someone is saying before responding is active listening."}, "PSY 420": {"question": "You refer a client showing signs of a clinical mental health crisis to a licensed therapist instead of trying to handle it yourself. What are you respecting?", "options": ["Confidentiality only", "Scope of practice", "Dual relationships", "Informed consent alone"], "correctIndex": 1, "explanation": "Recognizing when a situation exceeds what you're qualified to handle, and referring out, respects scope of practice."}, "PSY 402": {"question": "You plan in advance for a known high-risk situation, like the holidays, before it even happens. What are you doing?", "options": ["Outcome measurement", "Relapse prevention", "Case formulation", "Program evaluation alone"], "correctIndex": 1, "explanation": "Strategies designed to help sustain a behavior change and prevent reverting to old patterns is relapse prevention."}, "PSY 430": {"question": "A client is so absorbed in a challenging set that they lose track of time entirely. What state are they experiencing?", "options": ["Performance anxiety", "Flow state", "Tilt", "Central sensitization"], "correctIndex": 1, "explanation": "A state of complete absorption in an activity, marked by focus and loss of self-consciousness, is flow state."}, "PSY 490": {"question": "You connect a client's injury history, stress levels, and goals into one coherent understanding before designing their intervention. What are you doing?", "options": ["Outcome measurement alone", "Case formulation", "Ethical practice review alone", "Program evaluation"], "correctIndex": 1, "explanation": "Synthesizing a client's history, symptoms, and context into a coherent understanding that guides treatment is case formulation."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'psychology-degree-completed';
+const MASTERED_KEY = 'psychology-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

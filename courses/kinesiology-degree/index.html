@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corrective Exercise & Kinesiology — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Corrective Exercise & Kinesiology — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Movement science through NASM's Inhibit → Lengthen → Activate → Integrate Corrective Exercise Continuum to full clinical practice.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Foundations of Movement Science", "semesters": [{"term": "Fall", "courses": [{"code": "KIN 101", "title": "Functional Anatomy & Kinesiology", "credits": 3, "desc": "Bones, joints, and muscle actions across the three planes of motion — the vocabulary every assessment and program builds on.", "concepts": ["Planes of motion", "Joint actions", "Origin & insertion", "Agonist/antagonist", "Osteokinematics"]}, {"code": "KIN 110", "title": "Exercise Physiology I", "credits": 3, "desc": "How the body's energy systems and cardiovascular response adapt to training load.", "concepts": ["ATP-PC system", "Glycolytic system", "Oxidative system", "VO2 max", "Cardiac output"]}, {"code": "KIN 120", "title": "Biomechanics Fundamentals", "credits": 3, "desc": "Force, leverage, and joint mechanics — the physics underneath every movement pattern.", "concepts": ["Force-couple relationships", "Levers", "Torque", "Center of mass", "Ground reaction force"]}]}, {"term": "Spring", "courses": [{"code": "KIN 102", "title": "Neuromuscular Function & Motor Control", "credits": 3, "desc": "How the nervous system drives movement quality, and why 'weak' muscles are often actually inhibited ones.", "concepts": ["Motor unit recruitment", "Reciprocal inhibition", "Proprioception", "Muscle spindle", "Golgi tendon organ"]}, {"code": "KIN 130", "title": "Postural Assessment & Movement Screening", "credits": 3, "desc": "Static and dynamic assessment protocols for reading compensation patterns before programming around them.", "concepts": ["Static posture assessment", "Overhead squat assessment", "Compensation patterns", "Movement screening", "Kinetic chain"]}, {"code": "KIN 140", "title": "Fascia & Myofascial Systems", "credits": 3, "desc": "Fascial lines and tissue behavior — the connective-tissue system underneath why release work actually matters.", "concepts": ["Fascial lines", "Tensegrity", "Myofascial adhesions", "Thixotropy", "Connective tissue remodeling"]}]}]}, {"year": 2, "title": "Corrective Exercise Core", "semesters": [{"term": "Fall", "courses": [{"code": "CES 201", "title": "Corrective Exercise Foundations", "credits": 3, "desc": "The Inhibit → Lengthen → Activate → Integrate model in full — NASM's Corrective Exercise Continuum and the sequencing logic behind every corrective session.", "concepts": ["Inhibit phase", "Lengthen phase", "Activate phase", "Integrate phase", "Autogenic inhibition"]}, {"code": "CES 210", "title": "Lower Kinetic Chain Dysfunction", "credits": 3, "desc": "Common lower-body dysfunction patterns and the assessment markers that reveal them.", "concepts": ["Pes planus", "Knee valgus", "Hip drop (Trendelenburg)", "Lower crossed syndrome", "Glute inhibition"]}, {"code": "CES 220", "title": "Upper Kinetic Chain Dysfunction", "credits": 3, "desc": "Common upper-body dysfunction patterns, from desk-driven posture to shoulder impingement.", "concepts": ["Upper crossed syndrome", "Scapular dyskinesis", "Forward head posture", "Shoulder impingement", "Thoracic kyphosis"]}]}, {"term": "Spring", "courses": [{"code": "CES 202", "title": "Manual Therapy & Soft Tissue Techniques", "credits": 3, "desc": "Hands-on and instrument-assisted techniques for the inhibit phase of corrective work.", "concepts": ["Trigger point therapy", "Myofascial release", "Instrument-assisted soft tissue mobilization", "Cross-fiber friction", "Pin and stretch"]}, {"code": "CES 230", "title": "Mobility & Stretching Science", "credits": 3, "desc": "Static, dynamic, and PNF stretching — what actually changes range of motion versus what just feels like it does.", "concepts": ["Static stretching", "Dynamic stretching", "PNF stretching", "Stretch tolerance", "Neural stretch inhibition"]}, {"code": "CES 240", "title": "Core & Spinal Stabilization", "credits": 3, "desc": "Bracing mechanics and lumbopelvic control as the foundation under every loaded movement.", "concepts": ["Intra-abdominal pressure", "Bracing", "Lumbopelvic control", "Anti-rotation training", "Neutral spine"]}]}]}, {"year": 3, "title": "Programming & Applied Practice", "semesters": [{"term": "Fall", "courses": [{"code": "PROG 301", "title": "Program Design Principles", "credits": 3, "desc": "Periodization and progressive overload as the structural logic behind any training plan.", "concepts": ["Periodization", "Progressive overload", "Exercise selection", "Volume & intensity", "Training variables"]}, {"code": "PROG 310", "title": "Hypertrophy Programming", "credits": 3, "desc": "The mechanisms that actually drive muscle growth, and how to program around them.", "concepts": ["Mechanical tension", "Metabolic stress", "Muscle damage", "Rep ranges", "Training volume"]}, {"code": "PROG 320", "title": "Strength & Athletic Performance", "credits": 3, "desc": "Force production and power development for clients training toward performance, not just aesthetics.", "concepts": ["Rate of force development", "Force-velocity curve", "Power output", "Neural adaptation", "Specificity principle"]}]}, {"term": "Spring", "courses": [{"code": "PROG 302", "title": "Calisthenics & Bodyweight Progressions", "credits": 3, "desc": "Leverage-based progression systems for building skill and relative strength without external load.", "concepts": ["Leverage progression", "Isometric holds", "Skill progression", "Relative strength", "Progressive difficulty"]}, {"code": "CES 310", "title": "Injury Prevention & Return-to-Activity", "credits": 3, "desc": "Load management and regression logic for keeping clients training safely through and after injury.", "concepts": ["Load management", "Regression/progression continuum", "Return-to-play criteria", "Tissue healing timeline", "Red flag screening"]}, {"code": "PROG 330", "title": "Combat Conditioning & Metabolic Systems", "credits": 3, "desc": "Work capacity and interval design for combat-sport and high-output conditioning.", "concepts": ["Work capacity", "Interval training", "Anaerobic threshold", "Metabolic conditioning", "Recovery ratios"]}]}]}, {"year": 4, "title": "Clinical Application & Business of Practice", "semesters": [{"term": "Fall", "courses": [{"code": "CES 401", "title": "Client Assessment & Case Study Methodology", "credits": 3, "desc": "Building a repeatable pipeline from intake through assessment to a programmed plan.", "concepts": ["Intake assessment", "Movement diagnosis", "Goal-based programming", "Reassessment protocol", "Case documentation"]}, {"code": "CES 410", "title": "Chronic Pain & Special Populations", "credits": 3, "desc": "Working with pain science, aging clients, and post-rehab populations within scope of practice.", "concepts": ["Pain science", "Central sensitization", "Post-rehab training", "Aging & sarcopenia", "Scope of practice"]}, {"code": "PROG 401", "title": "Recovery Systems & Regeneration", "credits": 3, "desc": "Sleep, load monitoring, and deload strategy as the unglamorous half of every good program.", "concepts": ["Sleep & recovery", "Load monitoring", "Deload programming", "HRV (heart rate variability)", "Overtraining syndrome"]}]}, {"term": "Spring", "courses": [{"code": "CES 402", "title": "Advanced Manual Therapy Integration", "credits": 3, "desc": "Connecting table work to gym programming into one continuous line of care.", "concepts": ["Manual therapy sequencing", "Neuromuscular reeducation", "Client handoff protocol", "Table-to-gym integration", "Treatment planning"]}, {"code": "BUS 420", "title": "Clinical Practice Management", "credits": 3, "desc": "Running the business side of a therapy or fitness practice — documentation, scheduling, liability.", "concepts": ["SOAP notes", "Scope of practice", "Client scheduling systems", "Liability & informed consent", "Practice documentation"]}, {"code": "CES 490", "title": "Capstone — Full Client Case Build", "credits": 3, "desc": "A complete assessment-to-program case study, presented and defended end to end.", "concepts": ["Full case build", "Assessment-to-program pipeline", "Outcome tracking", "Client communication", "Case presentation"]}]}]}];
+const GLOSSARY = {"Planes of motion": "The three-dimensional reference planes — sagittal, frontal, transverse — used to describe how the body moves. Example: a squat happens mostly in the sagittal plane, while a lateral lunge happens in the frontal plane.", "Joint actions": "The specific movements a joint performs: flexion, extension, abduction, rotation, and so on. Example: the shoulder flexes when you raise your arm overhead during a press.", "Origin & insertion": "The two attachment points of a muscle — the origin stays relatively fixed, the insertion moves. Example: the biceps originates at the shoulder and inserts at the forearm, which is why it flexes the elbow when it contracts.", "Agonist/antagonist": "The muscle producing a movement (agonist) and the opposing muscle that lengthens to allow it (antagonist). Example: during a bicep curl, the biceps is the agonist and the triceps is the antagonist lengthening to allow the motion.", "Osteokinematics": "The visible movement of bones around a joint axis, as opposed to microscopic joint-surface motion. Example: watching a client's knee bend during a squat is observing osteokinematics.", "ATP-PC system": "The immediate energy system supplying power for very short, max-effort work, roughly 0–10 seconds. Example: a single heavy deadlift attempt draws almost entirely on the ATP-PC system.", "Glycolytic system": "The energy system breaking down glucose without oxygen, fueling efforts from about 10 seconds to 2 minutes. Example: a 60-second all-out bike sprint relies heavily on the glycolytic system, which is why it burns so much.", "Oxidative system": "The aerobic energy system fueling sustained, longer-duration effort using oxygen. Example: a 30-minute steady jog is powered predominantly by the oxidative system.", "VO2 max": "The maximum rate the body can consume oxygen during intense exercise — a marker of aerobic capacity. Example: two clients running the same pace, but the one with higher VO2 max will fatigue noticeably slower.", "Cardiac output": "The volume of blood the heart pumps per minute — heart rate multiplied by stroke volume. Example: cardiac output rises during exercise both because the heart beats faster and pumps more per beat.", "Force-couple relationships": "Two or more muscles working together, often in different directions, to produce controlled joint motion. Example: the upper and lower trapezius and serratus anterior form a force-couple that rotates the shoulder blade during an overhead reach.", "Levers": "The bone-joint-muscle systems the body uses to produce movement, classified by fulcrum, force, and resistance position. Example: the elbow acts as a lever during a bicep curl, with the joint as the fulcrum.", "Torque": "Rotational force around a joint axis, produced by a muscle's force and its distance from the joint. Example: holding a dumbbell further from the body increases torque at the shoulder, making the same weight feel heavier.", "Center of mass": "The point where a body's mass is balanced in all directions — central to stability and movement efficiency. Example: a client leaning forward during a squat is shifting their center of mass to stay balanced over their feet.", "Ground reaction force": "The force the ground exerts back on the body in response to a person's force against it. Example: landing from a jump generates ground reaction force that the knees and hips must absorb.", "Motor unit recruitment": "The process of activating more or fewer motor units — a nerve and the muscle fibers it controls — to produce force. Example: lifting a heavier weight recruits more motor units than lifting a light one.", "Reciprocal inhibition": "The nervous system's automatic relaxation of an opposing muscle when its counterpart contracts. Example: contracting the quadriceps during a leg extension automatically inhibits the hamstrings to allow smooth knee extension.", "Proprioception": "The body's sense of its own position and movement in space, without relying on vision. Example: standing on one leg with eyes closed tests proprioception directly, since vision can no longer compensate.", "Muscle spindle": "A sensory receptor in muscle that detects stretch and length change, triggering protective reflexes. Example: a sudden overstretch during a hamstring stretch can trigger the muscle spindle's protective contraction reflex.", "Golgi tendon organ": "A sensory receptor in tendons that detects tension and can trigger relaxation to prevent injury. Example: extremely high tension in a tendon during a heavy lift can trigger the Golgi tendon organ to reflexively relax the muscle.", "Static posture assessment": "Evaluating body alignment while a person stands still, to spot postural compensations. Example: a static posture assessment might reveal one shoulder sitting noticeably higher than the other.", "Overhead squat assessment": "A movement screen using a bodyweight overhead squat, performed for 5 reps while viewed from front and side, to reveal compensation patterns across the kinetic chain. Example: knees caving inward during the overhead squat assessment often points to weak hip external rotators and restricted ankle dorsiflexion. (Source: NASM CES movement assessment protocol — blog.nasm.org)", "Compensation patterns": "Movement substitutions the body makes when a muscle or joint isn't functioning optimally. Example: a client with tight hip flexors rounding their low back during a squat is showing a compensation pattern.", "Movement screening": "A structured process for assessing movement quality before designing a training or corrective program. Example: running a movement screen before programming avoids loading a squat pattern that's already compensating.", "Kinetic chain": "The interconnected system of joints and muscles that work together — dysfunction in one link affects others. Example: a stiff ankle can quietly show up as knee pain further up the kinetic chain.", "Fascial lines": "Continuous myofascial pathways (popularized as 'Anatomy Trains' by Thomas Myers) that can transmit force and tension across multiple muscles and joints. Example: tightness in the calf can transmit tension up the posterior line into the hamstrings — systematic reviews confirm this force transmission exists anatomically, though the clinical magnitude in specific chains is still an active research question, not settled fact. (Source: Krause et al., Journal of Anatomy, 2016 — a systematic review of myofascial force transmission)", "Tensegrity": "A structural principle where tension and compression elements balance each other, used to describe fascial support. Example: the body's ability to stay upright with minimal muscular effort reflects its tensegrity design.", "Myofascial adhesions": "Areas where fascia has become stuck or restricted, limiting normal tissue glide and movement. Example: a client describing a 'stuck' feeling in their IT band is often describing a myofascial adhesion.", "Thixotropy": "The property of fascia becoming more fluid and pliable with heat and movement, stiffer at rest. Example: fascia feeling stiffer first thing in the morning versus after a warm-up demonstrates thixotropy.", "Connective tissue remodeling": "The body's process of adapting fascia and connective tissue structure in response to load over time. Example: consistent loading over months of training drives connective tissue remodeling that makes tendons more resilient.", "Inhibit phase": "The first phase of NASM's Corrective Exercise Continuum — reducing tension in overactive muscles, typically through self-myofascial techniques like foam rolling. Example: foam rolling the calves before a session is an inhibit-phase technique that prepares the tissue for the lengthen phase that follows. (Source: NASM Corrective Exercise Continuum — nasm.org)", "Lengthen phase": "The second phase of corrective exercise — restoring full tissue and joint range of motion through stretching. Example: a static calf stretch after foam rolling belongs to the lengthen phase.", "Activate phase": "The third phase of corrective exercise — isolating and strengthening underactive or inhibited muscles. Example: glute bridges to wake up inhibited glutes before a squat session is a classic activate-phase exercise.", "Integrate phase": "The final phase of corrective exercise — retraining activated muscles into full, compound movement patterns. Example: a loaded squat that finally uses the newly activated glutes correctly is the integrate phase in action.", "Autogenic inhibition": "A reflex relaxation response in a muscle triggered by sustained tension, used in certain stretching and release techniques. Example: a sustained 20-second static stretch relies partly on autogenic inhibition to let the muscle lengthen further.", "Pes planus": "Flat feet — a collapse of the foot's medial arch that can affect alignment up the entire kinetic chain. Example: a client with pes planus may also show knee valgus during a squat, since the two often relate.", "Knee valgus": "Inward collapse of the knee during movement, associated with decreased hip abductor and hip external rotation strength plus restricted ankle dorsiflexion. Example: knees caving in during a squat or landing is knee valgus, and research links it to elevated ACL injury risk (Hewett et al., Ford et al.), which is why it's a priority red flag in assessment.", "Hip drop (Trendelenburg)": "A drop of the pelvis on the unsupported (swing-leg) side during single-leg stance, indicating weak hip abductors (gluteus medius/minimus) on the standing leg. First described by Friedrich Trendelenburg in 1897. Example: a visible pelvic drop during single-leg step-ups is a positive Trendelenburg sign, pointing to abductor weakness on the leg still on the ground. (Source: StatPearls, NCBI — ncbi.nlm.nih.gov/books/NBK555987)", "Lower crossed syndrome": "A common pattern of tight hip flexors and low back paired with weak glutes and abdominals. Example: a client who sits most of the day often presents with lower crossed syndrome, showing up as anterior pelvic tilt.", "Glute inhibition": "Reduced neural activation of the gluteal muscles, often from prolonged sitting or compensation patterns. Example: a client compensating with their hamstrings and low back during a bridge is showing signs of glute inhibition.", "Upper crossed syndrome": "A common pattern of tight chest and upper traps paired with weak deep neck flexors and mid-back muscles. Example: a client with rounded shoulders and a forward-jutting head from desk work is a textbook upper crossed presentation.", "Scapular dyskinesis": "Abnormal movement or positioning of the shoulder blade during arm motion. Example: a shoulder blade that visibly wings out during a push-up is a sign of scapular dyskinesis.", "Forward head posture": "Anterior displacement of the head relative to the shoulders, increasing load on the neck and upper back. Example: forward head posture from constant phone use adds significant mechanical strain to the upper traps and neck.", "Shoulder impingement": "Compression of shoulder tendons or bursa during overhead movement, often from poor scapular mechanics. Example: pain specifically during the top half of an overhead press often signals shoulder impingement.", "Thoracic kyphosis": "Excessive rounding of the upper back, often linked to prolonged sitting and upper crossed syndrome. Example: a client unable to fully raise their arms overhead without arching their low back often has excessive thoracic kyphosis limiting them.", "Trigger point therapy": "Manual pressure applied to hyperirritable spots in muscle tissue to reduce pain and restore function. Example: sustained thumb pressure into a tender knot in the upper trap is classic trigger point therapy.", "Myofascial release": "Manual or tool-assisted technique aimed at releasing fascial restrictions and improving tissue mobility. Example: slow, sustained pressure along the IT band with a foam roller is a form of myofascial release.", "Instrument-assisted soft tissue mobilization": "Using tools to detect and treat soft tissue restrictions — commonly abbreviated IASTM. Example: gliding a metal IASTM tool along a restricted forearm to break up adhesions after repetitive strain.", "Cross-fiber friction": "A manual technique applying pressure across the grain of a muscle or tendon fiber to break up adhesions. Example: applying cross-fiber friction directly across a tendon's fibers, rather than along their length, at an injury site.", "Pin and stretch": "A manual technique that holds (pins) a tissue point while the client actively moves through a stretch. Example: pinning a tight spot in the calf while the client actively dorsiflexes their ankle.", "Static stretching": "Holding a muscle in a lengthened position without movement to increase range of motion. Example: holding a hamstring stretch for 30 seconds post-workout is a standard static stretching protocol.", "Dynamic stretching": "Active, movement-based stretching that takes a joint through its range of motion, typically used pre-activity. Example: leg swings before a workout are dynamic stretching, prepping the joint through active motion.", "PNF stretching": "Proprioceptive Neuromuscular Facilitation — a technique using contract-relax cycles to increase range of motion. Example: having a client contract their hamstring against resistance, then relax into a deeper stretch, is PNF stretching.", "Stretch tolerance": "The nervous system's adapted tolerance to the sensation of a stretch, which changes with training more than tissue length alone. Example: a client's hamstring flexibility improving over weeks often reflects rising stretch tolerance, not just longer tissue.", "Neural stretch inhibition": "A protective nervous system response that limits range of motion until a movement is perceived as safe. Example: a client tensing up during a new, unfamiliar stretch is neural stretch inhibition protecting the joint.", "Intra-abdominal pressure": "Pressure generated within the abdominal cavity that helps stabilize the spine under load. Example: bracing before a heavy deadlift increases intra-abdominal pressure to protect the low back.", "Bracing": "Actively contracting core musculature to stabilize the spine before and during a lift or movement. Example: cueing a client to 'brace like you're about to be punched in the stomach' before a lift.", "Lumbopelvic control": "The ability to stabilize the low back and pelvis during movement of the arms or legs. Example: keeping the pelvis level during a single-leg deadlift demonstrates solid lumbopelvic control.", "Anti-rotation training": "Core training that builds resistance to unwanted rotational forces through the trunk. Example: a Pallof press is a classic anti-rotation training exercise, resisting the urge to rotate toward the cable.", "Neutral spine": "The spine's natural alignment that maintains its healthy curves under load. Example: maintaining a neutral spine during a deadlift, rather than rounding, protects the discs from uneven loading.", "Periodization": "Structuring training into planned phases to manage fatigue and peak performance over time. Example: a 12-week periodized plan might build a hypertrophy base before shifting into a strength-focused phase.", "Progressive overload": "Gradually increasing training demand over time to continue driving adaptation. Example: adding 5 pounds to a client's squat every two weeks is straightforward progressive overload.", "Exercise selection": "Choosing specific exercises based on a client's goals, limitations, and movement capacity. Example: choosing a trap bar deadlift over a straight bar for a client with shoulder mobility limits is deliberate exercise selection.", "Volume & intensity": "The two primary training variables — total work done (volume) and how hard each effort is (intensity). Example: a deload week deliberately reduces volume while keeping intensity relatively high.", "Training variables": "The adjustable elements of a program — sets, reps, load, rest, tempo, frequency — used to drive adaptation. Example: slowing the eccentric tempo on a squat is manipulating a training variable without changing the exercise itself.", "Mechanical tension": "Force placed on a muscle under load — current research (Schoenfeld, 2010; later reviews) identifies this as the primary driver of hypertrophy. Example: a heavy, slow squat creates significant mechanical tension through the quads and glutes. (Source: Schoenfeld, J Strength Cond Res, 2010)", "Metabolic stress": "The buildup of metabolic byproducts (lactate, inorganic phosphate) during training, theorized to contribute to the muscle growth response alongside mechanical tension. Example: the burning sensation during a high-rep drop set reflects the metabolic stress that's part of that stimulus.", "Muscle damage": "Microscopic tissue damage from training, historically listed alongside mechanical tension and metabolic stress as a hypertrophy driver. Important nuance: more recent research (including Schoenfeld's own 2012 follow-up) has walked this back — damage may correlate with growth without directly causing it, and mechanical tension is now considered the dominant driver. Example: soreness two days after a new exercise reflects real tissue damage, but that soreness itself isn't what's building the muscle. (Source: Schoenfeld, 2012, 'Does exercise-induced muscle damage play a role in hypertrophy?')", "Rep ranges": "The number of repetitions performed per set, typically manipulated to target strength, hypertrophy, or endurance. Example: programming 6-8 reps for strength versus 12-15 reps for hypertrophy are different rep range targets.", "Training volume": "The total amount of work performed, usually calculated as sets multiplied by reps multiplied by load. Example: 4 sets of 10 reps at 100 pounds gives a training volume of 4,000 pounds for that exercise.", "Rate of force development": "How quickly a muscle can generate force from a resting state — critical for explosive movement. Example: a boxer's punch speed depends heavily on rate of force development, not just max strength.", "Force-velocity curve": "The inverse relationship between how much force a muscle can produce and how fast it can contract. Example: a max-effort deadlift sits at the high-force, low-velocity end of the force-velocity curve, unlike a jump.", "Power output": "The rate of doing work — force multiplied by velocity — central to athletic performance. Example: a box jump trains power output more directly than a slow, heavy squat does.", "Neural adaptation": "Early strength gains driven by improved nervous system efficiency, before significant muscle growth occurs. Example: a beginner's rapid strength gains in the first few weeks are mostly neural adaptation, not new muscle yet.", "Specificity principle": "The training principle that adaptations are specific to the type of demand placed on the body. Example: training heavy squats builds strength specific to squatting, not automatically to sprinting speed.", "Leverage progression": "Adjusting body position to change the effective resistance of a bodyweight exercise, used to progress calisthenics skills. Example: moving from a knee push-up to a full push-up to a decline push-up is a leverage progression.", "Isometric holds": "Static holds where a muscle generates force without changing length, often used to build positional strength. Example: a plank is an isometric hold building core positional strength without any movement.", "Skill progression": "A structured sequence of increasingly difficult movement variations building toward an advanced skill. Example: building from a wall handstand to a freestanding handstand is a classic skill progression.", "Relative strength": "Strength measured relative to one's own bodyweight — central to calisthenics performance. Example: being able to do 10 strict pull-ups reflects strong relative strength, regardless of how much someone can bench press.", "Progressive difficulty": "Systematically increasing a movement's challenge as competency at the current level is achieved. Example: adding a pause at the bottom of a pistol squat once the basic version is mastered increases progressive difficulty.", "Load management": "Deliberately controlling training stress to balance adaptation against injury risk. Example: capping a returning client's volume at 70% of pre-injury levels for two weeks is active load management.", "Regression/progression continuum": "A spectrum of exercise variations from easier to harder, used to match a movement to current capacity. Example: dropping from a full squat to a box squat is moving down the regression/progression continuum.", "Return-to-play criteria": "Objective benchmarks used to determine when someone is ready to resume full activity after injury. Example: requiring equal single-leg hop distance on both legs before clearing a client for return-to-play.", "Tissue healing timeline": "The general phases and expected duration of soft tissue repair after injury. Example: knowing a moderate hamstring strain generally needs 4-8 weeks on the tissue healing timeline shapes how aggressively to progress a client.", "Red flag screening": "Identifying signs during assessment that indicate a client should be referred to a medical professional. Example: unexplained numbness down a limb during assessment is a red flag warranting referral, not just modified programming.", "Work capacity": "The body's ability to perform and recover from a given volume of physical work. Example: a fighter's work capacity determines how many hard rounds they can sustain before performance drops off.", "Interval training": "Alternating periods of higher and lower intensity effort to build conditioning. Example: 30 seconds hard on the bike, 90 seconds easy, repeated, is a standard interval training structure.", "Anaerobic threshold": "The intensity level at which the body shifts predominantly to anaerobic energy production. Example: pushing pace just past a client's anaerobic threshold is why a moderate run suddenly starts to burn.", "Metabolic conditioning": "Training designed to improve the efficiency of the body's energy systems under fatigue. Example: a circuit of kettlebell swings and burpees is metabolic conditioning work, not primarily a strength session.", "Recovery ratios": "The relationship between work time and rest time in interval-based conditioning. Example: a 1:3 recovery ratio might mean 20 seconds of work followed by 60 seconds of rest.", "Intake assessment": "The initial evaluation gathering a client's history, goals, and movement baseline before programming begins. Example: a thorough intake assessment might reveal a prior knee surgery that changes how you'd program squats.", "Movement diagnosis": "Identifying the specific dysfunction or compensation pattern underlying a client's presentation. Example: diagnosing that a client's low back pain actually stems from restricted hip mobility, not the spine itself.", "Goal-based programming": "Designing a training plan explicitly structured around a client's stated outcome. Example: programming differently for a client who wants pain-free golf versus one training for a powerlifting meet.", "Reassessment protocol": "A structured process for re-testing a client's movement and progress at set intervals. Example: rerunning the overhead squat assessment every 6 weeks as a reassessment protocol to confirm the program is working.", "Case documentation": "Written records tracking a client's assessment findings, program, and progress over time. Example: dated case documentation showing improved shoulder flexion over 8 weeks demonstrates real, provable progress.", "Pain science": "The modern understanding of pain as an output of the nervous system's threat interpretation, not purely a tissue-damage signal. Example: pain science explains why a client's back pain can flare from stress alone, without any new injury. (Source: Cleveland Clinic Journal of Medicine, 2023 — review of central sensitization and pain mechanisms)", "Central sensitization": "A pathophysiologic state, first described by Clifford Woolf, where the central nervous system becomes hyperexcitable, amplifying pain beyond what tissue damage would predict — the IASP defines it as increased responsiveness of nociceptive neurons to normal or subthreshold input. Example: a client reporting severe pain from light touch, long after an injury has healed, may show central sensitization. This is a real diagnostic consideration, not something to self-diagnose from a fitness credential — refer to a physician or pain specialist. (Source: International Association for the Study of Pain; Woolf, 1983)", "Post-rehab training": "Structured exercise progression for clients transitioning out of formal physical therapy. Example: picking up a client after PT discharge and bridging them safely back into full training is post-rehab work.", "Aging & sarcopenia": "The age-related loss of muscle mass, strength, and function — affecting roughly 10% of adults over 60 and 30% over 80. Example: prioritizing resistance training and adequate protein intake (1.0–1.5 g/kg) for an older client is a direct, meta-analysis-supported countermeasure to sarcopenia. (Source: systematic review, Epidemiology and Health, 2024 — ncbi.nlm.nih.gov/pmc/articles/PMC11369567)", "Scope of practice": "The specific services a practitioner is legally and professionally qualified to provide. Example: referring a client with suspected disc herniation to a physician is respecting scope of practice, not diagnosing it yourself.", "Sleep & recovery": "The role of sleep quality and quantity in physical adaptation and performance readiness. Example: a client's stalled strength gains despite good programming often trace back to poor sleep and recovery, not training itself.", "Load monitoring": "Tracking training stress over time to guide programming decisions and prevent overtraining. Example: logging weekly total volume lets you spot a spike in load monitoring before it turns into an overuse injury.", "Deload programming": "A planned period of reduced training volume or intensity to allow recovery and adaptation. Example: cutting volume by 40% every fourth week is a standard deload programming approach.", "HRV (heart rate variability)": "The variation in time between heartbeats, used as an indicator of recovery and nervous system readiness. Example: a client's unusually low HRV reading might be a signal to program a lighter session that day.", "Overtraining syndrome": "A state of chronic fatigue and performance decline from insufficient recovery relative to training stress. Example: a client whose lifts keep declining despite harder training may be sliding into overtraining syndrome.", "Manual therapy sequencing": "The deliberate order of hands-on techniques within a session to maximize effectiveness. Example: releasing the calf before stretching the ankle follows a deliberate manual therapy sequencing logic.", "Neuromuscular reeducation": "Retraining the nervous system's control of movement patterns after dysfunction or injury. Example: relearning to fire the glutes properly during a squat after months of compensation is neuromuscular reeducation.", "Client handoff protocol": "The structured process of transitioning a client's care between practitioners or phases of treatment. Example: a clear handoff protocol from massage table to gym floor keeps a client's care consistent between sessions.", "Table-to-gym integration": "Connecting manual therapy work on the table to active corrective exercise in a training setting. Example: releasing tight hip flexors on the table, then immediately reinforcing that range with an active lunge, is table-to-gym integration.", "Treatment planning": "Mapping out the sequence and goals of a client's care across multiple sessions. Example: a 6-session treatment plan targeting shoulder mobility before progressing to loaded pressing work.", "SOAP notes": "A standardized clinical documentation format — Subjective, Objective, Assessment, Plan — developed by Dr. Lawrence Weed in the 1960s as part of the Problem-Oriented Medical Record. Example: writing 'client reports less pain (S), improved flexion by 10 degrees (O)...' follows SOAP note structure. (Source: SOAP Notes, StatPearls/PubMed — pubmed.ncbi.nlm.nih.gov/29489268)", "Client scheduling systems": "The tools and processes used to book, manage, and retain a client caseload. Example: an automated booking system that sends reminders is a client scheduling system that reduces no-shows.", "Liability & informed consent": "The legal and ethical requirement to disclose risks and obtain a client's agreement before treatment. Example: having a client sign an informed consent form before a new manual therapy technique protects both parties.", "Practice documentation": "The records a practice keeps for legal, clinical, and business continuity purposes. Example: keeping organized practice documentation is what lets another provider step in seamlessly if you're ever unavailable.", "Full case build": "A complete, end-to-end client case — from intake through assessment, programming, and reassessment. Example: presenting a full case build from a client's initial low back pain through their pain-free deadlift 12 weeks later.", "Assessment-to-program pipeline": "The full workflow connecting a client's initial assessment to their ongoing training program. Example: a clean assessment-to-program pipeline means every exercise in the plan traces back to a specific finding in the intake.", "Outcome tracking": "Measuring and recording whether a client's program is producing the intended results over time. Example: tracking a client's pain-free range of motion month over month is outcome tracking in practice.", "Client communication": "How clearly and consistently a practitioner explains findings, plans, and progress to a client. Example: explaining exactly why glute activation work matters before programming it builds trust through client communication.", "Case presentation": "Formally presenting a client case, including findings, rationale, and results. Example: presenting a case at a staff meeting, showing assessment findings, program logic, and measured outcomes."};
+const QUIZ = {"KIN 101": {"question": "You're explaining to a new client why the biceps flexes the elbow. Which anatomical concept are you describing?", "options": ["Origin & insertion determining the direction of pull", "Ground reaction force", "The oxidative energy system", "Reciprocal inhibition"], "correctIndex": 0, "explanation": "The biceps' origin at the shoulder and insertion at the forearm is exactly what determines it pulls the forearm toward the shoulder when it contracts — that's origin & insertion in action."}, "KIN 110": {"question": "A client asks why they're gasping for air after a single all-out 8-second sprint but weren't during a slow 20-minute walk. Which energy system dominates that short sprint?", "options": ["Oxidative system", "ATP-PC system", "Glycolytic system", "Endocrine system"], "correctIndex": 1, "explanation": "An 8-second max effort draws almost entirely on the ATP-PC system, the immediate energy pathway for very short, high-intensity efforts."}, "KIN 120": {"question": "A client holds a dumbbell further from their body during a lateral raise and says it 'feels so much heavier' at the same weight. What's actually increasing?", "options": ["Ground reaction force", "Torque at the shoulder", "Cardiac output", "Motor unit recruitment threshold"], "correctIndex": 1, "explanation": "Moving the load further from the joint increases torque — the same weight produces more rotational demand the further it sits from the joint axis."}, "KIN 102": {"question": "During a bicep curl, why does the triceps automatically relax to let the elbow bend smoothly?", "options": ["Golgi tendon organ activation", "Reciprocal inhibition", "Autogenic inhibition", "Muscle spindle stretch reflex"], "correctIndex": 1, "explanation": "Reciprocal inhibition is the nervous system automatically relaxing the antagonist (triceps) when the agonist (biceps) contracts, allowing smooth movement."}, "KIN 130": {"question": "During an overhead squat assessment, a client's knees cave inward. What should this immediately prompt you to investigate?", "options": ["Cardiovascular endurance", "Hip and ankle stability/strength", "Vitamin D levels", "Grip strength"], "correctIndex": 1, "explanation": "Knee valgus during an overhead squat is a classic sign pointing toward weak hip external rotators/abductors or limited ankle mobility."}, "KIN 140": {"question": "A client says their calf tightness seems to be affecting their hamstring flexibility. What concept best explains this connection?", "options": ["Reciprocal inhibition", "Fascial lines transmitting tension", "The ATP-PC system", "Hypertrophy"], "correctIndex": 1, "explanation": "Fascial lines run continuously through the body, so tension in the calf can transmit up through connected fascia into the hamstring."}, "CES 201": {"question": "You've inhibited a client's tight hip flexors and stretched them into better length. What's the next logical phase in NASM's Corrective Exercise Continuum?", "options": ["Reassessment", "Activate the underactive glutes", "Add heavy loaded squats immediately", "Move to a different muscle group entirely"], "correctIndex": 1, "explanation": "After Inhibit and Lengthen, the next phase is Activate — waking up the muscles (often glutes) inhibited by the tightness you just addressed."}, "CES 210": {"question": "A client shows a pelvic drop on one side during single-leg stance. This is a positive sign for which condition?", "options": ["Upper crossed syndrome", "Trendelenburg sign (weak hip abductors)", "Thoracic kyphosis", "Central sensitization"], "correctIndex": 1, "explanation": "A pelvic drop during single-leg stance is the classic positive Trendelenburg sign, pointing to weak hip abductors on the stance-leg side."}, "CES 220": {"question": "A desk-bound client presents with tight chest/upper traps and weak deep neck flexors/mid-back. What pattern are you looking at?", "options": ["Lower crossed syndrome", "Upper crossed syndrome", "Pes planus", "Central sensitization"], "correctIndex": 1, "explanation": "Tight upper traps and chest paired with weak deep neck flexors and mid-back muscles is the textbook upper crossed syndrome pattern."}, "CES 202": {"question": "You want to treat a tender knot in a client's upper trap with sustained direct pressure. What technique are you using?", "options": ["Pin and stretch", "Trigger point therapy", "PNF stretching", "Cross-fiber friction"], "correctIndex": 1, "explanation": "Sustained pressure into a hyperirritable knot is classic trigger point therapy, distinct from cross-fiber friction or pin and stretch."}, "CES 230": {"question": "You have a client contract their hamstring against your resistance, then relax into a deeper stretch. What stretching technique is this?", "options": ["Static stretching", "Dynamic stretching", "PNF stretching", "Ballistic stretching"], "correctIndex": 2, "explanation": "A contract-relax cycle to deepen a stretch is Proprioceptive Neuromuscular Facilitation (PNF) stretching."}, "CES 240": {"question": "You cue a client to brace 'like you're about to be punched in the stomach' before a heavy lift. What are you training?", "options": ["Reciprocal inhibition", "Intra-abdominal pressure and bracing", "Thoracic kyphosis correction", "Neural stretch inhibition"], "correctIndex": 1, "explanation": "That cue is a classic way to teach bracing — actively increasing intra-abdominal pressure to stabilize the spine under load."}, "PROG 301": {"question": "You add 5 pounds to a client's squat every two weeks as they adapt. What training principle are you applying?", "options": ["Specificity principle", "Progressive overload", "Neural adaptation", "Reciprocal inhibition"], "correctIndex": 1, "explanation": "Gradually increasing training demand over time as the client adapts is the definition of progressive overload."}, "PROG 310": {"question": "A client asks why their legs feel like they're 'on fire' during a high-rep drop set, even though the weight isn't that heavy. What's driving that sensation?", "options": ["Mechanical tension", "Metabolic stress", "Neural adaptation", "The ATP-PC system"], "correctIndex": 1, "explanation": "The burning sensation during high-rep, shorter-rest work reflects metabolic byproduct buildup — metabolic stress — a key driver of hypertrophy."}, "PROG 320": {"question": "You're training a boxer specifically for punch speed, not just max strength. Which concept should most directly guide the programming?", "options": ["Rate of force development", "Training volume", "Muscle damage", "Aerobic capacity"], "correctIndex": 0, "explanation": "Punch speed depends heavily on how quickly force can be generated from a resting state — rate of force development — not just maximum strength."}, "PROG 302": {"question": "A client can't yet do a full push-up. What's the correct next step using leverage progression?", "options": ["Have them attempt weighted push-ups anyway", "Regress to an incline or knee push-up variation", "Skip to a one-arm push-up", "Switch entirely to isometric planks"], "correctIndex": 1, "explanation": "Leverage progression means adjusting body position to change effective resistance — regressing to an incline or knee variation reduces the load."}, "CES 310": {"question": "A client returning from a hamstring strain wants to sprint again. What should determine when they're cleared, rather than just how they feel?", "options": ["How much they've missed training", "Objective return-to-play criteria like matched single-leg hop distance", "Their motivation level", "Simply how many weeks have passed"], "correctIndex": 1, "explanation": "Return-to-play decisions should rest on objective benchmarks, like symmetrical hop test performance, not just time elapsed or how they feel."}, "PROG 330": {"question": "You program 30 seconds of hard effort followed by 90 seconds of rest, repeated. What training method is this?", "options": ["Steady-state cardio", "Interval training", "Isometric training", "PNF stretching"], "correctIndex": 1, "explanation": "Alternating periods of higher and lower intensity effort, like 30 seconds hard/90 seconds easy, is the definition of interval training."}, "CES 401": {"question": "A new client's intake reveals a prior ACL surgery you weren't otherwise aware of. How should this change your approach?", "options": ["Ignore it since it's now fully healed", "Let it directly inform movement diagnosis and program design", "Refer them out immediately without assessing further", "Only mention it in your notes, but don't change the program"], "correctIndex": 1, "explanation": "A thorough intake assessment exists precisely so findings like a prior surgery can directly shape your movement diagnosis and programming."}, "CES 410": {"question": "A client reports severe pain from very light touch on an area that finished healing months ago. What's the most likely explanation?", "options": ["A brand new injury", "Central sensitization", "Vitamin deficiency", "Poor cardiovascular fitness"], "correctIndex": 1, "explanation": "Pain persisting and even amplifying well beyond expected tissue healing time often reflects central sensitization."}, "PROG 401": {"question": "A client's lifts have been declining for three weeks despite harder training and no diet changes. What should you check first?", "options": ["Immediately increase their training volume further", "Sleep, recovery, and load monitoring trends", "Switch their entire program overnight", "Assume they've lost motivation"], "correctIndex": 1, "explanation": "Declining performance despite harder training is a classic overtraining warning sign — check sleep, recovery, and load trends first."}, "CES 402": {"question": "You release a client's tight hip flexors on the table, then immediately have them reinforce that new range with an active lunge. What are you doing?", "options": ["Table-to-gym integration", "Reciprocal inhibition testing", "A red flag screening", "SOAP note documentation"], "correctIndex": 0, "explanation": "Connecting manual therapy work on the table directly to active reinforcement in a training movement is table-to-gym integration."}, "BUS 420": {"question": "You document a session as: 'Client reports 60% less pain (S); measured 10-degree improvement in shoulder flexion (O)...' What documentation format is this?", "options": ["A business contract", "SOAP notes", "A liability waiver", "An informed consent form"], "correctIndex": 1, "explanation": "Subjective, Objective, Assessment, Plan — that structure is the standardized SOAP note format used for clinical documentation."}, "CES 490": {"question": "You're building a complete case study from a client's first visit through 12 weeks of pain-free training. What should tie every exercise in the program back to the original findings?", "options": ["The client's personal preference alone", "A clear assessment-to-program pipeline", "Whatever exercises are trending on social media", "Matching a generic template regardless of findings"], "correctIndex": 1, "explanation": "A clean assessment-to-program pipeline means every exercise choice traces logically back to a specific finding from the intake and assessment."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'kinesiology-degree-completed';
+const MASTERED_KEY = 'kinesiology-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

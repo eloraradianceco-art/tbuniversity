@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Trading & Market Systems — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Applied Trading & Market Systems — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Market foundations through Pine Script strategy development and systematic trading.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Market Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "MKT 101", "title": "Financial Markets Overview", "credits": 3, "desc": "Asset classes, exchanges, and market participants — the landscape every trading decision happens inside.", "concepts": ["Asset classes", "Market participants", "Exchanges vs OTC", "Bid/ask spread", "Market hours & sessions"]}, {"code": "MKT 110", "title": "Chart Reading & Price Action", "credits": 3, "desc": "Reading candlesticks, trend, and support/resistance directly off price, before any indicator gets added.", "concepts": ["Candlestick patterns", "Support & resistance", "Trend identification", "Price action", "Higher highs/higher lows"]}, {"code": "MATH 105", "title": "Trading Mathematics", "credits": 3, "desc": "Position sizing, risk/reward, and the probability foundation every risk rule is actually built on.", "concepts": ["Position sizing", "Risk/reward ratio", "Expectancy", "Win rate", "Probability distributions"]}]}, {"term": "Spring", "courses": [{"code": "MKT 102", "title": "Technical Analysis I", "credits": 3, "desc": "Core indicators — moving averages, RSI, MACD — and what they're actually measuring underneath.", "concepts": ["Moving averages", "Momentum indicators", "Relative Strength Index", "MACD", "Overbought/oversold"]}, {"code": "MKT 120", "title": "Market Structure & Order Types", "credits": 3, "desc": "How orders actually get filled — order books, order types, and where slippage comes from.", "concepts": ["Market orders", "Limit orders", "Order book", "Slippage", "Liquidity"]}, {"code": "ECON 110", "title": "Macro Drivers of Markets", "credits": 3, "desc": "How rates, inflation, and central bank policy move price across every asset class.", "concepts": ["Interest rate decisions", "Inflation data", "Central bank policy", "Economic calendar", "Risk-on/risk-off"]}]}]}, {"year": 2, "title": "Technical Systems", "semesters": [{"term": "Fall", "courses": [{"code": "TA 201", "title": "Technical Analysis II", "credits": 3, "desc": "Advanced chart patterns and multi-timeframe analysis for building a higher-conviction trade thesis.", "concepts": ["Chart patterns", "Multiple timeframe analysis", "Fibonacci retracement", "Trendlines", "Confluence"]}, {"code": "TA 210", "title": "Smart Money Concepts", "credits": 3, "desc": "Order blocks, liquidity, and market structure shifts — the framework underneath your own SMC indicator work.", "concepts": ["Order blocks", "Liquidity pools", "Market structure shift", "Fair value gap", "Break of structure"]}, {"code": "RISK 220", "title": "Risk Management Fundamentals", "credits": 3, "desc": "Position sizing and stop placement as the actual determinant of long-term survival in markets.", "concepts": ["Stop-loss placement", "R-multiples", "Risk per trade", "Max drawdown", "Position sizing"]}]}, {"term": "Spring", "courses": [{"code": "TA 202", "title": "Volume & Order Flow Analysis", "credits": 3, "desc": "Reading volume profile and order flow to see the participation behind a price move, not just the move itself.", "concepts": ["Volume profile", "Order flow", "Footprint charts", "Delta", "Point of control"]}, {"code": "TA 230", "title": "Intermarket Analysis", "credits": 3, "desc": "Correlations across forex, indices, commodities, and bonds — reading one market through another.", "concepts": ["Currency correlations", "Commodity correlations", "Bond-equity relationship", "Risk sentiment", "Cross-asset analysis"]}, {"code": "PSY 240", "title": "Trading Psychology I", "credits": 3, "desc": "The cognitive biases — loss aversion, FOMO, confirmation bias — that quietly wreck good systems.", "concepts": ["Loss aversion", "Revenge trading", "FOMO", "Confirmation bias", "Discipline & rules adherence"]}]}]}, {"year": 3, "title": "Strategy Development", "semesters": [{"term": "Fall", "courses": [{"code": "STRAT 301", "title": "Strategy Design & Backtesting", "credits": 3, "desc": "Building a rules-based system and testing it honestly, including how to avoid fooling yourself with overfitting.", "concepts": ["Rules-based systems", "Backtesting", "Overfitting", "Sample size", "Walk-forward analysis"]}, {"code": "CODE 310", "title": "Pine Script Programming I", "credits": 3, "desc": "Indicator development fundamentals — syntax, plotting, and series data, directly applicable to your TBT SMC Suite.", "concepts": ["Pine Script syntax", "Indicator development", "Plotting functions", "Variables & series", "Script versioning"]}, {"code": "STRAT 320", "title": "Trend Following Systems", "credits": 3, "desc": "The mechanics of building and confirming a trend-following strategy from entry to trailing exit.", "concepts": ["Trend confirmation", "Moving average crossovers", "Breakout entries", "Trailing stops", "Trend strength"]}]}, {"term": "Spring", "courses": [{"code": "CODE 302", "title": "Pine Script Programming II", "credits": 3, "desc": "Full strategy scripts — entry/exit logic, alerts, and automation — built on top of Year 3's indicator work.", "concepts": ["Strategy scripts", "Alert conditions", "Entry/exit logic", "Automation", "Backtesting engine"]}, {"code": "STRAT 330", "title": "Mean Reversion & Range Systems", "credits": 3, "desc": "Counter-trend and range-bound strategy design for markets that aren't trending.", "concepts": ["Range-bound markets", "Mean reversion", "Bollinger Bands", "Oscillator divergence", "Counter-trend entries"]}, {"code": "RISK 340", "title": "Portfolio & Capital Allocation", "credits": 3, "desc": "Diversification and drawdown management once you're running more than one position or system at a time.", "concepts": ["Diversification", "Correlation risk", "Drawdown management", "Capital allocation", "Position correlation"]}]}]}, {"year": 4, "title": "Professional Application", "semesters": [{"term": "Fall", "courses": [{"code": "PSY 401", "title": "Trading Psychology II", "credits": 3, "desc": "Performing through drawdown — tilt, process-versus-outcome thinking, and staying consistent under pressure.", "concepts": ["Process vs outcome thinking", "Tilt", "Drawdown psychology", "Performance consistency", "Emotional regulation"]}, {"code": "STRAT 410", "title": "Algorithmic & Systematic Trading", "credits": 3, "desc": "Automated execution and systematic rule design — removing discretion from the trigger pull entirely.", "concepts": ["Automated execution", "Systematic rules", "Latency", "Order execution algorithms", "System monitoring"]}, {"code": "BUS 420", "title": "Trading Business Operations", "credits": 3, "desc": "Journaling and performance metrics — running your trading with the same rigor as any other business.", "concepts": ["Trade journaling", "Performance metrics", "Sharpe ratio", "Profit factor", "Treating trading as a business"]}]}, {"term": "Spring", "courses": [{"code": "STRAT 402", "title": "Multi-Strategy Portfolio Construction", "credits": 3, "desc": "Combining uncorrelated systems into one portfolio to smooth the equity curve.", "concepts": ["Uncorrelated strategies", "Strategy blending", "Portfolio drawdown", "Capital rotation", "System diversification"]}, {"code": "LAW 430", "title": "Regulatory & Tax Considerations for Traders", "credits": 3, "desc": "Trader tax status and compliance basics — including where forex tax treatment (Section 988) genuinely differs from stock trading rules like the wash sale rule.", "concepts": ["Trader tax status", "Wash sale rule", "Capital gains treatment", "Regulatory compliance", "Record keeping"]}, {"code": "STRAT 490", "title": "Capstone — Live Strategy Build & Track Record", "credits": 3, "desc": "Full strategy development, forward-tested and tracked, ending in a documented, defensible track record.", "concepts": ["Forward testing", "Live track record", "Strategy documentation", "Performance review", "Trade execution log"]}]}]}];
+const GLOSSARY = {"Asset classes": "Broad categories of investable instruments — equities, forex, commodities, bonds, crypto — each with different risk/return behavior. Example: a forex pair like EUR/USD behaves very differently from a commodity like crude oil, even under the same market conditions.", "Market participants": "The different types of players in a market — retail traders, institutions, market makers, central banks — each moving price differently. Example: a central bank rate decision moves price very differently than a retail trader's single order ever could.", "Exchanges vs OTC": "The distinction between trading on a centralized exchange versus over-the-counter, directly between two parties. Example: most stocks trade on an exchange like the NYSE, while most forex trades OTC between banks and brokers.", "Bid/ask spread": "The gap between the highest price a buyer will pay and the lowest price a seller will accept. Example: a tight 1-pip spread on EUR/USD versus a wide 20-pip spread on an exotic pair changes how much a trade costs just to enter and exit.", "Market hours & sessions": "The specific trading windows — Asian, London, New York — during which different markets are most active. Example: EUR/USD volatility typically picks up sharply during the London session open.", "Candlestick patterns": "Visual price formations on a chart that traders use to read sentiment and potential reversals. Example: a long-wicked hammer candle at the bottom of a downtrend is a commonly watched reversal signal.", "Support & resistance": "Price levels where buying or selling pressure has historically been strong enough to pause or reverse a move. Example: price bouncing off the same level three separate times marks it as a level worth watching for a fourth test.", "Trend identification": "Determining the prevailing direction of price movement across a given timeframe. Example: a series of higher highs and higher lows on the daily chart confirms an uptrend before you even look at an indicator.", "Price action": "Reading raw price movement on a chart, without relying primarily on indicators. Example: watching how price reacts at a prior swing high, rather than waiting for RSI to confirm it, is trading price action.", "Higher highs/higher lows": "The structural pattern that defines an uptrend, as its inverse defines a downtrend. Example: as long as each pullback low stays above the last one, the higher highs/higher lows structure of the uptrend remains intact.", "Position sizing": "Determining how much capital to risk on a single trade based on account size and risk tolerance. Example: risking 1% of a $10,000 account means no single trade risks more than $100.", "Risk/reward ratio": "The potential profit on a trade compared to the potential loss if it goes wrong. Example: a trade risking $100 to make $300 has a 1:3 risk/reward ratio, which can be profitable even with a sub-50% win rate.", "Expectancy": "The average amount a trading strategy can be expected to win or lose per trade over time. Example: a strategy with positive expectancy can still lose money on any individual trade while remaining profitable over 100 trades.", "Win rate": "The percentage of trades that close as winners — meaningful only alongside risk/reward, not alone. Example: a 40% win rate can still be highly profitable if winners average three times the size of losers.", "Probability distributions": "The range of possible outcomes and their likelihoods, used to model risk in a trading system. Example: mapping a strategy's historical results shows most trades cluster near breakeven, with a few large outliers driving overall profit.", "Moving averages": "A smoothed average of price over a set period, used to identify trend direction. Example: price consistently holding above the 50-period moving average is often read as confirmation of an uptrend.", "Momentum indicators": "Tools that measure the speed and strength of a price move, like RSI or MACD. Example: momentum indicators flattening out while price keeps climbing can be an early warning that a trend is losing steam.", "Relative Strength Index": "RSI — a momentum oscillator measuring the speed and magnitude of recent price changes, scaled 0-100. Example: RSI pushing above 70 is commonly read as a sign an asset may be due for a pullback.", "MACD": "Moving Average Convergence Divergence — a trend and momentum indicator based on the relationship between two moving averages. Example: a MACD line crossing above its signal line is a commonly watched bullish momentum signal.", "Overbought/oversold": "Conditions where an indicator suggests price has moved further than typical in one direction, raising reversal odds. Example: an asset can stay 'overbought' for a long stretch during a strong trend, which is why this signal alone can mislead.", "Market orders": "An order to buy or sell immediately at the best available current price. Example: hitting 'buy' during a fast-moving news spike fills as a market order, sometimes at a worse price than expected.", "Limit orders": "An order to buy or sell only at a specified price or better. Example: placing a limit buy order at a key support level ensures you only get filled at that price or better, never worse.", "Order book": "The real-time list of buy and sell orders at different price levels for an asset. Example: a thin order book with few resting orders near current price can cause a large order to move price sharply.", "Slippage": "The difference between the expected price of a trade and the price it actually executes at. Example: entering a market order right at a major news release often results in noticeable slippage from the intended entry price.", "Liquidity": "How easily an asset can be bought or sold without significantly moving its price. Example: EUR/USD has deep liquidity, so even large institutional orders barely move the price on their own.", "Interest rate decisions": "Central bank rate announcements that directly move currency, bond, and equity markets. Example: a surprise Fed rate hike can send the dollar sharply higher within minutes of the announcement.", "Inflation data": "Economic reports, like CPI, that markets watch closely because they drive central bank policy. Example: a hotter-than-expected CPI print often triggers a fast repricing of rate-cut expectations across markets.", "Central bank policy": "The monetary policy stance of institutions like the Federal Reserve — a primary driver of macro market moves. Example: shifting Fed policy language from 'hawkish' to 'dovish' can flip an entire trend across currency markets.", "Economic calendar": "A schedule of upcoming economic data releases and events that can move markets. Example: checking the economic calendar before entering a swing trade avoids getting caught in a major NFP release.", "Risk-on/risk-off": "Broad market sentiment shifts between favoring riskier assets (risk-on) or safer ones (risk-off). Example: a sudden geopolitical shock often triggers a fast risk-off move, with money flowing into safe havens like the dollar and gold.", "Chart patterns": "Recognizable price formations — head and shoulders, triangles, flags — used to anticipate future moves. Example: a tightening triangle pattern often precedes a sharp breakout in one direction.", "Multiple timeframe analysis": "Analyzing the same asset across several chart timeframes to confirm a trade thesis. Example: confirming a 4-hour chart setup aligns with the daily chart's trend before taking the trade.", "Fibonacci retracement": "A tool using ratios derived from the Fibonacci sequence to identify potential support/resistance levels. Example: watching the 61.8% Fibonacci retracement level as a likely pullback zone within a larger uptrend.", "Trendlines": "Lines drawn to connect price highs or lows, used to visualize the direction and angle of a trend. Example: a trendline connecting three rising lows gives a visual reference for where the next bounce might occur.", "Confluence": "The alignment of multiple independent signals at the same price level, strengthening a trade thesis. Example: a Fibonacci level, a moving average, and a prior support zone all lining up at the same price is strong confluence.", "Order blocks": "Areas on a chart believed to hold large institutional orders, often acting as future support/resistance. Example: price returning to a prior bearish order block before continuing lower is a core Smart Money Concepts entry pattern. Context worth knowing: SMC was systematized by Michael Huddleston ('ICT') in the 2010s as a retail price-action methodology, not a peer-reviewed market microstructure theory — the terminology is widely used, but its predictive edge beyond standard support/resistance is genuinely debated, not settled.", "Liquidity pools": "Clusters of stop-losses or pending orders that price tends to move toward before reversing. Example: a sharp wick below an obvious swing low, followed by a fast reversal, often reflects price sweeping a liquidity pool.", "Market structure shift": "A change in the pattern of highs and lows that signals a potential change in trend direction — also referred to as CHoCH (Change of Character) in SMC terminology, distinct from a same-direction BOS. Example: price breaking below the most recent higher low is often read as an early market structure shift signal.", "Fair value gap": "A three-candle price imbalance left on a chart where the wick of the first candle doesn't overlap the wick of the third, often expected to be revisited. Example: a fast three-candle move leaving an unfilled gap between candle wicks is what SMC traders label a fair value gap. (Source: multiple SMC trading guides converge on this three-candle definition, e.g. tradingwyckoff.com)", "Break of structure": "Price breaking a prior swing high or low in the direction of the existing trend, used as a signal of trend continuation (distinct from CHoCH, which signals a potential reversal). Example: a clean break of structure above the last swing high is often used to confirm a fresh leg of an uptrend.", "Stop-loss placement": "Deciding where to set an automatic exit to cap the loss on a trade if it moves against you. Example: placing a stop just below a recent swing low, rather than an arbitrary dollar amount, ties stop-loss placement to actual market structure.", "R-multiples": "Expressing trade outcomes as a multiple of the original risk taken, standardizing performance comparison. Example: a trade that risked $100 and made $250 is recorded as a +2.5R outcome, regardless of account size.", "Risk per trade": "The percentage of total capital risked on any single trade — a core rule of risk management. Example: capping risk per trade at 1% means even ten losing trades in a row only costs about 10% of the account.", "Max drawdown": "The largest peak-to-trough decline in an account's value over a given period. Example: a strategy with a 25% max drawdown historically requires real psychological preparation to trade through live.", "Volume profile": "A chart tool showing how much trading volume occurred at each price level over a period. Example: a volume profile showing a thick cluster of trading at a specific price often flags that level as significant support.", "Order flow": "The real-time stream of buy and sell orders moving through a market. Example: a sudden surge of aggressive buy orders hitting the market can push price up sharply even before any news hits.", "Footprint charts": "Charts showing detailed buy/sell volume at each price within a candle, revealing order flow imbalance. Example: a footprint chart showing heavy selling absorbed without price dropping can hint at hidden buying interest.", "Delta": "The difference between buying and selling volume at a given price or time, used to gauge order flow pressure. Example: strongly positive delta on a candle that still closes flat can signal absorption by large sellers.", "Point of control": "The price level with the highest traded volume within a given period, often acting as a magnet for price. Example: price frequently returns to test the prior session's point of control before continuing its trend.", "Currency correlations": "The tendency of certain currency pairs to move together or inversely, based on shared economic drivers. Example: EUR/USD and GBP/USD often move in the same direction because both are quoted against the dollar.", "Commodity correlations": "The relationships between commodity prices and related currencies, equities, or other commodities. Example: the Canadian dollar often correlates with crude oil prices, given Canada's status as a major oil exporter.", "Bond-equity relationship": "How bond yields and stock prices tend to interact, often inversely under certain macro conditions. Example: a sharp rise in bond yields has recently coincided with pressure on growth-stock valuations.", "Risk sentiment": "The market's overall appetite for risk at a given time, influencing flows across asset classes. Example: a broad 'risk-off' sentiment shift can pressure stocks and commodity currencies at the same time.", "Cross-asset analysis": "Analyzing relationships between different asset classes to inform a single market's outlook. Example: watching bond yields and the dollar together to build a more complete view before taking a stock index trade.", "Loss aversion": "The tendency to feel the pain of a loss more intensely than the pleasure of an equivalent gain — a major driver of poor trading decisions. Example: holding a losing trade too long, hoping to avoid locking in the loss, is loss aversion in action.", "Revenge trading": "Taking impulsive, poorly-planned trades to try to immediately recover a prior loss. Example: doubling position size right after a stop-out, without any new setup, is a classic revenge trade.", "FOMO": "Fear of missing out — entering a trade impulsively because price is moving without you. Example: chasing an entry well after a breakout has already run, purely because the move looks exciting, is FOMO.", "Confirmation bias": "The tendency to notice information that supports an existing position and ignore what contradicts it. Example: only reading analysis that agrees with your open long position, while dismissing bearish signals, is confirmation bias.", "Discipline & rules adherence": "Consistently following a predefined trading plan rather than deviating in the moment. Example: closing a trade exactly at your planned stop, even when you 'feel' it might turn around, is discipline in practice.", "Rules-based systems": "Trading strategies built on explicit, mechanical entry and exit criteria rather than discretion. Example: 'enter when price closes above the 50 EMA with RSI above 50' is a fully rules-based entry criterion.", "Backtesting": "Testing a trading strategy against historical data to evaluate how it would have performed. Example: backtesting a breakout strategy across five years of EUR/USD data before ever risking live capital on it.", "Overfitting": "Tuning a strategy so precisely to historical data that it fails to perform on new, live data. Example: adjusting a strategy's parameters until it perfectly avoids every historical loss is a strong sign of overfitting.", "Sample size": "The number of trades or data points a backtest is based on — too few makes results unreliable. Example: a strategy that looks great over 15 backtested trades needs a much larger sample size before it's trustworthy.", "Walk-forward analysis": "A backtesting method that repeatedly tests a strategy on unseen data segments to reduce overfitting risk. Example: optimizing a strategy on 2019-2021 data, then testing it fresh on 2022 data it never saw, is walk-forward analysis.", "Pine Script syntax": "The specific coding language and structure used to write indicators and strategies on TradingView. Example: using 'plot()' to draw a line on the chart is a basic piece of Pine Script syntax.", "Indicator development": "Writing custom technical indicators to visualize specific market conditions on a chart. Example: coding a custom script that automatically highlights order blocks is indicator development applied directly to your SMC work.", "Plotting functions": "The Pine Script commands used to draw lines, shapes, and labels onto a chart. Example: using 'plotshape()' to mark a buy signal with an arrow on the chart is a plotting function in action.", "Variables & series": "How Pine Script stores and references data that changes bar to bar across a chart's history. Example: referencing 'close[1]' to grab the previous bar's closing price relies on Pine Script's series data handling.", "Script versioning": "Managing and tracking changes to a Pine Script indicator or strategy as it's developed and refined. Example: keeping a v1, v2, and v3 of your SMC indicator lets you roll back if a new change breaks something.", "Trend confirmation": "Using multiple signals together to verify a trend is genuinely in place before entering. Example: requiring both a moving average crossover and a break of structure before calling a trend confirmed.", "Moving average crossovers": "A trading signal generated when a faster moving average crosses above or below a slower one. Example: the 50 EMA crossing above the 200 EMA is a widely watched bullish crossover signal.", "Breakout entries": "Entering a trade when price moves decisively beyond a defined support or resistance level. Example: entering long the moment price closes above a multi-week resistance level is a breakout entry.", "Trailing stops": "A stop-loss that moves with price in a winning trade to lock in gains as the move continues. Example: trailing a stop below each new higher low as a trend extends locks in profit without capping the upside.", "Trend strength": "A measure of how strongly and consistently price is moving in one direction. Example: an indicator like ADX rising above 25 is commonly used to gauge trend strength before committing to a trend-following entry.", "Strategy scripts": "Pine Script code that defines complete entry, exit, and risk rules for automated backtesting or execution. Example: a strategy script that automatically enters, sets a stop, and exits based on coded rules, ready to backtest.", "Alert conditions": "Rules coded into a script that trigger a notification when specific market conditions are met. Example: coding an alert condition that pings your phone the moment price sweeps a liquidity pool on your SMC indicator.", "Entry/exit logic": "The specific coded conditions that determine when a strategy opens and closes a position. Example: 'if RSI crosses above 30 and price is above the 200 EMA, enter long' is a piece of entry/exit logic.", "Automation": "Using code to execute trading logic without manual intervention. Example: connecting a coded strategy to a broker API so trades fire automatically without you clicking a single button.", "Backtesting engine": "The system within a platform, like TradingView's Strategy Tester, that simulates a strategy against historical data. Example: running your coded strategy through TradingView's backtesting engine to see its historical equity curve.", "Range-bound markets": "Conditions where price oscillates between defined support and resistance without a clear trend. Example: EUR/USD chopping between two levels for weeks with no clear direction is a textbook range-bound market.", "Mean reversion": "The tendency of price to return toward an average after moving significantly away from it. Example: fading a sharp, overextended move back toward the moving average is a classic mean reversion trade.", "Bollinger Bands": "A volatility indicator plotting bands above and below a moving average, based on standard deviation. Example: price touching the outer Bollinger Band during a range is often watched as a potential mean-reversion signal.", "Oscillator divergence": "When price and a momentum oscillator move in opposite directions, often signaling weakening trend strength. Example: price making a new high while RSI makes a lower high is bearish divergence, warning the trend may be tiring.", "Counter-trend entries": "Trades taken against the prevailing trend, typically used in range or mean-reversion strategies. Example: shorting into a strong uptrend purely because it 'looks overextended' is a risky counter-trend entry without a range context.", "Diversification": "Spreading capital across different assets or strategies to reduce the impact of any single loss. Example: running both a trend-following and a mean-reversion strategy at once is diversification across strategy type, not just assets.", "Correlation risk": "The risk that multiple positions move together more than expected, amplifying losses in a downturn. Example: being long EUR/USD and short USD/CHF at the same time carries hidden correlation risk, since both bets are really the same dollar view.", "Drawdown management": "Deliberately controlling and limiting how much an account can decline before adjusting risk. Example: cutting position size in half after a 10% drawdown is active drawdown management, not just hoping it turns around.", "Capital allocation": "Deciding how much total capital to assign to each strategy or position. Example: allocating 60% of trading capital to a proven trend system and 40% to a newer mean-reversion system being tested live.", "Position correlation": "How closely the price movements of open positions are related to one another. Example: three open trades that are all effectively long the dollar carry much more real risk than their individual sizes suggest.", "Process vs outcome thinking": "Judging a trade by whether the plan was followed correctly, not just whether it made money. Example: a losing trade taken exactly per plan is still a 'good' trade under process thinking, even though the outcome was a loss.", "Tilt": "A state of impaired decision-making driven by frustration or emotional reaction, usually after a loss. Example: widening your stop mid-trade out of frustration after two prior losses is a clear sign of tilt.", "Drawdown psychology": "The mental and emotional challenge of trading well while an account is in a losing stretch. Example: sticking to normal position sizing during a 15% drawdown, rather than panicking, is the real test of drawdown psychology.", "Performance consistency": "The ability to execute a strategy the same way, trade after trade, regardless of recent results. Example: taking the next valid setup with full size right after a losing streak demonstrates real performance consistency.", "Emotional regulation": "The ability to manage feelings like fear and greed so they don't override a trading plan. Example: waiting for your full entry criteria instead of jumping in early out of excitement is emotional regulation in action.", "Automated execution": "Trades placed and managed by code rather than manual clicks. Example: a coded strategy that enters, manages, and exits a trade without you touching the platform is fully automated execution.", "Systematic rules": "A fully defined, non-discretionary set of conditions governing every trading decision. Example: a strategy where every entry, stop, and exit is defined in code, leaving zero room for in-the-moment judgment calls.", "Latency": "The delay between a trade signal being generated and the order actually executing. Example: high latency between a coded signal and broker execution can mean the fill price differs meaningfully from the intended entry.", "Order execution algorithms": "Automated logic that determines how and when an order is actually sent to the market. Example: an execution algorithm might split a large order into smaller pieces to avoid moving price against itself.", "System monitoring": "Ongoing oversight of an automated strategy to confirm it's running and behaving as intended. Example: checking daily that your automated script is still connected and firing correctly is basic but essential system monitoring.", "Trade journaling": "Recording every trade's rationale, execution, and outcome to identify patterns and improve over time. Example: a trade journal entry noting 'entered early, ignored my own rule' is exactly the kind of pattern journaling is meant to surface.", "Performance metrics": "The quantitative measures — win rate, expectancy, drawdown — used to evaluate a trading strategy. Example: reviewing win rate, average R, and max drawdown together gives a fuller picture than any single metric alone.", "Sharpe ratio": "A measure of risk-adjusted return: (portfolio return − risk-free rate) ÷ standard deviation of returns. Example: two strategies with equal returns but different volatility will have very different Sharpe ratios, favoring the smoother one. A ratio above 1.0 is generally considered good, above 2.0 very good. (Source: developed by Nobel laureate William Sharpe; formula confirmed across multiple finance references)", "Profit factor": "The ratio of gross profit to gross loss across a set of trades: Total Winning Amount ÷ Total Losing Amount — a core strategy health metric. Example: a profit factor of 1.5 means the strategy made $1.50 for every $1.00 it lost across all trades.", "Treating trading as a business": "Applying the same discipline, tracking, and accountability to trading that you'd apply to running a company. Example: reviewing monthly P&L and expenses the way you would for True Balance Therapy, not just checking account balance.", "Uncorrelated strategies": "Trading systems whose returns don't move together, reducing overall portfolio risk when combined. Example: pairing a trend-following system that thrives in strong trends with a mean-reversion system that thrives in chop.", "Strategy blending": "Combining multiple trading systems into a single portfolio to smooth overall performance. Example: running three uncorrelated strategies at once so no single bad month drags the whole portfolio down hard.", "Portfolio drawdown": "The peak-to-trough decline of a combined portfolio of strategies or positions, rather than a single trade. Example: two strategies each with a 20% max drawdown might combine to a much smaller overall portfolio drawdown if timed differently.", "Capital rotation": "Shifting allocated capital between strategies or assets based on changing performance or conditions. Example: reducing allocation to a range strategy and increasing a trend strategy once markets start trending strongly.", "System diversification": "Running multiple distinct strategies to avoid dependence on any single approach or market condition. Example: not being fully reliant on one SMC-based system means a rough month for that approach doesn't sink the whole account.", "Trader tax status": "A tax classification (TTS) requiring substantial, regular, continuous trading with profit intent — there's no bright-line IRS test, it's evaluated on facts and circumstances. Qualifying TTS traders can deduct trading expenses on Schedule C and elect Mark-to-Market accounting (IRC §475(f)), which converts gains/losses to ordinary income, removes the $3,000 capital loss cap, and can eliminate wash sale rule application on elected positions. Example: qualifying for TTS and making a timely MTM election can change how trading losses are treated versus a casual trader's filing — but the election has a hard, easy-to-miss annual deadline, so this is worth a real conversation with a tax professional before relying on it. (Source: IRS Topic No. 429, Traders in Securities; IRC §475(f))", "Wash sale rule": "A tax rule disallowing a loss deduction if a substantially identical security is repurchased within a 61-day window — 30 days before the sale, 30 days after, plus the sale date itself. Important for a forex-focused trader: this rule applies to stocks, ETFs, and options, but spot forex trading taxed under the default Section 988 treatment is generally NOT subject to it — futures/options-based currency contracts under Section 1256 can be treated differently. Example: selling a losing stock position and buying it right back the next day can trigger the wash sale rule and disallow that loss; the same repurchase in spot forex generally does not, under current guidance. This is exactly the kind of detail to confirm with a tax professional before relying on it, since the rules and elections involved are genuinely complex. (Source: IRS Publication 550; Section 988 forex tax treatment — sec.gov/answers/wash.htm)", "Capital gains treatment": "How profits from trading are taxed, which varies based on holding period and instrument type. Example: a position held less than a year is generally taxed differently than one held over a year under capital gains rules.", "Regulatory compliance": "Operating within the rules set by financial regulators governing trading activity. Example: understanding pattern day trader rules before actively day trading a margin account is basic regulatory compliance.", "Record keeping": "Maintaining accurate trade and account records required for tax reporting and compliance. Example: exporting a full year of broker statements before tax season is the kind of record keeping that saves real headaches later.", "Forward testing": "Running a strategy on live or simulated real-time data after backtesting, before committing full capital. Example: running a new strategy on a small demo account for two months before ever risking real size on it.", "Live track record": "A documented history of actual trade results, as opposed to backtested or theoretical performance. Example: a six-month live track record carries far more credibility than any backtest, since it survived real market conditions.", "Strategy documentation": "A written record of a strategy's exact rules, so it can be executed consistently and reviewed objectively. Example: writing out every entry, stop, and exit rule in plain language before ever coding it in Pine Script.", "Performance review": "Systematically evaluating a strategy's or trader's results against its stated goals and rules. Example: a monthly performance review comparing actual results against the strategy's expected win rate and drawdown targets.", "Trade execution log": "A detailed record of exactly when and how each trade was entered and exited. Example: a trade execution log showing entry time, price, and slippage helps diagnose whether losses are strategy-based or execution-based."};
+const QUIZ = {"MKT 101": {"question": "You want to buy EUR/USD directly from a broker rather than through a centralized exchange like the NYSE. What market structure are you trading in?", "options": ["Exchange-traded", "Over-the-counter (OTC)", "Dark pool", "Public offering"], "correctIndex": 1, "explanation": "Forex trades predominantly over-the-counter (OTC), directly between parties, unlike stocks which trade on centralized exchanges."}, "MKT 110": {"question": "Price makes a new high, pulls back, then makes an even higher high with a higher low. What structure does this confirm?", "options": ["A downtrend", "A range", "An uptrend", "A reversal is guaranteed"], "correctIndex": 2, "explanation": "A series of higher highs and higher lows is the defining structural pattern of an uptrend."}, "MATH 105": {"question": "A trade risks $100 to potentially make $300. What is the risk/reward ratio?", "options": ["1:1", "3:1", "1:3", "300:100 is undefined"], "correctIndex": 2, "explanation": "Risking $100 to make $300 is a 1:3 risk/reward ratio — the potential reward is three times the risk."}, "MKT 102": {"question": "RSI has been above 70 for two weeks while price keeps climbing steadily. What's the most accurate read?", "options": ["A reversal is imminent within hours", "The asset can stay 'overbought' during a strong trend, so this alone isn't a reliable sell signal", "The indicator is broken", "Volume must be zero"], "correctIndex": 1, "explanation": "Overbought/oversold readings can persist during strong trends, which is why RSI alone shouldn't be used as a standalone reversal signal."}, "MKT 120": {"question": "You place an order that only fills at $1.2050 or better, never worse. What order type is this?", "options": ["Market order", "Limit order", "Stop order", "Trailing order"], "correctIndex": 1, "explanation": "A limit order only executes at your specified price or better — unlike a market order, which fills at the best available price."}, "ECON 110": {"question": "The Fed unexpectedly raises rates more than markets expected. What's the most likely immediate reaction in the dollar?", "options": ["The dollar weakens sharply", "The dollar typically strengthens", "No currencies are affected by rate decisions", "Only bond markets react"], "correctIndex": 1, "explanation": "A surprise, larger-than-expected rate hike typically strengthens a currency, since higher rates attract yield-seeking capital."}, "TA 201": {"question": "A Fibonacci retracement level, a moving average, and a prior support zone all line up at the same price. What does this represent?", "options": ["Overfitting", "Confluence", "Slippage", "A random coincidence with no trading value"], "correctIndex": 1, "explanation": "Multiple independent signals aligning at the same price level is confluence, which strengthens a trade thesis."}, "TA 210": {"question": "Price sharply wicks below an obvious swing low, then reverses hard and closes back above it. What does this pattern often represent in SMC terms?", "options": ["A confirmed downtrend continuation", "A liquidity sweep before reversal", "A fair value gap forming", "Random noise with no significance"], "correctIndex": 1, "explanation": "A sharp wick below an obvious low followed by a fast reversal is often read as sweeping resting liquidity before reversing."}, "RISK 220": {"question": "You risk 1% of a $10,000 account per trade. After 5 consecutive losing trades, roughly what's your account down?", "options": ["50%", "About 5%", "1%", "10%"], "correctIndex": 1, "explanation": "Risking 1% per trade across 5 straight losses puts the account down roughly 5% — exactly why fixed fractional risk protects against ruin."}, "TA 202": {"question": "A candle shows strongly positive delta (more aggressive buying than selling) but still closes flat. What might this suggest?", "options": ["There's no useful information here", "Large sellers may be absorbing the aggressive buying", "The market is illiquid", "It confirms a breakout is starting"], "correctIndex": 1, "explanation": "Strong buying pressure that fails to move price higher can indicate absorption — large hidden sellers meeting the buying."}, "TA 230": {"question": "Crude oil prices are falling sharply. Based on typical intermarket correlation, what would you expect from the Canadian dollar?", "options": ["It has no relationship to oil", "It would likely weaken alongside oil", "It would automatically strengthen", "It would be unaffected since Canada doesn't produce oil"], "correctIndex": 1, "explanation": "The Canadian dollar commonly correlates with oil prices given Canada's status as a major oil exporter."}, "PSY 240": {"question": "After a stop-out, you immediately double your position size on the next trade with no new setup, hoping to win back the loss fast. What is this?", "options": ["Disciplined risk management", "Revenge trading", "Proper position sizing", "Diversification"], "correctIndex": 1, "explanation": "Impulsively increasing size to recover a loss immediately, without a valid new setup, is revenge trading."}, "STRAT 301": {"question": "You keep adjusting a strategy's parameters until it avoids every single historical loss in your backtest. What's the biggest risk here?", "options": ["The strategy is now guaranteed profitable live", "Overfitting to historical data that won't generalize to new data", "There is no risk, this is proper optimization", "It proves the strategy has positive expectancy"], "correctIndex": 1, "explanation": "Tuning a strategy to perfectly fit historical data is a textbook sign of overfitting — it rarely holds up on new, live data."}, "CODE 310": {"question": "You want to draw a line on a TradingView chart marking a moving average value. Which type of Pine Script function do you need?", "options": ["A plotting function like plot()", "An input() function", "A strategy.entry() function", "A request.security() function alone"], "correctIndex": 0, "explanation": "Plotting functions like plot() are specifically what draw visual elements onto the chart in Pine Script."}, "STRAT 320": {"question": "You want your stop-loss to move up automatically as a winning trade continues climbing, locking in gains without capping the upside. What tool are you using?", "options": ["A fixed stop-loss", "A trailing stop", "A limit order", "A market order"], "correctIndex": 1, "explanation": "A trailing stop moves with price in a winning trade, locking in profit while leaving room for further upside."}, "CODE 302": {"question": "You've coded a script that automatically enters, manages, and exits trades based on defined rules, and you're testing it against historical data. What are you using?", "options": ["A plotting function", "The backtesting engine (Strategy Tester)", "An alert condition only", "A simple indicator with no logic"], "correctIndex": 1, "explanation": "Running a coded strategy against historical data is exactly what a platform's backtesting engine does."}, "STRAT 330": {"question": "Price has been chopping between two clear levels for three weeks with no clear directional trend. What type of strategy is best suited to this condition?", "options": ["A trend-following breakout strategy", "A mean-reversion/range strategy", "A buy-and-hold strategy", "An algorithmic latency-arbitrage strategy"], "correctIndex": 1, "explanation": "Range-bound, non-trending conditions are exactly what mean-reversion and range strategies are designed for."}, "RISK 340": {"question": "You're long EUR/USD and short USD/CHF at the same time. Why might your real risk be higher than it looks on paper?", "options": ["These two trades have zero relationship to each other", "Both trades are effectively the same bet against the dollar, so they're highly correlated", "Shorting always eliminates risk", "This automatically diversifies your risk"], "correctIndex": 1, "explanation": "Both positions are really expressions of the same dollar view, so they carry hidden correlation risk."}, "PSY 401": {"question": "A trade loses money but was executed exactly according to your tested plan and rules. How should you evaluate that trade?", "options": ["As a bad trade, since it lost money", "As a good trade under process-based evaluation, since the plan was followed correctly", "As proof the strategy doesn't work", "As a sign to abandon the strategy immediately"], "correctIndex": 1, "explanation": "Process-versus-outcome thinking judges a trade by whether the plan was followed, not just the result."}, "STRAT 410": {"question": "Every entry, stop, and exit in your strategy is defined in code with zero discretionary judgment calls allowed. What kind of trading approach is this?", "options": ["Discretionary trading", "Systematic/rules-based trading", "Fundamental analysis", "Manual scalping"], "correctIndex": 1, "explanation": "A fully defined, non-discretionary set of conditions governing every decision is systematic, rules-based trading."}, "BUS 420": {"question": "You track win rate, average R, expectancy, and max drawdown together every month rather than looking at just your account balance. What are you doing?", "options": ["Overcomplicating simple trading", "Reviewing performance metrics the way a business reviews its KPIs", "Something only relevant to institutional traders", "Irrelevant busywork"], "correctIndex": 1, "explanation": "Reviewing a full set of performance metrics regularly is what treating trading as a real business actually looks like."}, "STRAT 402": {"question": "You combine a trend-following system with a mean-reversion system, since one tends to do well when the other struggles. What's the goal of this combination?", "options": ["Doubling total risk exposure", "Reducing overall portfolio drawdown through uncorrelated strategies", "Guaranteeing higher returns", "Eliminating the need for risk management"], "correctIndex": 1, "explanation": "Combining strategies whose returns don't move together is specifically meant to smooth the equity curve and reduce combined drawdown."}, "LAW 430": {"question": "You sell a losing stock position for a tax write-off, then buy back the same security the very next day. What tax rule might disallow that loss deduction?", "options": ["The pattern day trader rule", "The wash sale rule", "Capital gains treatment", "Trader tax status"], "correctIndex": 1, "explanation": "The wash sale rule disallows a loss deduction if a substantially identical security is repurchased within a 61-day window (30 days before/after the sale). Note: this specific example is for stocks — spot forex trading under default Section 988 treatment is generally not subject to this rule."}, "STRAT 490": {"question": "You've backtested a strategy successfully and now run it on a small live account for two months before committing full capital. What is this process called?", "options": ["Overfitting", "Forward testing", "Curve fitting", "Reverse engineering"], "correctIndex": 1, "explanation": "Running a strategy on live or simulated real-time data after backtesting, before committing full capital, is forward testing."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'trading-degree-completed';
+const MASTERED_KEY = 'trading-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

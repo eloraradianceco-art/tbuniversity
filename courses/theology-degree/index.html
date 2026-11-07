@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theology & Biblical Studies — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Theology & Biblical Studies — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Biblical and theological foundations through applied ministry practice, seminary-level.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Biblical Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "BIBL 101", "title": "Old Testament Survey", "credits": 3, "desc": "The Pentateuch through Wisdom literature — the major narrative arc of the Old Testament.", "concepts": ["Pentateuch", "Historical books", "Wisdom literature", "Major prophets", "Covenant narrative arc"]}, {"code": "BIBL 110", "title": "New Testament Survey", "credits": 3, "desc": "The Gospels through Revelation — the major narrative and theological arc of the New Testament.", "concepts": ["Synoptic Gospels", "Pauline epistles", "General epistles", "Apocalyptic literature", "New Testament canon"]}, {"code": "THEO 101", "title": "Introduction to Systematic Theology", "credits": 3, "desc": "The major doctrinal categories theology organizes around, and how theological method actually works.", "concepts": ["Systematic theology categories", "Revelation (general & special)", "Doctrine of Scripture", "Theological method", "Prolegomena"]}]}, {"term": "Spring", "courses": [{"code": "BIBL 102", "title": "Hermeneutics — Principles of Biblical Interpretation", "credits": 3, "desc": "Genre, context, and authorial intent — the disciplined method for reading Scripture accurately.", "concepts": ["Genre analysis", "Historical-grammatical method", "Authorial intent", "Context (literary & historical)", "Exegesis vs eisegesis"]}, {"code": "HIST 110", "title": "Church History I", "credits": 3, "desc": "The Early Church through the eve of the Reformation.", "concepts": ["Apostolic Fathers", "Council of Nicaea", "Patristic era", "Medieval church", "Reformation roots"]}, {"code": "LANG 120", "title": "Biblical Greek I", "credits": 3, "desc": "Alphabet, basic grammar, and core New Testament vocabulary.", "concepts": ["Greek alphabet", "Noun declensions", "Verb conjugation basics", "Koine Greek vocabulary", "Parsing"]}]}]}, {"year": 2, "title": "Theological Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "THEO 201", "title": "Theology Proper — The Doctrine of God", "credits": 3, "desc": "God's attributes, the Trinity, and the doctrine of his nature.", "concepts": ["Attributes of God", "Trinity", "Divine sovereignty", "Immanence & transcendence", "Doctrine of God's nature"]}, {"code": "THEO 210", "title": "Christology — The Person & Work of Christ", "credits": 3, "desc": "The incarnation and the major atonement theories explaining what Christ's death accomplished.", "concepts": ["Incarnation", "Hypostatic union", "Atonement theories", "Christ's offices (prophet, priest, king)", "Kenosis"]}, {"code": "LANG 220", "title": "Biblical Hebrew I", "credits": 3, "desc": "Alphabet, basic grammar, and core Old Testament vocabulary.", "concepts": ["Hebrew alphabet", "Hebrew verb system", "Construct chains", "Old Testament vocabulary", "Parsing"]}]}, {"term": "Spring", "courses": [{"code": "THEO 202", "title": "Pneumatology & Soteriology", "credits": 3, "desc": "The person of the Holy Spirit and the doctrine of salvation.", "concepts": ["Person & work of the Holy Spirit", "Regeneration", "Justification", "Sanctification", "Ordo salutis"]}, {"code": "THEO 220", "title": "Anthropology & Hamartiology", "credits": 3, "desc": "The doctrine of humanity made in God's image, and the doctrine of sin's effect on it.", "concepts": ["Imago Dei", "Doctrine of sin", "Total depravity", "Original sin", "Human nature & free will"]}, {"code": "HIST 210", "title": "Church History II", "credits": 3, "desc": "The Reformation through the rise of modern evangelicalism.", "concepts": ["Protestant Reformation", "Reformers (Luther, Calvin)", "Denominational development", "Great Awakenings", "Modern evangelicalism"]}]}]}, {"year": 3, "title": "Applied Biblical Studies", "semesters": [{"term": "Fall", "courses": [{"code": "BIBL 301", "title": "Pentateuch & Old Testament Law", "credits": 3, "desc": "Covenant structure and Mosaic law — the relationship between law and grace across the canon.", "concepts": ["Covenant structure", "Mosaic law", "Law and grace", "Sacrificial system", "Old Testament typology"]}, {"code": "BIBL 310", "title": "Pauline Epistles", "credits": 3, "desc": "Romans through the pastoral letters, and the core theological themes running through Paul's writing.", "concepts": ["Justification by faith", "Pauline theology", "Epistolary structure", "Romans road", "Pastoral epistles"]}, {"code": "THEO 310", "title": "Ecclesiology — The Doctrine of the Church", "credits": 3, "desc": "Church polity and the sacraments/ordinances — how the church is structured and defined.", "concepts": ["Church polity", "Sacraments/ordinances", "Marks of the church", "Church government models", "Membership & discipline"]}]}, {"term": "Spring", "courses": [{"code": "BIBL 302", "title": "Wisdom Literature & Psalms", "credits": 3, "desc": "Job, Proverbs, Ecclesiastes, and the Psalter — how Scripture wrestles honestly with suffering and wisdom.", "concepts": ["Wisdom tradition", "Psalter structure", "Theodicy", "Poetic parallelism", "Lament psalms"]}, {"code": "BIBL 320", "title": "Gospels & the Life of Christ", "credits": 3, "desc": "The synoptic problem, harmonization, and Christ's own teaching in its original context.", "concepts": ["Synoptic problem", "Gospel harmonization", "Parables", "Kingdom of God teaching", "Passion narrative"]}, {"code": "THEO 320", "title": "Eschatology — The Doctrine of Last Things", "credits": 3, "desc": "Millennial views and the major theological frameworks for understanding the end of the age.", "concepts": ["Millennial views", "Rapture views", "Second Coming", "Final judgment", "Eschatological hope"]}]}]}, {"year": 4, "title": "Ministry & Practical Theology", "semesters": [{"term": "Fall", "courses": [{"code": "MIN 401", "title": "Homiletics — The Art of Preaching", "credits": 3, "desc": "Sermon construction and delivery — turning exegesis into a sermon that actually communicates.", "concepts": ["Sermon structure", "Expository preaching", "Exegetical outline", "Illustration & application", "Delivery & rhetoric"]}, {"code": "MIN 410", "title": "Pastoral Care & Counseling", "credits": 3, "desc": "Biblical counseling principles and crisis care, including knowing when to refer out.", "concepts": ["Biblical counseling principles", "Crisis care", "Active listening in ministry", "Grief support", "Referral boundaries"]}, {"code": "MIN 420", "title": "Leadership in Ministry", "credits": 3, "desc": "Vision casting and team building through a servant-leadership model.", "concepts": ["Vision casting", "Servant leadership", "Team building in ministry", "Spiritual authority", "Delegation in ministry"]}]}, {"term": "Spring", "courses": [{"code": "MIN 402", "title": "Discipleship & Spiritual Formation", "credits": 3, "desc": "Spiritual disciplines and mentoring frameworks for guiding someone else's growth.", "concepts": ["Spiritual disciplines", "Discipleship frameworks", "Mentoring relationships", "Sanctification process", "Small group structure"]}, {"code": "APOL 430", "title": "Apologetics & Worldview", "credits": 3, "desc": "Defending the faith and engaging competing worldviews with intellectual honesty.", "concepts": ["Classical apologetics", "Worldview analysis", "Common objections to faith", "Evidentialism", "Presuppositional apologetics"]}, {"code": "MIN 490", "title": "Capstone — Applied Ministry Project", "credits": 3, "desc": "A full ministry project designed, implemented, and presented end to end.", "concepts": ["Ministry project design", "Vision & strategy", "Implementation plan", "Project evaluation", "Ministry presentation"]}]}]}];
+const GLOSSARY = {"Pentateuch": "The first five books of the Old Testament — Genesis through Deuteronomy — traditionally attributed to Moses. Example: the Exodus narrative within the Pentateuch establishes the covenant framework the rest of the Old Testament builds on.", "Historical books": "The Old Testament books, from Joshua through Esther, narrating Israel's history in the land and beyond. Example: the historical books trace Israel from conquest, through the monarchy, into exile and return.", "Wisdom literature": "The Old Testament books — Job, Proverbs, Ecclesiastes — focused on practical and reflective wisdom for living. Example: Proverbs' practical counsel and Job's wrestling with suffering represent two very different modes within wisdom literature.", "Major prophets": "The longer Old Testament prophetic books — Isaiah, Jeremiah, Ezekiel, and Daniel. Example: Isaiah's messianic prophecies within the major prophets are frequently cited in New Testament fulfillment passages.", "Covenant narrative arc": "The overarching biblical storyline structured around God's successive covenants with humanity. Example: tracing the covenant narrative arc from Abraham through Moses through David helps a sermon series hold together across many weeks.", "Synoptic Gospels": "Matthew, Mark, and Luke — the three Gospels that share significant narrative and structural overlap. Example: comparing how the Synoptic Gospels each tell the feeding of the 5,000 reveals each author's distinct emphasis.", "Pauline epistles": "The New Testament letters traditionally attributed to the Apostle Paul. Example: Romans, among the Pauline epistles, is often taught as the most systematic single presentation of the gospel in the New Testament.", "General epistles": "New Testament letters, like James and 1-2 Peter, not addressed to a specific church by Paul. Example: James, one of the general epistles, is frequently taught for its direct emphasis on faith producing visible works.", "Apocalyptic literature": "Biblical writing, like Revelation and parts of Daniel, using symbolic imagery to reveal future or hidden realities. Example: interpreting apocalyptic literature responsibly means reading its symbols in light of their original context, not just current headlines.", "New Testament canon": "The twenty-seven books recognized as authoritative Scripture by the Christian church. Example: understanding how the New Testament canon was formed helps answer honest questions about why these 27 books specifically.", "Systematic theology categories": "The major organizing topics of theology — God, humanity, Christ, salvation, the church, last things. Example: organizing a teaching series around systematic theology categories gives a congregation a complete doctrinal map over a year.", "Revelation (general & special)": "General revelation is God's self-disclosure through creation; special revelation is through Scripture and Christ. Example: pointing to the created order as general revelation, then to Scripture as special revelation, in an apologetics conversation.", "Doctrine of Scripture": "The theological study of the Bible's nature, authority, and inspiration. Example: a clear doctrine of Scripture shapes how confidently a pastor can call a congregation to obey a specific text.", "Theological method": "The systematic approach used to derive and organize doctrine from biblical and historical sources. Example: comparing how different traditions weigh Scripture, tradition, and reason differently reveals their underlying theological method.", "Prolegomena": "The introductory theological groundwork addressing how theology itself should be approached and studied. Example: a seminary course's prolegomena section sets the ground rules before any specific doctrine is even taught.", "Genre analysis": "Identifying a biblical text's literary type — narrative, poetry, law, prophecy — to interpret it correctly. Example: reading a Psalm's poetic hyperbole differently than a historical narrative's plain report is basic genre analysis.", "Historical-grammatical method": "An interpretive approach reading Scripture according to its original historical context and grammatical meaning. Example: the historical-grammatical method asks what a passage meant to its original audience before asking what it means today.", "Authorial intent": "Interpreting a text based on what its original author meant to communicate. Example: grounding a sermon in Paul's authorial intent for the Philippians, rather than a meaning imported from elsewhere.", "Context (literary & historical)": "The surrounding text and historical situation that shape a passage's correct meaning. Example: a single verse quoted out of its surrounding context can be twisted to say almost anything.", "Exegesis vs eisegesis": "Drawing meaning out of a text (exegesis) versus reading one's own meaning into it (eisegesis). Example: starting with a conclusion and searching for verses to support it is eisegesis, not exegesis.", "Apostolic Fathers": "The earliest generation of Christian writers following the apostles. Example: reading the Apostolic Fathers gives insight into how the earliest post-apostolic church actually understood and practiced its faith.", "Council of Nicaea": "The 325 AD church council, convened by Emperor Constantine and attended by roughly 220-300 bishops, called specifically to address the Arian controversy — the dispute over whether Christ was truly divine (homoousios, 'of the same substance' as the Father) or a created being. It produced the Nicene Creed. Example: the Council of Nicaea is a key historical reference point when explaining the church's early formulation of Trinitarian doctrine — it addressed a specific heresy (Arianism), not a generic 'let's define the Trinity' meeting. (Source: multiple historical accounts converge on 325 AD, Constantine's convening, and the Arian controversy as the immediate occasion)", "Patristic era": "The period of the early church fathers, roughly the 2nd through 8th centuries. Example: figures like Athanasius and Augustine from the patristic era still shape how many doctrines are taught today.", "Medieval church": "The church during the Middle Ages, marked by growing institutional structure and eventual East-West division. Example: understanding the medieval church's structure explains much of what the Reformation was later reacting against.", "Reformation roots": "The theological and historical developments that set the stage for the 16th-century Reformation. Example: pre-Reformation figures like Wycliffe and Hus represent Reformation roots well before Luther's famous 95 Theses.", "Greek alphabet": "The 24-letter alphabet used to write Koine Greek, the language of the New Testament. Example: learning the Greek alphabet is the first practical step before any real New Testament word study is possible.", "Noun declensions": "The patterns by which Greek nouns change form to indicate their grammatical role in a sentence. Example: recognizing noun declensions lets you see whether a Greek word is the subject or object of a sentence, which English word order alone can't always show.", "Verb conjugation basics": "The patterns by which Greek verbs change form to indicate tense, mood, and person. Example: understanding verb conjugation basics reveals that a Greek command can carry a different force than its English translation suggests.", "Koine Greek vocabulary": "The everyday Greek vocabulary used across the New Testament writings. Example: building core Koine Greek vocabulary lets you start recognizing key theological terms directly in the original text.", "Parsing": "Identifying the grammatical form and function of a word within its sentence. Example: parsing a single Greek verb can reveal whether an action is ongoing or completed, a nuance often lost in translation.", "Attributes of God": "The specific characteristics — holiness, omniscience, love, justice — theology ascribes to God's nature. Example: teaching through God's attributes systematically helps a congregation hold his justice and love together, not in tension.", "Trinity": "The doctrine that God is one being existing eternally as three persons — Father, Son, and Holy Spirit. Example: explaining the Trinity carefully avoids common analogies that unintentionally teach heresy, like the water/ice/steam illustration.", "Divine sovereignty": "The doctrine that God exercises ultimate authority and control over all creation and history. Example: divine sovereignty is often the doctrine pastoral counseling leans on most directly when someone is walking through suffering.", "Immanence & transcendence": "God's nearness and active presence within creation (immanence) alongside his being wholly above it (transcendence). Example: holding immanence and transcendence together avoids both a distant, uninvolved God and one who's merely a part of creation.", "Doctrine of God's nature": "The theological study of who God is in his essential character and being. Example: a clear doctrine of God's nature is foundational before any other doctrine can really be taught accurately.", "Incarnation": "The doctrine that God the Son took on human nature in the person of Jesus Christ. Example: the incarnation is the theological heart of why Christmas matters as more than a sentimental holiday.", "Hypostatic union": "The doctrine that Christ possesses both a fully divine and fully human nature in one person. Example: the hypostatic union is what lets Christ genuinely hunger and weep, while also forgiving sins with divine authority.", "Atonement theories": "The different theological frameworks explaining how Christ's death achieves reconciliation between God and humanity. Example: comparing penal substitution with other atonement theories helps a congregation understand different traditions' emphases.", "Christ's offices (prophet, priest, king)": "The traditional threefold description of Christ's ministry roles. Example: teaching Christ's offices helps explain why he both proclaims truth (prophet) and intercedes (priest) and reigns (king).", "Kenosis": "The theological concept of Christ's self-emptying in taking on human form, from Philippians 2. Example: preaching on kenosis from Philippians 2 grounds a message on humility in a concrete theological example.", "Hebrew alphabet": "The 22-letter alphabet used to write Biblical Hebrew, the primary language of the Old Testament. Example: learning the Hebrew alphabet opens up reading the Psalms and Proverbs in their original poetic form.", "Hebrew verb system": "The distinctive Hebrew grammatical system organized around verbal aspect rather than strict tense. Example: the Hebrew verb system's focus on completed versus ongoing action, not just past/present/future, changes how certain passages are best translated.", "Construct chains": "A Hebrew grammatical structure linking nouns together to express possession or close relationship. Example: recognizing a construct chain explains phrases like 'the word of the LORD' as a specific grammatical pairing, not just two separate words.", "Old Testament vocabulary": "The core Hebrew, and some Aramaic, vocabulary used across the Old Testament. Example: building Old Testament vocabulary lets you recognize how the same Hebrew word for 'steadfast love' recurs across the Psalms.", "Person & work of the Holy Spirit": "The theological study of the Spirit's identity as a divine person and his active role in salvation and life. Example: teaching the person and work of the Holy Spirit balances his role in regeneration with his ongoing role in sanctification.", "Regeneration": "The theological term for spiritual rebirth, the Spirit's work of making a person spiritually alive. Example: explaining regeneration helps a new believer understand conversion as involving God's initiating work, not merely human effort — though traditions genuinely differ on whether regeneration precedes faith (Reformed) or follows it (Arminian/Wesleyan).", "Justification": "The doctrine that a believer is declared righteous before God through faith in Christ. Example: justification is a legal declaration, distinct from sanctification, which is the ongoing process that follows it.", "Sanctification": "The ongoing process by which a believer is made progressively more holy after conversion. Example: helping a discouraged believer distinguish justification (settled) from sanctification (ongoing) can relieve real spiritual anxiety.", "Ordo salutis": "The theological term for the logical order of the stages in a believer's salvation — and a genuinely disputed order, not a settled one. Example: the Reformed ordo salutis places regeneration before faith (God's work causes belief), while the Arminian/Wesleyan ordo salutis places faith before regeneration (God's grace enables a real human response) — teaching this fairly means presenting both orderings, not just one, since this reflects a real, long-standing disagreement between traditions, not a settled sequence. (Source: Theopedia and Society of Evangelical Arminians both confirm this as the central Reformed/Arminian distinction)", "Imago Dei": "The doctrine that human beings are created in the image of God, grounding human dignity and purpose. Example: grounding a counseling conversation in the imago Dei affirms a person's worth independent of their current struggles.", "Doctrine of sin": "The theological study of sin's nature, origin, and effects on humanity's relationship with God. Example: a clear doctrine of sin helps explain why the gospel is genuinely good news, not just good advice.", "Total depravity": "The doctrine that sin has affected every part of human nature, not just isolated actions. Example: total depravity doesn't mean people are as bad as possible, but that no part of a person is untouched by sin.", "Original sin": "The doctrine that humanity inherited a sinful nature and guilt from Adam's fall. Example: teaching original sin from Romans 5 helps explain why sin is a universal condition, not just a list of bad choices.", "Human nature & free will": "The theological discussion of human capacity for choice within a fallen, sin-affected nature. Example: different traditions disagree sharply on human nature and free will, which is worth understanding before a debate turns divisive.", "Protestant Reformation": "The 16th-century movement that challenged Roman Catholic doctrine and gave rise to Protestant traditions. Example: the Protestant Reformation's core recovery of justification by faith alone still shapes evangelical preaching today.", "Reformers (Luther, Calvin)": "The key theological figures who led and shaped the Reformation's core doctrinal positions. Example: comparing how the Reformers, particularly Luther and Calvin, differed on the sacraments explains real denominational distinctions today.", "Denominational development": "The historical process by which distinct Christian traditions and church bodies formed and diverged. Example: understanding denominational development helps explain, charitably, why sincere believers land in different traditions.", "Great Awakenings": "Major periods of religious revival in American history that shaped evangelical Christianity. Example: the Great Awakenings' emphasis on personal conversion still shapes much of modern evangelical preaching style.", "Modern evangelicalism": "The contemporary movement within Protestant Christianity emphasizing conversion, Scripture, and mission. Example: modern evangelicalism's emphasis on personal Bible reading traces directly back through these earlier historical movements.", "Covenant structure": "The formal agreement pattern — stipulations, blessings, curses — God uses throughout the Old Testament. Example: recognizing the ancient Near Eastern covenant structure behind Deuteronomy clarifies why blessings and curses are listed the way they are.", "Mosaic law": "The body of law given through Moses at Sinai, governing Israel's civil, ceremonial, and moral life. Example: teaching how the Mosaic law's civil, ceremonial, and moral categories apply differently today avoids common confusion.", "Law and grace": "The theological relationship between Old Testament law and New Testament grace through Christ. Example: explaining law and grace carefully helps a congregation avoid both legalism and cheap grace.", "Sacrificial system": "The Old Testament system of offerings prescribed for atonement, worship, and covenant relationship. Example: understanding the sacrificial system makes Christ's role as final sacrifice in Hebrews far more vivid and concrete.", "Old Testament typology": "The interpretive approach seeing Old Testament persons or events as patterns pointing forward to Christ. Example: reading Joseph's story through Old Testament typology reveals patterns of rejection, suffering, and exaltation echoed in Christ.", "Justification by faith": "The Reformation-era doctrine, rooted in Paul, that a person is made right with God through faith, not works. Example: preaching justification by faith from Romans clearly distinguishes the gospel from any form of works-based religion.", "Pauline theology": "The distinct theological themes and emphases found across Paul's New Testament letters. Example: tracing Pauline theology across Romans, Galatians, and Ephesians reveals a consistent gospel logic across very different situations.", "Epistolary structure": "The typical format of a New Testament letter — greeting, body, exhortation, closing. Example: recognizing epistolary structure helps distinguish Paul's doctrinal argument from his closing personal exhortations.", "Romans road": "A popular sequence of verses from Romans traditionally used to explain the gospel message. Example: the Romans road remains a simple, memorable tool for walking someone through the gospel step by step.", "Pastoral epistles": "1 & 2 Timothy and Titus — Paul's letters addressing church leadership and pastoral concerns. Example: the pastoral epistles are the natural go-to when teaching on qualifications for elders and deacons.", "Church polity": "The system of governance and authority structure a church operates under. Example: Northwood's specific church polity determines exactly how major decisions and leadership selection actually happen.", "Sacraments/ordinances": "The rites, like baptism and communion, that different traditions recognize as instituted by Christ. Example: explaining why your tradition calls them ordinances rather than sacraments reflects a real, substantive theological distinction.", "Marks of the church": "The traditional criteria — right preaching, right administration of sacraments — used to define a true church. Example: teaching the marks of the church helps a congregation evaluate what actually makes a gathering a genuine church.", "Church government models": "The different structural approaches — congregational, presbyterian, episcopal — to church leadership. Example: comparing church government models explains why one church votes on major decisions while another operates through an elder board alone.", "Membership & discipline": "The practices governing who belongs to a local church and how accountability is maintained. Example: a clear membership and discipline process gives real structure to how a church handles both belonging and accountability.", "Wisdom tradition": "The Old Testament literary and theological tradition focused on practical, reflective wisdom for living. Example: Proverbs' wisdom tradition offers concrete, practical counsel in a way narrative and law don't quite match.", "Psalter structure": "The organization of the Book of Psalms into five thematic collections. Example: understanding the Psalter's five-book structure helps explain why certain psalms cluster around similar themes.", "Theodicy": "The theological effort to reconcile the existence of a good, all-powerful God with the presence of suffering and evil. Example: Job wrestles with theodicy directly, offering a model for pastoral care with someone questioning God amid suffering.", "Poetic parallelism": "The core structural feature of Hebrew poetry, where successive lines echo, contrast, or build on each other. Example: recognizing poetic parallelism in a Psalm reveals that the second line is often restating or intensifying the first, not adding new information.", "Lament psalms": "Psalms expressing grief, complaint, or distress to God, often moving toward renewed trust. Example: pointing a grieving church member to the lament psalms gives them biblical permission to bring raw honesty to God.", "Synoptic problem": "The scholarly question of how Matthew, Mark, and Luke relate to and depend on one another literarily. Example: the synoptic problem is a genuinely academic question that doesn't undermine the Gospels' reliability, despite how it's sometimes framed.", "Gospel harmonization": "The effort to understand how the four Gospel accounts fit together into one coherent narrative. Example: a careful gospel harmonization of the resurrection accounts shows the differences are complementary, not contradictory.", "Parables": "Christ's short, illustrative stories used to teach spiritual truth through everyday imagery. Example: the parable of the prodigal son uses an everyday family situation to teach a profound truth about grace.", "Kingdom of God teaching": "Christ's central teaching theme concerning God's reign breaking into the world. Example: Christ's kingdom of God teaching frames nearly every parable as describing what that reign actually looks like.", "Passion narrative": "The Gospel accounts of Christ's suffering, crucifixion, and death. Example: walking a congregation through the passion narrative in detail during Holy Week deepens the weight of Easter Sunday.", "Millennial views": "The different theological positions — premillennial, amillennial, postmillennial — on the thousand-year reign in Revelation 20. Example: presenting millennial views fairly, without picking a side dogmatically, keeps a congregation from unnecessary division on a genuinely disputed topic.", "Rapture views": "The different theological positions on the timing and nature of believers being caught up to meet Christ. Example: explaining the range of rapture views helps a congregation navigate popular but sometimes oversimplified end-times teaching.", "Second Coming": "The doctrine of Christ's promised future return to earth. Example: the Second Coming's certainty is meant to produce hopeful expectation, not anxious speculation about exact dates.", "Final judgment": "The doctrine of a future reckoning where all people are judged before God. Example: teaching on final judgment alongside grace keeps the doctrine from becoming either fear-mongering or ignored altogether.", "Eschatological hope": "The forward-looking Christian hope in God's ultimate restoration of all things. Example: grounding a grieving family's comfort in eschatological hope, not just present-tense encouragement, gives real theological weight to a funeral message.", "Sermon structure": "The organizational framework — introduction, points, application, conclusion — that shapes a sermon. Example: a clear sermon structure keeps a congregation able to follow and remember the message, not just feel moved momentarily.", "Expository preaching": "A preaching approach that systematically explains the meaning of a biblical passage in its context. Example: expository preaching through a whole book, verse by verse, forces the preacher to address hard passages, not just comfortable ones.", "Exegetical outline": "A sermon outline derived directly from the structure and content of the biblical text itself. Example: building the exegetical outline before choosing illustrations keeps the sermon's structure genuinely rooted in the text.", "Illustration & application": "The practical stories and real-life application used to make a sermon's truth concrete and actionable. Example: a well-chosen illustration and application turns an abstract doctrine into something a congregation can act on Monday morning.", "Delivery & rhetoric": "The vocal, physical, and structural skills used to communicate a sermon effectively. Example: pacing and pausing well is a delivery and rhetoric skill that keeps a congregation engaged through a longer sermon.", "Biblical counseling principles": "An approach to counseling grounded in applying Scripture to personal and relational struggles. Example: applying biblical counseling principles to a marriage conflict means grounding the conversation in Scripture, not just general advice.", "Crisis care": "Ministry response specifically directed at people in acute emotional or spiritual crisis. Example: showing up quickly and simply being present is often the most important crisis care skill in the first hours after a tragedy.", "Active listening in ministry": "Fully attending to and understanding someone in a pastoral care context before responding. Example: resisting the urge to immediately quote a verse, and instead just listening fully first, is active listening in ministry.", "Grief support": "Ministry care specifically oriented toward walking with someone through loss. Example: regular, ongoing check-ins months after a funeral are as much a part of real grief support as the initial response.", "Referral boundaries": "Recognizing when a situation requires referring someone to a licensed professional beyond pastoral care. Example: recognizing signs of a clinical mental health crisis and referring out respects proper referral boundaries.", "Vision casting": "Communicating a compelling picture of the future to inspire and align a ministry team or congregation. Example: a clear vision-casting message at the start of a new ministry year aligns volunteers around the same shared direction.", "Servant leadership": "A leadership philosophy modeled on Christ, prioritizing serving others over exercising authority. Example: a pastor washing feet, literally or figuratively, models servant leadership rather than leading through status alone.", "Team building in ministry": "Developing a healthy, functioning team of leaders and volunteers within a ministry context. Example: intentional team building in ministry, not just recruiting warm bodies, is what sustains a healthy volunteer culture long-term.", "Spiritual authority": "The legitimate influence a leader holds within a ministry, understood as derived from and accountable to God. Example: exercising spiritual authority well means leading with both conviction and genuine accountability to others.", "Delegation in ministry": "Entrusting real ministry responsibility to others rather than concentrating it in one leader. Example: real delegation in ministry means letting a volunteer own a program fully, not just assigning tasks while keeping all decisions centralized.", "Spiritual disciplines": "Intentional practices — prayer, fasting, Scripture reading — that cultivate spiritual growth. Example: teaching a rhythm of spiritual disciplines gives a congregation practical tools, not just an abstract call to 'grow closer to God.'", "Discipleship frameworks": "Structured approaches for helping someone grow in faith and Christian maturity over time. Example: a clear discipleship framework gives a new believer a defined next step, rather than leaving growth to chance.", "Mentoring relationships": "One-on-one relationships intentionally focused on spiritual growth and guidance. Example: pairing a mature believer with a newer one in an intentional mentoring relationship multiplies discipleship beyond what one pastor alone can do.", "Sanctification process": "The ongoing, lifelong process of becoming more like Christ after conversion. Example: framing setbacks as part of the ongoing sanctification process, not failure, helps a struggling believer stay encouraged.", "Small group structure": "The organizational model for gathering believers in smaller settings for community and discipleship. Example: a healthy small group structure is often where real discipleship and accountability actually happen, more than in a Sunday service alone.", "Classical apologetics": "An approach to defending the faith that argues first for God's existence, then for Christianity's truth. Example: classical apologetics might start with a cosmological argument for God's existence before moving to evidence for the resurrection.", "Worldview analysis": "Examining the underlying assumptions and beliefs that shape how a person interprets reality. Example: a worldview analysis conversation often reveals someone's real objection isn't intellectual, but a deeper assumption about truth itself.", "Common objections to faith": "The recurring intellectual and emotional challenges people raise against Christian belief. Example: preparing thoughtful answers to common objections to faith, like the problem of evil, equips a congregation for real conversations.", "Evidentialism": "An apologetic approach that argues for the truth of Christianity primarily through historical and factual evidence. Example: evidentialism might lean heavily on the historical evidence for the resurrection as the centerpiece of an apologetic case.", "Presuppositional apologetics": "An apologetic approach arguing that all reasoning presupposes a worldview, and that only a Christian worldview is coherent. Example: presuppositional apologetics might challenge a skeptic to explain how they ground objective morality without a transcendent standard.", "Ministry project design": "Planning a specific ministry initiative with clear goals, audience, and structure. Example: a ministry project design document outlining the target group, goals, and timeline before launching a new outreach effort.", "Vision & strategy": "Defining both the desired future outcome and the concrete plan for reaching it. Example: pairing a clear vision with a concrete strategy is what actually turns an inspiring idea into a functioning ministry.", "Implementation plan": "The specific, sequenced steps required to carry out a ministry project. Example: a week-by-week implementation plan is what keeps an ambitious ministry vision from stalling out after the initial excitement fades.", "Project evaluation": "Assessing whether a ministry project achieved its intended spiritual and practical goals. Example: an honest project evaluation after a launch reveals what actually worked, not just what felt successful in the moment.", "Ministry presentation": "Formally presenting a ministry project's design, execution, and outcomes. Example: presenting a completed ministry project to church leadership, including honest results, builds trust for future initiatives."};
+const QUIZ = {"BIBL 101": {"question": "You're teaching through Genesis to Deuteronomy as a unit. What section of the Old Testament are you covering?", "options": ["The historical books", "The Pentateuch", "The major prophets", "Wisdom literature"], "correctIndex": 1, "explanation": "Genesis through Deuteronomy, traditionally attributed to Moses, is the Pentateuch."}, "BIBL 110": {"question": "You're comparing Matthew, Mark, and Luke's shared narrative and structural overlap. What are these three books called together?", "options": ["The Pauline epistles", "The Synoptic Gospels", "The general epistles", "Apocalyptic literature"], "correctIndex": 1, "explanation": "Matthew, Mark, and Luke, which share significant narrative overlap, are known as the Synoptic Gospels."}, "THEO 101": {"question": "You organize a year-long teaching series around God, humanity, Christ, salvation, the church, and last things. What are you using?", "options": ["Hermeneutical method", "Systematic theology categories", "Prolegomena alone", "The doctrine of Scripture alone"], "correctIndex": 1, "explanation": "God, humanity, Christ, salvation, the church, and last things are the major systematic theology categories."}, "BIBL 102": {"question": "You start with a conclusion and search for verses to support it, rather than asking what the text meant to its original audience. What error is this?", "options": ["Exegesis", "Eisegesis", "Genre analysis", "Authorial intent"], "correctIndex": 1, "explanation": "Reading your own meaning into a text, rather than drawing meaning out of it, is eisegesis."}, "HIST 110": {"question": "You're studying the 325 AD council that formally addressed the divinity of Christ and produced the Nicene Creed. What event is this?", "options": ["The Protestant Reformation", "The Council of Nicaea", "The Great Awakening", "The First Great Schism"], "correctIndex": 1, "explanation": "The 325 AD council addressing Christ's divinity and producing the Nicene Creed is the Council of Nicaea."}, "LANG 120": {"question": "You're learning the 24-letter alphabet used to write the language of the New Testament. What language is this?", "options": ["Biblical Hebrew", "Koine Greek", "Aramaic", "Latin"], "correctIndex": 1, "explanation": "The New Testament was written in Koine Greek, using its 24-letter alphabet."}, "THEO 201": {"question": "You're teaching that God is one being existing eternally as three persons — Father, Son, and Holy Spirit. What doctrine is this?", "options": ["The hypostatic union", "The Trinity", "Kenosis", "Divine sovereignty alone"], "correctIndex": 1, "explanation": "God existing eternally as one being in three persons is the doctrine of the Trinity."}, "THEO 210": {"question": "You're explaining that Christ possesses both a fully divine and fully human nature in one person. What doctrine is this?", "options": ["The incarnation alone", "The hypostatic union", "Kenosis", "Atonement theory"], "correctIndex": 1, "explanation": "Christ possessing both fully divine and fully human natures in one person is the hypostatic union."}, "LANG 220": {"question": "You're learning the 22-letter alphabet used to write the primary language of the Old Testament. What language is this?", "options": ["Koine Greek", "Biblical Hebrew", "Latin", "Aramaic only"], "correctIndex": 1, "explanation": "The Old Testament's primary language, using a 22-letter alphabet, is Biblical Hebrew."}, "THEO 202": {"question": "You're teaching the doctrine that a believer is declared righteous before God through faith, as a legal declaration distinct from ongoing growth. What is this?", "options": ["Sanctification", "Justification", "Regeneration alone", "Ordo salutis alone"], "correctIndex": 1, "explanation": "The doctrine that a believer is declared righteous through faith, as a legal declaration, is justification."}, "THEO 220": {"question": "You're teaching that no part of a person is untouched by sin, though people aren't as bad as they could possibly be. What doctrine is this?", "options": ["Original sin alone", "Total depravity", "Imago Dei", "Human free will alone"], "correctIndex": 1, "explanation": "The doctrine that sin has affected every part of human nature is total depravity."}, "HIST 210": {"question": "You're teaching the 16th-century movement that challenged Roman Catholic doctrine and gave rise to Protestant traditions. What movement is this?", "options": ["The Great Awakening", "The Protestant Reformation", "The Patristic era", "The Council of Nicaea"], "correctIndex": 1, "explanation": "The 16th-century movement that gave rise to Protestant traditions is the Protestant Reformation."}, "BIBL 301": {"question": "You're teaching how Old Testament law and New Testament grace relate to each other theologically. What topic is this?", "options": ["The sacrificial system alone", "Law and grace", "Old Testament typology alone", "Covenant structure alone"], "correctIndex": 1, "explanation": "The theological relationship between Old Testament law and New Testament grace is exactly what 'law and grace' addresses."}, "BIBL 310": {"question": "You're teaching Romans as the most systematic single presentation of the gospel in the New Testament. Whose theological themes are you tracing?", "options": ["Peter's", "Paul's", "John's", "James's"], "correctIndex": 1, "explanation": "Romans is part of the Pauline epistles, often cited as Paul's most systematic gospel presentation."}, "THEO 310": {"question": "You're comparing congregational, presbyterian, and episcopal approaches to church leadership. What topic is this?", "options": ["Sacraments/ordinances", "Church government models", "Membership & discipline alone", "The marks of the church alone"], "correctIndex": 1, "explanation": "Comparing different structural approaches to church leadership is exactly what church government models addresses."}, "BIBL 302": {"question": "You're teaching how Job wrestles with reconciling a good, powerful God with the reality of suffering. What theological topic is this?", "options": ["Poetic parallelism alone", "Theodicy", "Lament psalms alone", "Psalter structure alone"], "correctIndex": 1, "explanation": "The effort to reconcile a good, all-powerful God with the presence of suffering and evil is theodicy."}, "BIBL 320": {"question": "You're studying the scholarly question of how Matthew, Mark, and Luke relate to and depend on one another literarily. What is this called?", "options": ["Gospel harmonization", "The synoptic problem", "The passion narrative", "Kingdom of God teaching"], "correctIndex": 1, "explanation": "The scholarly question of how the Synoptic Gospels literarily relate to one another is the synoptic problem."}, "THEO 320": {"question": "You're presenting premillennial, amillennial, and postmillennial positions fairly without dogmatically picking a side. What topic is this?", "options": ["Rapture views alone", "Millennial views", "Final judgment alone", "Eschatological hope alone"], "correctIndex": 1, "explanation": "The different theological positions on the thousand-year reign in Revelation 20 are millennial views."}, "MIN 401": {"question": "You build your sermon outline directly from the structure and content of the biblical passage itself. What are you creating?", "options": ["A sermon delivery style only", "An exegetical outline", "Illustration & application alone", "A general sermon structure"], "correctIndex": 1, "explanation": "A sermon outline derived directly from the structure and content of the text itself is an exegetical outline."}, "MIN 410": {"question": "You recognize a situation goes beyond pastoral care and refer someone to a licensed mental health professional. What are you respecting?", "options": ["Active listening alone", "Referral boundaries", "Grief support alone", "Crisis care alone"], "correctIndex": 1, "explanation": "Recognizing when a situation requires a licensed professional beyond pastoral care respects referral boundaries."}, "MIN 420": {"question": "A pastor prioritizes serving the team's growth and needs over exercising positional authority. What leadership model is this?", "options": ["Positional authority", "Servant leadership", "Spiritual authority alone", "Delegation in ministry alone"], "correctIndex": 1, "explanation": "Prioritizing serving others over exercising authority, modeled on Christ, is servant leadership."}, "MIN 402": {"question": "You pair a mature believer with a newer one in an intentional, ongoing relationship focused on spiritual growth. What are you building?", "options": ["A small group structure alone", "A mentoring relationship", "Spiritual disciplines alone", "A discipleship framework alone"], "correctIndex": 1, "explanation": "A one-on-one relationship intentionally focused on spiritual growth and guidance is a mentoring relationship."}, "APOL 430": {"question": "You challenge a skeptic to explain how they ground objective morality without appealing to a transcendent standard. What apologetic approach is this?", "options": ["Evidentialism", "Presuppositional apologetics", "Classical apologetics", "Worldview analysis only, with no argument"], "correctIndex": 1, "explanation": "Arguing that all reasoning presupposes a worldview, and only a Christian worldview accounts for things like objective morality, is presuppositional apologetics."}, "MIN 490": {"question": "You present a completed ministry project to church leadership, including honest results, not just what felt successful. What are you doing?", "options": ["Vision casting alone", "Ministry presentation", "Implementation planning alone", "Project design alone"], "correctIndex": 1, "explanation": "Formally presenting a ministry project's design, execution, and outcomes is ministry presentation."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'theology-degree-completed';
+const MASTERED_KEY = 'theology-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

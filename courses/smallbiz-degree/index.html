@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Small Business — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Small Business — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Foundations through systems, scale, and exit strategy — built for operators running real companies.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "BUS 101", "title": "Introduction to Entrepreneurship & Small Business", "credits": 3, "desc": "What actually separates a business from a hobby — value proposition, target market, and the difference between an idea and a viable venture.", "concepts": ["Value proposition", "Target market", "Business viability", "Founder-market fit"]}, {"code": "ACCT 101", "title": "Financial Accounting Fundamentals", "credits": 3, "desc": "Reading your own numbers — balance sheet, income statement, and cash flow statement as the three documents that tell you if the business is actually working.", "concepts": ["Balance sheet", "Income statement", "Cash flow statement", "Assets vs liabilities"]}, {"code": "BUS 110", "title": "Business Communication & Professional Writing", "credits": 3, "desc": "Writing and speaking that closes deals, sets expectations, and represents the brand — proposals, client communication, and internal documentation.", "concepts": ["Persuasive writing", "Client communication", "Proposal structure", "Professional tone"]}]}, {"term": "Spring", "courses": [{"code": "BUS 102", "title": "Business Law & Legal Structures", "credits": 3, "desc": "LLC vs S-corp vs sole prop, liability exposure, and the legal skeleton every business sits on before a single sale happens.", "concepts": ["Entity structure", "Liability protection", "Licensing & permits", "Business contracts"]}, {"code": "ACCT 102", "title": "Managerial Accounting", "credits": 3, "desc": "Using accounting internally, not just for taxes — cost structure, break-even analysis, and pricing decisions grounded in real margins.", "concepts": ["Cost structure", "Break-even analysis", "Margin analysis", "Pricing decisions"]}, {"code": "ECON 105", "title": "Economics for Business Owners", "credits": 3, "desc": "The minimum viable economics an operator needs — supply/demand, competitive pressure, and how macro conditions (rates, inflation) hit a small business directly.", "concepts": ["Supply & demand", "Competitive pressure", "Interest rate impact", "Local market conditions"]}]}]}, {"year": 2, "title": "Core Operations", "semesters": [{"term": "Fall", "courses": [{"code": "MKT 201", "title": "Marketing Principles & Consumer Behavior", "credits": 3, "desc": "Why people actually buy — positioning, messaging, and the psychology underneath a purchase decision, before any tactic or channel gets chosen.", "concepts": ["Positioning", "Consumer psychology", "Messaging strategy", "Market segmentation"]}, {"code": "FIN 210", "title": "Business Finance & Capital Management", "credits": 3, "desc": "Where money comes from and where it should go — funding options, working capital, and the discipline of not running out of cash.", "concepts": ["Working capital", "Funding sources", "Capital allocation", "Debt vs equity"]}, {"code": "MGT 220", "title": "Principles of Management & Organizational Behavior", "credits": 3, "desc": "Managing people once it's not just you anymore — delegation, accountability structures, and why teams underperform even with good intentions.", "concepts": ["Delegation", "Accountability systems", "Org structure", "Motivation theory"]}]}, {"term": "Spring", "courses": [{"code": "MKT 202", "title": "Digital Marketing & Brand Strategy", "credits": 3, "desc": "Building a brand and acquisition engine across digital channels — content, social, and paid, tied back to a coherent brand identity.", "concepts": ["Brand identity", "Content strategy", "Paid acquisition", "Channel strategy"]}, {"code": "FIN 211", "title": "Cash Flow, Budgeting & Forecasting", "credits": 3, "desc": "Forward-looking finance — building a budget and cash flow forecast so problems get caught months before they become emergencies.", "concepts": ["Cash flow forecasting", "Budgeting", "Runway calculation", "Financial planning"]}, {"code": "OPS 230", "title": "Operations & Supply Chain Management", "credits": 3, "desc": "The systems that deliver the product or service reliably — inventory, vendors, fulfillment, and process design for service or physical-product businesses.", "concepts": ["Process design", "Inventory management", "Vendor relationships", "Fulfillment systems"]}]}]}, {"year": 3, "title": "Growth & Strategy", "semesters": [{"term": "Fall", "courses": [{"code": "MGT 301", "title": "Strategic Management & Competitive Positioning", "credits": 3, "desc": "Choosing where to compete and how to win there — competitive advantage, differentiation, and strategy as a set of deliberate tradeoffs, not a mission statement.", "concepts": ["Competitive advantage", "Differentiation", "Strategic tradeoffs", "SWOT analysis"]}, {"code": "HR 310", "title": "Human Resources & Team Building", "credits": 3, "desc": "Hiring, onboarding, and retaining people well — the systems that keep a growing team aligned instead of just adding headcount.", "concepts": ["Hiring systems", "Onboarding", "Culture design", "Retention"]}, {"code": "BUS 320", "title": "Sales Systems & Client Acquisition", "credits": 3, "desc": "Turning interest into revenue on repeat — sales process design, objection handling, and building a pipeline that doesn't depend on the founder personally closing every deal.", "concepts": ["Sales pipeline", "Objection handling", "Conversion optimization", "Client retention"]}]}, {"term": "Spring", "courses": [{"code": "FIN 330", "title": "Business Valuation & Growth Financing", "credits": 3, "desc": "What a business is actually worth and how growth gets funded — valuation methods, and the tradeoffs of debt, equity, or bootstrapped reinvestment.", "concepts": ["Valuation methods", "Growth financing", "Equity vs debt", "Reinvestment strategy"]}, {"code": "MKT 331", "title": "Branding & Customer Experience Design", "credits": 3, "desc": "Brand as a system, not a logo — every touchpoint a customer has, designed on purpose, from first impression to repeat purchase.", "concepts": ["Brand systems", "Customer journey mapping", "Touchpoint design", "Loyalty design"]}, {"code": "BUS 340", "title": "Business Analytics & KPI Systems", "credits": 3, "desc": "Running the business on numbers instead of instinct — building a KPI dashboard that surfaces the two or three metrics that actually predict trouble early.", "concepts": ["KPI design", "Dashboards", "Leading vs lagging indicators", "Data-driven decisions"]}]}]}, {"year": 4, "title": "Scale & Systems", "semesters": [{"term": "Fall", "courses": [{"code": "MGT 401", "title": "Systems, Automation & Scalable Operations", "credits": 3, "desc": "Building the business so it doesn't require you for every decision — SOPs, automation, and the systems-thinking that makes growth survivable.", "concepts": ["SOPs", "Process automation", "Systems thinking", "Scalability bottlenecks"]}, {"code": "BUS 410", "title": "E-Commerce & Multi-Channel Business Models", "credits": 3, "desc": "Running product and service sales across multiple digital channels — storefronts, marketplaces, and subscription or membership models.", "concepts": ["Multi-channel strategy", "Subscription models", "Marketplace dynamics", "Digital storefronts"]}, {"code": "LAW 420", "title": "Contracts, Risk & Intellectual Property", "credits": 3, "desc": "Protecting what you've built — contract terms that actually protect you, IP ownership, and the risk exposures most operators don't think about until it's too late.", "concepts": ["Contract terms", "IP protection", "Risk management", "Liability exposure"]}]}, {"term": "Spring", "courses": [{"code": "FIN 402", "title": "Exit Strategy, Valuation & Wealth Building", "credits": 3, "desc": "Building toward an eventual exit or long-term wealth extraction — sale readiness, valuation drivers, and separating personal wealth from business risk.", "concepts": ["Exit planning", "Sale readiness", "Valuation drivers", "Wealth diversification"]}, {"code": "MGT 430", "title": "Leadership & Company Culture", "credits": 3, "desc": "Leadership as the actual constraint on scale — culture design, decision-making under pressure, and leading a team that outgrows the founder's direct control.", "concepts": ["Leadership style", "Culture design", "Decision-making frameworks", "Delegated authority"]}, {"code": "BUS 490", "title": "Capstone — Business Plan & Launch Execution", "credits": 3, "desc": "A full business plan built and pressure-tested end to end — model, financials, go-to-market, and an execution roadmap for a real venture.", "concepts": ["Business plan", "Financial modeling", "Go-to-market strategy", "Execution roadmap"]}]}]}];
+const GLOSSARY = {"Value proposition": "The specific reason a customer should choose your offer over any alternative, including doing nothing. Example: 'corrective exercise that fixes the root cause, not just symptoms' is a value proposition that separates you from a generic gym membership.", "Target market": "The specific group of customers a business is built to serve, defined narrowly enough to actually reach. Example: 'busy professionals with chronic desk-posture pain' is a target market you can actually run ads to, unlike 'people who want to be healthier.'", "Business viability": "Whether a business model can realistically sustain itself financially over time. Example: a meal prep venture that can't cover ingredient and labor cost at a price clients will pay isn't viable, no matter how good the food is.", "Founder-market fit": "How well a founder's skills, credibility, and network match the market they're trying to serve. Example: a licensed massage therapist and CES launching a corrective exercise practice has strong founder-market fit built in from day one.", "Balance sheet": "A snapshot of what a business owns, owes, and is worth at a single point in time. Example: checking the balance sheet before buying new equipment tells you whether the purchase would leave the business dangerously thin on assets.", "Income statement": "A report showing revenue, expenses, and profit over a period of time. Example: the income statement is what tells you whether last quarter's new marketing spend actually paid for itself in added revenue.", "Cash flow statement": "A report tracking actual cash moving in and out of a business, separate from paper profit. Example: a business can show a profit on paper while still running out of actual cash if clients are slow to pay invoices.", "Assets vs liabilities": "What a business owns (assets) versus what it owes (liabilities) — the two sides of the balance sheet. Example: a commercial kitchen buildout is an asset; the loan used to finance it is a liability.", "Persuasive writing": "Writing structured to move a reader toward a specific action or decision. Example: a client proposal that leads with the specific outcome a prospect wants, not a list of your credentials, is persuasive writing done right.", "Client communication": "How consistently and clearly a business sets expectations and follows through with clients. Example: sending a clear session recap and next steps after every appointment is client communication that builds trust over time.", "Proposal structure": "The standard shape of an effective business proposal — problem, solution, scope, price, next step. Example: opening a proposal with the client's stated pain point, not your service list, follows proven proposal structure.", "Professional tone": "Communication calibrated to the relationship and stakes, without being stiff or overly casual. Example: a text reminder to a longtime client can be casual and warm, while a contract email stays precise and formal.", "Entity structure": "The legal form a business takes — sole prop, partnership, LLC, corporation — which affects liability and taxes. Important nuance: an S-corp isn't a separate entity type alongside an LLC — it's a tax election (IRS Form 2553) that an existing LLC or corporation can file to change how it's taxed, while keeping its underlying legal structure. Example: forming an LLC for your practice separates your personal assets from the business, and you could later elect S-corp tax treatment on that same LLC without changing its legal structure. (Source: IRS; Stripe, 'S Corp vs. LLC' — stripe.com/resources/more/s-corp-vs-llc)", "Liability protection": "Legal separation between personal and business assets, limiting what creditors can claim. Example: liability protection is why a lawsuit against the business generally can't touch your personal home or savings.", "Licensing & permits": "The government approvals required to legally operate a given business. Example: a meal prep business needs food service permits on top of any business license, since it handles and sells food directly.", "Business contracts": "Legally binding agreements that define obligations between a business and clients, vendors, or partners. Example: a signed client waiver and service agreement is a business contract that protects both parties if something goes wrong.", "Cost structure": "The mix and behavior of a business's fixed and variable costs. Example: a meal prep business has a heavy variable cost structure (ingredients scale with volume), while a studio lease is mostly fixed regardless of client count.", "Break-even analysis": "Calculating the sales volume needed to cover all costs before a business turns a profit. Example: break-even analysis tells you exactly how many weekly meal orders are needed before the kitchen lease stops being a loss.", "Margin analysis": "Evaluating how much profit is left after costs, as a percentage of revenue. Example: margin analysis might reveal your premium meal plan actually earns a thinner margin than a simpler one, once ingredient cost is factored in.", "Pricing decisions": "Setting prices based on cost, value, and competitive position rather than guesswork. Example: pricing a signature program above competitors because it delivers a documented outcome they can't match is a value-based pricing decision.", "Supply & demand": "The relationship between how much of a good or service is offered and how much buyers want, which sets price. Example: a fully booked schedule with a waitlist is a clear demand signal that it's time to raise prices.", "Competitive pressure": "The degree to which rival businesses constrain your pricing and market share. Example: three new gyms opening nearby in a year increases competitive pressure and may force a rethink of pricing or positioning.", "Interest rate impact": "How changes in borrowing costs affect a small business's financing, expansion, and customer spending. Example: rising rates can both make an equipment loan pricier and make clients tighten discretionary spending on services like yours.", "Local market conditions": "The specific economic and demographic factors shaping demand in your immediate service area. Example: a coastal Mississippi town's tourism season directly shapes local market conditions for a fitness or wellness business there.", "Positioning": "How a brand is defined in the customer's mind relative to competitors. Example: positioning as 'the clinical, assessment-driven option' versus 'the friendly neighborhood gym' shapes who chooses you and why.", "Consumer psychology": "The mental and emotional factors that drive a purchase decision. Example: a client signing up right after a painful injury is driven by urgency and fear of recurrence, not a rational cost-benefit comparison.", "Messaging strategy": "The deliberate choice of what to say, to whom, and in what order to move a prospect toward a decision. Example: leading with pain relief before mentioning long-term performance gains, because that's what actually gets a first appointment booked.", "Market segmentation": "Dividing a broad market into distinct groups with shared needs, to target each more precisely. Example: separating 'post-injury clients' from 'performance athletes' as segments lets you message each with what actually matters to them.", "Working capital": "The cash a business has on hand to cover near-term operating needs. Example: enough working capital to cover two months of ingredient orders and payroll protects a meal prep business from a slow sales week.", "Funding sources": "Where business capital comes from — savings, loans, investors, or revenue reinvestment. Example: bootstrapping a new service line from existing revenue is a funding source that avoids taking on debt or giving up equity.", "Capital allocation": "Deciding where to direct limited money for the best return — growth, debt paydown, or reserves. Example: choosing between buying new equipment or paying down a loan faster is a capital allocation decision.", "Debt vs equity": "Financing through borrowed money (debt) versus selling ownership stake (equity), each with different tradeoffs. Example: taking a small business loan keeps full ownership but adds fixed payments; bringing in a partner does the opposite.", "Delegation": "Assigning ownership of a task or decision to someone else, with clear authority to act on it. Example: handing a staff member full ownership of scheduling, not just the task of sending reminders, is real delegation.", "Accountability systems": "The structures — check-ins, metrics, ownership — that make sure delegated work actually gets done. Example: a weekly numbers check-in is an accountability system that catches a slipping metric before it becomes a real problem.", "Org structure": "How roles, reporting lines, and decision authority are arranged across a team. Example: as a meal prep business grows past you personally cooking, org structure defines who owns production versus delivery versus sales.", "Motivation theory": "Frameworks explaining what actually drives people to perform — beyond just pay. Example: a staff member who cares more about growth and autonomy than a small raise is responding to a different motivator than pure compensation.", "Brand identity": "The consistent visual and verbal system — name, voice, look — that makes a business recognizable. Example: the same color palette and tone across your website, social posts, and client emails is what makes a brand identity feel intentional.", "Content strategy": "A deliberate plan for what content to publish, where, and why, tied to business goals. Example: a content strategy built around client transformation stories, published weekly, tied directly to booking more assessments.", "Paid acquisition": "Using paid advertising to bring in new customers, measured against cost per acquisition. Example: running local ads for a new client intake special is paid acquisition, worth it only if the cost per new client stays below their lifetime value.", "Channel strategy": "Deciding which platforms and methods to use to reach and convert customers. Example: choosing Instagram and local search over cold outreach because that's genuinely where your ideal client already spends attention.", "Cash flow forecasting": "Projecting future cash in and out to anticipate shortfalls before they happen. Example: cash flow forecasting three months out flags a tight stretch before payroll, giving you time to adjust rather than scramble.", "Budgeting": "Planning expected income and expenses in advance to guide spending decisions. Example: budgeting a fixed amount for marketing each month prevents overspending in a good month that can't be sustained the next.", "Runway calculation": "Estimating how many months a business can operate before cash runs out at current burn rate. Example: knowing you have six months of runway if client growth stalls changes how aggressively you can invest in new equipment now.", "Financial planning": "Setting a forward-looking financial roadmap tied to business goals. Example: a financial plan mapping how this year's reinvestment funds next year's second location.", "Process design": "Deliberately structuring how work gets done so outcomes are consistent and repeatable. Example: a documented intake-to-assessment-to-program process design means a new hire can run it the same way you would.", "Inventory management": "Tracking and controlling stock levels to avoid both shortages and excess holding costs. Example: tight inventory management in a meal prep kitchen prevents both running out of a popular dish and throwing away spoiled surplus.", "Vendor relationships": "How a business manages and negotiates with the suppliers it depends on. Example: a strong vendor relationship with a local produce supplier can mean better pricing and priority during a supply crunch.", "Fulfillment systems": "The processes that get a product or service reliably from commitment to delivery. Example: a reliable meal delivery fulfillment system is what actually determines whether a subscription client renews next month.", "Competitive advantage": "The specific edge that lets a business outperform rivals over time. Example: a documented, proprietary assessment methodology is a competitive advantage a generic personal trainer can't easily copy.", "Differentiation": "What makes an offer genuinely distinct from competitors, beyond price. Example: differentiating on a clinical, evidence-based approach rather than just being 'the cheaper gym down the street.'", "Strategic tradeoffs": "The deliberate choices about what NOT to do, which is what makes a strategy actually a strategy. Example: choosing not to chase every walk-in client so you can stay focused on higher-value corrective exercise cases is a real tradeoff.", "SWOT analysis": "A framework for assessing Strengths, Weaknesses, Opportunities, and Threats facing a business. Example: a SWOT might reveal your clinical credentials are a strength, but limited kitchen capacity is a real weakness worth addressing before scaling.", "Hiring systems": "A repeatable, structured process for sourcing, evaluating, and selecting new hires. Example: a documented hiring system with a consistent interview scorecard prevents each new hire decision from being made purely on gut feel.", "Onboarding": "The structured process of getting a new hire productive and aligned with how the business operates. Example: a two-week onboarding plan for a new trainer that includes shadowing sessions gets them to full competence faster.", "Culture design": "Deliberately shaping the norms and behaviors a team operates by, rather than letting them form by accident. Example: explicitly deciding 'we always document client progress the same day' is culture design, not an accident of habit.", "Retention": "Keeping valuable employees or customers over time, rather than losing them to turnover or churn. Example: a client retention rate above 80% is usually worth more to a business than an aggressive new-client acquisition push.", "Sales pipeline": "The staged process a prospect moves through from first contact to closed deal. Example: inquiry → consultation → assessment → signed program is a clear sales pipeline you can track and improve stage by stage.", "Objection handling": "Addressing a prospect's specific hesitations in a way that moves the sale forward. Example: having a ready, honest answer for 'is this covered by insurance?' is objection handling that keeps a hesitant prospect moving forward.", "Conversion optimization": "Improving the rate at which prospects turn into paying customers at each stage. Example: testing whether a free initial assessment converts more inquiries into paying clients than a paid one is conversion optimization in practice.", "Client retention": "Keeping existing clients engaged and purchasing over time, which is cheaper than acquiring new ones. Example: a simple monthly check-in call can meaningfully improve client retention for less cost than any new ad campaign.", "Valuation methods": "The different approaches — revenue multiple, discounted cash flow, comparables — used to estimate what a business is worth. Example: a service business is often valued as a multiple of its annual recurring revenue, not just its assets.", "Growth financing": "Capital raised specifically to fund expansion, as opposed to covering operating shortfalls. Example: a loan taken specifically to open a second location is growth financing, distinct from a loan to cover a slow month.", "Equity vs debt": "Raising money by selling ownership (equity) versus borrowing it (debt), each with different cost and control tradeoffs. Example: bringing in a business partner for capital means giving up some control that a straight loan wouldn't cost you.", "Reinvestment strategy": "Deciding how much profit to plow back into the business versus take out as owner income. Example: reinvesting 30% of quarterly profit into new equipment while taking the rest as owner pay is a defined reinvestment strategy.", "Brand systems": "The full set of consistent brand elements — visual, verbal, experiential — that operate together across every touchpoint. Example: the same tone, visuals, and client experience whether someone finds you on Instagram or walks into your studio.", "Customer journey mapping": "Laying out every step a customer takes from awareness to purchase to identify friction points. Example: journey mapping might reveal that clients drop off specifically at the scheduling step, pointing you to exactly what to fix.", "Touchpoint design": "Deliberately shaping every point of contact a customer has with the brand. Example: designing the intake paperwork itself to feel clinical and professional is touchpoint design, not an afterthought.", "Loyalty design": "Building deliberate mechanisms — experience, rewards, relationship — that make customers want to come back. Example: a referral reward for existing clients is loyalty design that turns satisfaction into active advocacy.", "KPI design": "Choosing the specific metrics that actually reflect whether the business is on track. Example: tracking client retention rate and average program length as KPIs tells you more about business health than raw revenue alone.", "Dashboards": "A consolidated view of key metrics, built for fast, at-a-glance decision-making. Example: a single weekly dashboard showing bookings, cancellations, and revenue saves you from digging through five different spreadsheets.", "Leading vs lagging indicators": "Metrics that predict future performance (leading) versus metrics that report what already happened (lagging). Example: consultation bookings are a leading indicator of next month's revenue, which is a lagging one.", "Data-driven decisions": "Making calls based on measured evidence rather than instinct alone. Example: raising prices because the data shows you're consistently overbooked, not just because it feels like the right time.", "SOPs": "Standard Operating Procedures — documented, repeatable steps for how a task gets done correctly every time. Example: a written SOP for client intake means any new staff member runs it the same way you would, without you present.", "Process automation": "Using tools or software to handle repetitive tasks without manual intervention. Example: automated appointment reminders and follow-up emails are process automation that frees up hours every week.", "Systems thinking": "Designing a business as an interconnected set of processes, rather than a series of one-off decisions. Example: seeing that a scheduling bottleneck is actually a marketing problem in disguise, because it's capping how many new clients you can even take.", "Scalability bottlenecks": "The specific points in a business that break down or create strain as volume grows. Example: a single founder personally reviewing every client's program is a scalability bottleneck that caps growth at exactly your own bandwidth.", "Multi-channel strategy": "Selling across more than one platform or channel in a coordinated way. Example: selling meal prep through both a direct website and a local farmers market is a multi-channel strategy, each reaching a different buyer.", "Subscription models": "Revenue built on recurring payments rather than one-time transactions. Example: a weekly meal prep subscription creates predictable recurring revenue instead of relying on one-off orders every time.", "Marketplace dynamics": "How selling on a third-party platform — fees, algorithm, competition — differs from selling direct. Example: selling through a delivery app means accepting its commission and algorithm in exchange for its built-in customer traffic.", "Digital storefronts": "Online points of sale, from a simple product page to a full e-commerce site. Example: a simple online booking and payment page functions as your digital storefront even without a full e-commerce build.", "Contract terms": "The specific clauses in an agreement that determine what each party is actually obligated to do. Example: a cancellation policy clause in your client agreement is a contract term that protects your revenue from last-minute no-shows.", "IP protection": "Legally securing ownership of trademarks, copyrights, or proprietary processes. Example: trademarking your signature program name is IP protection that stops a local competitor from using the same branding.", "Risk management": "Identifying and reducing exposure to events that could seriously damage the business. Example: carrying liability insurance is a basic risk management step that protects the business from a single bad incident.", "Liability exposure": "The ways a business could be held legally or financially responsible for harm or breach. Example: an unsigned client waiver leaves real liability exposure if someone gets injured during a session.", "Exit planning": "Preparing a business in advance for an eventual sale, transfer, or wind-down. Example: documenting your systems and client processes now is exit planning, because a business that runs without you is worth far more to a buyer.", "Sale readiness": "How prepared a business's financials, operations, and documentation are for a buyer's due diligence. Example: clean, organized financial records for the past three years is a core piece of sale readiness.", "Valuation drivers": "The specific factors — recurring revenue, margins, growth rate — that most influence what a business is worth. Example: converting one-off clients into recurring subscribers is one of the strongest valuation drivers you can pull.", "Wealth diversification": "Spreading personal wealth beyond the business itself to reduce single-point financial risk. Example: investing outside the business, not just reinvesting every dollar back in, is wealth diversification that protects you if the business hits a rough stretch.", "Leadership style": "The consistent way a person leads — how they make decisions, communicate, and hold people accountable. Example: a leadership style built on clear expectations and direct feedback tends to scale better than one built on personal charisma alone.", "Decision-making frameworks": "Structured methods for making consistent, high-quality decisions under uncertainty. Example: a simple framework like 'does this serve our top three priorities this quarter?' keeps decisions consistent even under pressure.", "Delegated authority": "Giving someone not just a task, but the actual power to make decisions about it. Example: letting a lead trainer approve minor program adjustments themselves, instead of every change routing back through you, is delegated authority.", "Business plan": "A structured document defining the model, market, financials, and execution path for a venture. Example: a one-page business plan covering your offer, target client, and first-year financial targets is enough to guide early decisions.", "Financial modeling": "Building projections of revenue, costs, and cash flow to test a business's viability under different assumptions. Example: modeling three growth scenarios — slow, expected, fast — shows you exactly where cash gets tight in each case.", "Go-to-market strategy": "The specific plan for how a product or service will actually reach and win its first customers. Example: launching a new program to your existing client base first, before spending on ads to strangers, is a deliberate go-to-market choice.", "Execution roadmap": "A sequenced plan of what gets built or done, in what order, to reach a stated goal. Example: an execution roadmap that sequences 'hire first', 'buy equipment second', 'launch marketing third' avoids overcommitting cash too early."};
+const QUIZ = {"BUS 101": {"question": "You define your ideal customer as 'busy professionals with chronic desk-posture pain,' not just 'people who want to be healthier.' What have you defined?", "options": ["A value proposition", "A target market", "A business plan", "An entity structure"], "correctIndex": 1, "explanation": "A specific, narrowly-defined group of customers a business is built to serve is the target market."}, "ACCT 101": {"question": "You want to know if the business made a profit last quarter, including all revenue and expenses over that period. Which document tells you this?", "options": ["The balance sheet", "The income statement", "The cash flow statement", "A business contract"], "correctIndex": 1, "explanation": "A report showing revenue, expenses, and profit over a period of time is the income statement."}, "BUS 110": {"question": "Your client proposal opens with the client's specific pain point rather than a list of your credentials. What principle is this following?", "options": ["Professional tone only", "Persuasive structure", "A balance sheet format", "Entity structure"], "correctIndex": 1, "explanation": "Organizing writing around the reader's problem first, moving toward the solution, follows proven persuasive structure."}, "BUS 102": {"question": "You form an LLC specifically so a lawsuit against the business generally can't touch your personal home or savings. What are you securing?", "options": ["A business contract", "Liability protection", "A licensing permit", "A cost structure"], "correctIndex": 1, "explanation": "Legal separation between personal and business assets, limiting what creditors can claim, is liability protection."}, "ACCT 102": {"question": "You calculate exactly how many weekly meal orders are needed before the kitchen lease stops being a loss. What are you calculating?", "options": ["A balance sheet", "Break-even analysis", "An income statement", "A cash flow forecast"], "correctIndex": 1, "explanation": "Calculating the sales volume needed to cover all costs before turning a profit is break-even analysis."}, "ECON 105": {"question": "Your schedule stays fully booked with a waitlist for months. What does this signal about supply and demand for your service?", "options": ["Demand is outpacing supply, which may justify raising prices", "You should immediately lower prices", "There's no useful signal here", "Demand has collapsed"], "correctIndex": 0, "explanation": "A consistently full schedule with a waitlist is a clear signal that demand is outpacing supply, often justifying a price increase."}, "MKT 201": {"question": "You separate 'post-injury clients' from 'performance athletes' because each group needs completely different messaging. What are you doing?", "options": ["Market segmentation", "Break-even analysis", "Liability protection", "Cost structure"], "correctIndex": 0, "explanation": "Dividing a broad market into distinct groups with shared needs, to target each more precisely, is market segmentation."}, "FIN 210": {"question": "You keep enough cash on hand to cover two months of expenses even during a slow stretch. What are you maintaining?", "options": ["Debt", "Working capital", "A balance sheet", "An income statement"], "correctIndex": 1, "explanation": "The cash a business keeps on hand to cover near-term operating needs is working capital."}, "MGT 220": {"question": "You hand a staff member full ownership of scheduling, including the authority to make decisions about it, not just the task of sending reminders. What is this?", "options": ["Accountability systems only", "Real delegation", "Org structure design", "Motivation theory"], "correctIndex": 1, "explanation": "Assigning ownership of a task or decision to someone else, with clear authority to act on it, is real delegation."}, "MKT 202": {"question": "You choose Instagram and local search as your two priority channels because that's genuinely where your ideal client spends attention. What are you defining?", "options": ["A channel strategy", "A balance sheet", "A cost structure", "An entity structure"], "correctIndex": 0, "explanation": "Deciding which platforms and methods to use to reach and convert customers is channel strategy."}, "FIN 211": {"question": "You project cash three months out and spot a tight stretch before payroll, giving you time to adjust. What are you doing?", "options": ["Break-even analysis", "Cash flow forecasting", "An income statement review", "A SWOT analysis"], "correctIndex": 1, "explanation": "Projecting future cash in and out to anticipate shortfalls before they happen is cash flow forecasting."}, "OPS 230": {"question": "You document your exact client onboarding steps so any new hire can run it the same way you would. What are you creating?", "options": ["A cost structure", "A repeatable process design", "A cash flow forecast", "An income statement"], "correctIndex": 1, "explanation": "Deliberately structuring how work gets done so outcomes are consistent and repeatable is process design."}, "MGT 301": {"question": "You choose NOT to chase every walk-in client so you can stay focused on higher-value corrective exercise cases. What does this deliberate tradeoff represent?", "options": ["A weakness", "A strategic tradeoff", "A liability exposure", "An externality"], "correctIndex": 1, "explanation": "The deliberate choices about what NOT to do are what actually make a strategy a strategy — strategic tradeoffs."}, "HR 310": {"question": "You use a documented interview scorecard for every candidate instead of deciding purely on gut feel. What are you building?", "options": ["An org chart only", "A hiring system", "A cost structure", "A liability waiver"], "correctIndex": 1, "explanation": "A repeatable, structured process for sourcing, evaluating, and selecting new hires is a hiring system."}, "BUS 320": {"question": "Your pipeline moves prospects through inquiry → consultation → assessment → signed program, tracked at each stage. What have you built?", "options": ["A balance sheet", "A sales pipeline", "A cost structure", "An org chart"], "correctIndex": 1, "explanation": "The staged process a prospect moves through from first contact to closed deal is the sales pipeline."}, "FIN 330": {"question": "A service business is often valued as a multiple of its annual recurring revenue rather than just its physical assets. What is this an example of?", "options": ["A balance sheet", "A valuation method", "A liability waiver", "An org chart"], "correctIndex": 1, "explanation": "The specific approach used to estimate what a business is worth, like a revenue multiple, is a valuation method."}, "MKT 331": {"question": "You map every step a client takes from first call to final session and discover most drop-off happens at online scheduling, not pricing. What did you use?", "options": ["A SWOT analysis", "Customer journey mapping", "A balance sheet", "Break-even analysis"], "correctIndex": 1, "explanation": "Laying out every step a customer takes to identify friction points is customer journey mapping."}, "BUS 340": {"question": "You track consultation bookings because they predict next month's revenue before it actually happens. What kind of indicator is this?", "options": ["A lagging indicator", "A leading indicator", "A balance sheet item", "An externality"], "correctIndex": 1, "explanation": "A metric that predicts future performance, rather than reporting what already happened, is a leading indicator."}, "MGT 401": {"question": "You write a documented SOP for client intake so any staff member runs it identically without you present. What problem does this solve?", "options": ["It has no real business value", "A scalability bottleneck caused by dependence on one person", "A tax liability", "A market failure"], "correctIndex": 1, "explanation": "Documenting a repeatable SOP directly addresses a scalability bottleneck — the business no longer depends on one person."}, "BUS 410": {"question": "You sell meal prep both through your own website and through a local delivery marketplace app. What are you running?", "options": ["A single-channel strategy", "A multi-channel strategy", "A subscription model only", "A liability exposure"], "correctIndex": 1, "explanation": "Selling across more than one platform or channel in a coordinated way is a multi-channel strategy."}, "LAW 420": {"question": "You have every client sign a waiver disclosing risks and confirming agreement before any new manual therapy technique. What are you securing?", "options": ["IP protection", "Liability protection through informed consent", "A funding source", "A KPI dashboard"], "correctIndex": 1, "explanation": "Disclosing risks and obtaining agreement before treatment is the informed consent process that protects against liability exposure."}, "FIN 402": {"question": "You start documenting your systems and client processes years before any planned sale, specifically so the business can run without you. What are you doing?", "options": ["Reinvestment strategy only", "Exit planning", "A break-even analysis", "A liability waiver"], "correctIndex": 1, "explanation": "Preparing a business in advance for an eventual sale, transfer, or wind-down is exit planning."}, "MGT 430": {"question": "A team keeps showing up for each other even during a rough month, without you having to push them. What does this reflect?", "options": ["Weak organizational culture", "Strong culture design", "A liability exposure", "Poor motivation theory"], "correctIndex": 1, "explanation": "Norms and behaviors a team operates by that hold up even under stress reflect deliberate, strong culture design."}, "BUS 490": {"question": "You build a full plan covering business model, financials, go-to-market, and a sequenced execution roadmap before launching. What have you created?", "options": ["A cost structure alone", "A complete business plan", "A liability waiver", "A KPI dashboard"], "correctIndex": 1, "explanation": "A structured document defining the model, market, financials, and execution path for a venture is a business plan."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'smallbiz-degree-completed';
+const MASTERED_KEY = 'smallbiz-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>

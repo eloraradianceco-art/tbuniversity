@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>/* TB University: storage shim so progress saves on regular web hosting */if(!window.storage){window.storage={async get(k){try{var v=localStorage.getItem('tbu:'+k);return v===null?null:{key:k,value:v}}catch(e){return null}},async set(k,v){try{localStorage.setItem('tbu:'+k,v);return{key:k,value:v}}catch(e){return null}},async delete(k){try{localStorage.removeItem('tbu:'+k)}catch(e){}return{key:k,deleted:true}},async list(p){try{var o=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf('tbu:')===0&&k.slice(4).indexOf(p||'')===0)o.push(k.slice(4))}return{keys:o}}catch(e){return{keys:[]}}}}}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full-Stack Software Engineering — Four-Year Curriculum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e120f;
+    --panel:#161d18;
+    --panel-alt:#1b241d;
+    --row-hover:#202a22;
+    --text:#ece5d3;
+    --text-dim:#9aa393;
+    --text-faint:#6b7367;
+    --gold:#b98b3e;
+    --gold-bright:#d9a94f;
+    --border:#2a332b;
+    --border-soft:#222a24;
+    --good:#5a9c6e;
+    --bad:#b9553e;
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 48px 0;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    line-height:1.15;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+    max-width:46ch;
+  }
+  .seal-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:16px 14px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    margin-bottom:16px;
+  }
+  .seal-row .seal-text{flex:1;min-width:0;}
+  .seal-label{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .seal-value{
+    font-family:var(--font-display);
+    font-size:19px;
+    color:var(--text);
+    margin:0;
+  }
+  .seal-value span{color:var(--gold-bright);}
+  .seal-sub{font-size:12px;color:var(--text-dim);margin:3px 0 0;}
+
+  /* Mode switcher */
+  .mode-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 6px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .mode-btn.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+    color:var(--gold-bright);
+  }
+  .mode-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:2px;
+    margin-bottom:20px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:10px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:left;
+    min-width:76px;
+  }
+  .tab .tnum{
+    display:block;
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .tab .tfrac{font-size:10px;letter-spacing:.06em;color:var(--text-faint);}
+  .tab.active{
+    border-color:var(--gold);
+    background:var(--panel-alt);
+  }
+  .tab.active .tnum{color:var(--gold-bright);}
+  .tab:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .year-title{
+    font-family:var(--font-display);
+    font-size:15px;
+    color:var(--text-dim);
+    margin:0 0 18px;
+    font-style:italic;
+  }
+  .semester{margin-bottom:22px;}
+  .sem-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding-bottom:8px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .sem-head h2{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin:0;
+  }
+  .sem-head .sem-credits{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .course{
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    margin-bottom:8px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .course-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 12px;
+    cursor:pointer;
+  }
+  .course-head:hover{background:var(--row-hover);}
+  .seal-toggle{
+    flex:0 0 auto;
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--text-faint);
+    background:transparent;
+    cursor:pointer;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .seal-toggle.done{
+    border-color:var(--gold);
+    background:var(--gold);
+  }
+  .seal-toggle svg{width:11px;height:11px;display:none;}
+  .seal-toggle.done svg{display:block;}
+  .seal-toggle:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .course-main{flex:1;min-width:0;}
+  .course-code{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .course-title{
+    font-size:14px;
+    color:var(--text);
+    margin-top:1px;
+  }
+  .course.done .course-title{color:var(--text-dim);}
+  .course.done .course-code{color:var(--text-faint);}
+  .chev{
+    flex:0 0 auto;
+    color:var(--text-faint);
+    transition:transform .15s ease;
+    font-size:11px;
+  }
+  .course.open .chev{transform:rotate(90deg);}
+  .course-body{
+    display:none;
+    padding:0 12px 16px 42px;
+  }
+  .course.open .course-body{display:block;}
+  .course-desc{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:0 0 10px;
+  }
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;}
+  .concept-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    padding:4px 8px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .concept-tag:hover{border-color:var(--gold);color:var(--text);}
+  .concept-tag.active{
+    border-color:var(--gold-bright);
+    color:var(--gold-bright);
+    background:var(--bg);
+  }
+  .concept-tag:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .term-def{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:10px 0 0;
+    padding-top:10px;
+    border-top:1px solid var(--border-soft);
+  }
+  .term-def strong{color:var(--gold-bright);font-weight:600;}
+  .current-flag{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.08em;
+    color:var(--bg);
+    background:var(--gold-bright);
+    padding:2px 6px;
+    border-radius:2px;
+    margin-left:8px;
+    text-transform:uppercase;
+    vertical-align:middle;
+  }
+  .footnote{
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-top:26px;
+    line-height:1.6;
+  }
+
+  /* Quiz mode */
+  .quiz-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .quiz-progress .quiz-score{color:var(--gold-bright);}
+  .quiz-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:16px 14px 18px;
+  }
+  .quiz-course-tag{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .quiz-question{
+    font-family:var(--font-display);
+    font-size:16px;
+    line-height:1.4;
+    color:var(--text);
+    margin:0 0 16px;
+  }
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    text-align:left;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    line-height:1.4;
+    color:var(--text);
+    background:var(--panel-alt);
+    border:1px solid var(--border-soft);
+    border-radius:4px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .quiz-option:hover:not(.disabled){border-color:var(--gold);}
+  .quiz-option:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-option.correct{border-color:var(--good);background:rgba(90,156,110,.14);color:var(--text);}
+  .quiz-option.incorrect{border-color:var(--bad);background:rgba(185,85,62,.14);color:var(--text);}
+  .quiz-option.disabled{cursor:default;}
+  .quiz-explain{
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text-dim);
+    margin:14px 0 0;
+    padding-top:12px;
+    border-top:1px solid var(--border-soft);
+  }
+  .quiz-explain strong{color:var(--gold-bright);font-weight:600;}
+  .quiz-nav{margin-top:16px;display:flex;justify-content:flex-end;}
+  .quiz-btn{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--gold);
+    color:var(--bg);
+    border:none;
+    border-radius:4px;
+    padding:10px 16px;
+    cursor:pointer;
+  }
+  .quiz-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .quiz-summary{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .quiz-summary .big{
+    font-family:var(--font-display);
+    font-size:32px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+  }
+  .quiz-summary p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  /* Review mode */
+  .review-progress{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
+  .flash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:32px 18px;
+    text-align:center;
+    cursor:pointer;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .flash-term{
+    font-family:var(--font-display);
+    font-size:20px;
+    color:var(--text);
+  }
+  .flash-def{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    text-align:left;
+  }
+  .flash-hint{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    text-align:center;
+    margin:10px 0 0;
+  }
+  .flash-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
+  .flash-btn{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    border-radius:4px;
+    padding:12px 8px;
+    cursor:pointer;
+    border:1px solid var(--border);
+  }
+  .flash-btn.learning{background:var(--panel-alt);color:var(--text-dim);}
+  .flash-btn.got-it{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .flash-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+  .flash-empty{
+    text-align:center;
+    padding:32px 16px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .flash-empty .big{font-family:var(--font-display);font-size:22px;color:var(--gold-bright);margin:0 0 8px;}
+  .flash-empty p{color:var(--text-dim);font-size:13px;margin:0 0 18px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .chev{transition:none;}
+  }
+</style>
+</head>
+<body><a href="../../" style="position:absolute;top:8px;right:12px;z-index:50;font:500 11px/1 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#9aa393;text-decoration:none;border:1px solid #2a332b;border-radius:12px;padding:6px 10px;background:rgba(14,18,15,.85)">⌂ LIBRARY</a>
+<div class="wrap">
+  <p class="eyebrow">Self-Study Transcript</p>
+  <h1>Full-Stack Software Engineering — Four-Year Curriculum</h1>
+  <p class="subtitle">Twenty-four courses, eight semesters. Programming foundations through the React/Supabase/Stripe/Vercel stack you already build on.</p>
+
+  <div class="seal-row">
+    <svg id="sealSvg" width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"></svg>
+    <div class="seal-text">
+      <p class="seal-label">Overall Progress</p>
+      <p class="seal-value"><span id="doneCount">0</span> / 24 courses completed</p>
+      <p class="seal-sub" id="pctLine">0% of the program</p>
+    </div>
+  </div>
+
+  <div class="mode-row" id="modeRow">
+    <button class="mode-btn" data-mode="study">Study</button>
+    <button class="mode-btn" data-mode="quiz">Quiz</button>
+    <button class="mode-btn" data-mode="review">Review</button>
+  </div>
+
+  <div id="studyMode">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="year-title" id="yearTitle"></p>
+    <div id="semesters"></div>
+    <p class="footnote">Tap a course to expand its description and key concepts. Tap the circle to mark it complete — progress saves automatically to this app.</p>
+  </div>
+
+  <div id="quizMode" style="display:none;">
+    <div class="tabs" id="quizTabs" role="tablist"></div>
+    <div id="quizArea"></div>
+    <p class="footnote">One applied scenario question per course for the selected year. These test whether you can use the concept, not just recall it.</p>
+  </div>
+
+  <div id="reviewMode" style="display:none;">
+    <div class="review-progress" id="reviewProgress"></div>
+    <div id="reviewArea"></div>
+    <p class="footnote">Tap the card to flip it. "Still learning" keeps a term in rotation — "Got it" retires it. Progress saves automatically.</p>
+  </div>
+</div>
+
+<script>
+const CURRICULUM = [{"year": 1, "title": "Programming Foundations", "semesters": [{"term": "Fall", "courses": [{"code": "CS 101", "title": "Programming Fundamentals (JavaScript)", "credits": 3, "desc": "Variables, control flow, and functions — the vocabulary every other course in this track assumes you have.", "concepts": ["Variables & data types", "Control flow", "Functions", "Scope", "Debugging basics"]}, {"code": "CS 110", "title": "HTML & CSS Foundations", "credits": 3, "desc": "Semantic markup and the box model — how a page is actually structured before any framework touches it.", "concepts": ["Semantic HTML", "CSS box model", "Selectors & specificity", "Responsive layout", "Flexbox"]}, {"code": "CS 120", "title": "Version Control with Git", "credits": 3, "desc": "Branching, commits, and pull requests — the workflow every real codebase runs on.", "concepts": ["Git commits", "Branching", "Merge vs rebase", "Pull requests", "GitHub workflow"]}]}, {"term": "Spring", "courses": [{"code": "CS 102", "title": "Intermediate JavaScript", "credits": 3, "desc": "Closures, async/await, and modern syntax — the language features every framework is built on top of.", "concepts": ["Closures", "Async/await", "Promises", "Prototypal inheritance", "ES6+ syntax"]}, {"code": "CS 130", "title": "Web Fundamentals & Browser Behavior", "credits": 3, "desc": "The DOM, HTTP, and the rendering pipeline — what actually happens between a request and a rendered page.", "concepts": ["DOM manipulation", "HTTP requests", "Browser rendering pipeline", "Event loop", "Client-server model"]}, {"code": "CS 140", "title": "Data Structures & Algorithms I", "credits": 3, "desc": "Arrays, objects, and basic complexity — how to reason about whether code will actually scale.", "concepts": ["Arrays & objects", "Time complexity", "Big O notation", "Loops vs recursion", "Basic algorithms"]}]}]}, {"year": 2, "title": "Frontend Engineering", "semesters": [{"term": "Fall", "courses": [{"code": "FE 201", "title": "React Fundamentals", "credits": 3, "desc": "Components, props, state, and hooks — the mental model behind every React app you'll build.", "concepts": ["Components", "Props", "State", "React hooks", "JSX"]}, {"code": "FE 210", "title": "Modern CSS & Responsive Design", "credits": 3, "desc": "Flexbox, Grid, and design tokens for building layouts that hold up across every screen size.", "concepts": ["Flexbox", "CSS Grid", "Media queries", "Design tokens", "Mobile-first design"]}, {"code": "CS 210", "title": "Data Structures & Algorithms II", "credits": 3, "desc": "Recursion and sorting — the second half of the complexity toolkit from Year 1.", "concepts": ["Recursion", "Sorting algorithms", "Searching algorithms", "Space complexity", "Algorithm tradeoffs"]}]}, {"term": "Spring", "courses": [{"code": "FE 202", "title": "React State Management & Architecture", "credits": 3, "desc": "Context, state libraries, and component architecture for apps that outgrow simple useState.", "concepts": ["Context API", "State management libraries", "Component architecture", "Lifting state up", "Unidirectional data flow"]}, {"code": "FE 220", "title": "Vite & Build Tooling", "credits": 3, "desc": "Bundlers and dev tooling — what's actually happening when you run a Vite dev server or production build.", "concepts": ["Bundlers", "Dev server", "Hot module replacement", "Build optimization", "Environment variables"]}, {"code": "FE 230", "title": "Frontend Design Systems", "credits": 3, "desc": "Component libraries and Tailwind — building interfaces from a consistent, reusable system rather than one-off CSS.", "concepts": ["Component libraries", "Design tokens", "Tailwind CSS", "Accessibility (a11y)", "Reusable UI patterns"]}]}]}, {"year": 3, "title": "Backend & Data", "semesters": [{"term": "Fall", "courses": [{"code": "BE 301", "title": "Backend Fundamentals & APIs", "credits": 3, "desc": "REST principles and HTTP methods — how a frontend and backend actually agree to talk to each other.", "concepts": ["REST principles", "HTTP methods", "API endpoints", "Request/response cycle", "Status codes"]}, {"code": "BE 310", "title": "Databases & SQL", "credits": 3, "desc": "Relational modeling and queries — how data actually gets structured and retrieved underneath any app.", "concepts": ["Relational modeling", "SQL queries", "Joins", "Indexing", "Normalization"]}, {"code": "BE 320", "title": "Supabase & PostgreSQL", "credits": 3, "desc": "Auth, real-time, and row-level security — the specific Supabase/Postgres stack you already build on.", "concepts": ["Supabase client", "PostgreSQL", "Row-level security", "Real-time subscriptions", "Database migrations"]}]}, {"term": "Spring", "courses": [{"code": "BE 302", "title": "Authentication & Authorization", "credits": 3, "desc": "Sessions, JWT, and OAuth — how an app actually knows who's logged in and what they're allowed to touch.", "concepts": ["Sessions", "JWT (JSON Web Tokens)", "OAuth", "Row-level security policies", "Auth providers"]}, {"code": "BE 330", "title": "Payments & Stripe Integration", "credits": 3, "desc": "Checkout flows, webhooks, and subscription billing — the Stripe integration pattern behind any paid app.", "concepts": ["Stripe Checkout", "Webhooks", "Subscription billing", "Payment intents", "Idempotency"]}, {"code": "BE 340", "title": "API Security & Data Protection", "credits": 3, "desc": "Input validation and common vulnerabilities — what actually breaks in production if this course gets skipped.", "concepts": ["Input validation", "Rate limiting", "SQL injection", "XSS (cross-site scripting)", "Environment secrets management"]}]}]}, {"year": 4, "title": "Deployment & Systems", "semesters": [{"term": "Fall", "courses": [{"code": "DEV 401", "title": "Deployment & CI/CD", "credits": 3, "desc": "Vercel and GitHub Actions — automating the path from a commit to a live app.", "concepts": ["CI/CD pipelines", "Vercel deployment", "GitHub Actions", "Environment management", "Preview deployments"]}, {"code": "DEV 410", "title": "Testing & Quality Assurance", "credits": 3, "desc": "Unit and integration testing, and the debugging methodology that separates guessing from actually finding the bug.", "concepts": ["Unit testing", "Integration testing", "Test coverage", "Debugging methodology", "Error handling"]}, {"code": "DEV 420", "title": "Performance & Scalability", "credits": 3, "desc": "Caching and lazy loading — the techniques that keep an app fast as data and traffic grow.", "concepts": ["Caching", "Lazy loading", "Database indexing at scale", "CDN (content delivery network)", "Load time optimization"]}]}, {"term": "Spring", "courses": [{"code": "DEV 402", "title": "System Design Fundamentals", "credits": 3, "desc": "Architecture tradeoffs and scaling patterns — thinking at the system level, not just the feature level.", "concepts": ["System architecture", "Scaling patterns", "Load balancing", "Microservices vs monolith", "Database scaling"]}, {"code": "DEV 430", "title": "AI-Assisted Development", "credits": 3, "desc": "Working effectively with AI coding agents and app builders — directing, reviewing, and shipping AI-assisted code.", "concepts": ["AI coding agents", "Prompt-driven development", "Code review of AI output", "Iterative app building", "Human-in-the-loop development"]}, {"code": "DEV 490", "title": "Capstone — Full Product Build & Launch", "credits": 3, "desc": "A complete application taken from concept through deployment, tested and shipped end to end.", "concepts": ["Full product build", "Deployment pipeline", "Launch checklist", "Post-launch monitoring", "Product documentation"]}]}]}];
+const GLOSSARY = {"Variables & data types": "Named containers for storing values, and the categories — string, number, boolean, object — those values fall into. Example: 'let clientCount = 12' stores a number; 'let clientName = \"Anthony\"' stores a string.", "Control flow": "The logic that determines which code runs, and in what order — if/else statements, loops, conditionals. Example: 'if (isPaid) { grantAccess() } else { showPaywall() }' is basic control flow.", "Functions": "Reusable blocks of code that take input and return output — the core building block of any program. Example: a 'calculateMacros(weight, goal)' function you call every time you need to compute a client's targets.", "Scope": "The rules determining where in code a variable is accessible. Example: a variable declared inside a function isn't visible outside it, which is why the same variable name can safely be reused in different functions.", "Debugging basics": "The systematic process of finding and fixing errors in code. Example: adding a 'console.log' before and after a suspect line of code to see exactly where a value goes wrong.", "Semantic HTML": "Using HTML elements that describe their actual meaning (nav, article, button) rather than generic divs. Example: using a '<button>' tag instead of a clickable '<div>' so screen readers and browsers understand it's interactive.", "CSS box model": "The layout model treating every element as a box with content, padding, border, and margin. Example: a card that looks too cramped is usually a padding problem within the box model, not a sizing problem.", "Selectors & specificity": "How CSS rules target elements, and the rules that determine which rule wins when several conflict. Example: an ID selector overrides a class selector even if the class rule appears later in the stylesheet.", "Responsive layout": "Designing pages that adapt cleanly across different screen sizes. Example: a three-column layout on desktop collapsing to a single column on mobile is responsive layout in action.", "Flexbox": "A CSS layout system for arranging elements in a single row or column with flexible spacing. Example: 'display: flex; justify-content: space-between' evenly spreads nav items across the top of a page.", "Git commits": "Saved snapshots of code changes, each with a message describing what changed. Example: 'git commit -m \"fix login redirect bug\"' saves a labeled checkpoint you can return to later.", "Branching": "Creating a separate line of development in Git to work on a feature without affecting the main codebase. Example: creating a 'feature/stripe-checkout' branch to build payments without risking the live app.", "Merge vs rebase": "Two different ways to combine branch history in Git, each with different tradeoffs for the commit log. Example: rebasing your feature branch onto main gives a cleaner, linear history than a standard merge would.", "Pull requests": "A request to merge one branch's changes into another, typically reviewed before being accepted. Example: opening a pull request on GitHub so changes to the booking system get reviewed before hitting production.", "GitHub workflow": "The standard process of branching, committing, opening a pull request, and merging on GitHub. Example: branch → commit → push → pull request → review → merge is the everyday GitHub workflow loop.", "Closures": "A function that retains access to variables from its outer scope even after that scope has finished executing. Example: a counter function that remembers its current count between calls relies on a closure.", "Async/await": "JavaScript syntax for writing asynchronous code that reads like it executes in sequential order. Example: 'const data = await fetch(url)' waits for the Supabase response before moving to the next line.", "Promises": "An object representing the eventual result of an asynchronous operation — either resolved or rejected. Example: a Stripe API call returns a promise that resolves with payment confirmation or rejects with an error.", "Prototypal inheritance": "The mechanism by which JavaScript objects inherit properties and methods from other objects. Example: an array has access to methods like '.map()' because arrays inherit from a shared array prototype.", "ES6+ syntax": "Modern JavaScript language features introduced from ES6 onward — arrow functions, destructuring, modules. Example: 'const { name, email } = client' is ES6 destructuring pulling two fields out of an object at once.", "DOM manipulation": "Using JavaScript to read or change the structure and content of a webpage after it loads. Example: 'document.getElementById(\"total\").textContent = newTotal' updates a price on screen without reloading the page.", "HTTP requests": "The messages a browser or client sends to a server to request data or trigger an action. Example: your app sending a GET request to Supabase to fetch a client's saved workout history.", "Browser rendering pipeline": "The sequence of steps a browser takes to turn HTML/CSS/JS into pixels on screen. Example: a slow page load is often a rendering pipeline bottleneck, not a network problem, if it's stuck on JS execution.", "Event loop": "The mechanism that lets JavaScript handle asynchronous operations despite being single-threaded. Example: the event loop is why a slow database call doesn't freeze the rest of your app's UI while it waits.", "Client-server model": "The architecture where a client requests resources or actions from a separate server. Example: your React frontend is the client, and Supabase is the server handling data requests.", "Arrays & objects": "The two core JavaScript data structures for storing collections of values — ordered lists and key-value pairs. Example: '[\"squat\", \"bench\", \"deadlift\"]' is an array; '{name: \"Anthony\", role: \"coach\"}' is an object.", "Time complexity": "A measure of how an algorithm's runtime grows as the size of its input grows. Example: searching a sorted list of 1,000 clients with a smart algorithm stays fast, while a naive search slows down proportionally.", "Big O notation": "A standard notation for expressing an algorithm's time or space complexity. Example: an O(n) function scales linearly with input size, while an O(n²) function slows down dramatically as data grows.", "Loops vs recursion": "Two different approaches to repeating an operation — iterating with a loop, or a function calling itself. Example: summing an array with a 'for' loop versus a function that calls itself on a smaller slice each time.", "Basic algorithms": "Fundamental problem-solving procedures — searching, sorting, traversal — that recur across programming problems. Example: sorting a client list alphabetically before displaying it uses a basic sorting algorithm under the hood.", "Components": "Reusable, self-contained pieces of UI in React, each managing its own markup and logic. Example: a '<ClientCard />' component you reuse for every client in a list, instead of copy-pasting the same markup.", "Props": "Data passed into a React component from its parent, used to configure how it renders. Example: '<ClientCard name={client.name} />' passes the client's name into the component as a prop.", "State": "Data a component tracks internally that can change over time and trigger a re-render. Example: 'const [isOpen, setIsOpen] = useState(false)' tracks whether a menu is expanded.", "React hooks": "Functions like useState and useEffect that let function components manage state and side effects. Example: 'useEffect' fetching a client's data from Supabase the moment a component loads is a classic hook use case.", "JSX": "A syntax extension allowing HTML-like markup to be written directly inside JavaScript. Example: 'return <h1>Welcome, {client.name}</h1>' mixes HTML-like markup with JavaScript variables directly.", "CSS Grid": "A CSS layout system for arranging elements in two-dimensional rows and columns. Example: 'display: grid; grid-template-columns: 1fr 1fr 1fr' lays out a three-column pricing table cleanly.", "Media queries": "CSS rules that apply styles conditionally based on screen size or device characteristics. Example: '@media (max-width: 600px) { .sidebar { display: none; } }' hides a sidebar on mobile screens.", "Design tokens": "Named, reusable values — colors, spacing, font sizes — that keep a design system consistent. Example: a token called '--gold-bright' used across every app so the accent color stays identical everywhere.", "Mobile-first design": "Designing for the smallest screen first, then progressively enhancing for larger screens. Example: building the single-column mobile layout first, then adding a '@media' rule to expand it to three columns on desktop.", "Recursion": "A function that calls itself to solve a smaller instance of the same problem. Example: a function that calculates a nested category tree by calling itself on each subcategory is using recursion.", "Sorting algorithms": "Procedures for arranging data in a specific order, each with different speed and memory tradeoffs. Example: JavaScript's built-in '.sort()' method uses an efficient sorting algorithm under the hood to order a client list.", "Searching algorithms": "Procedures for finding a specific value within a data structure. Example: a binary search can find a specific client ID in a sorted list far faster than checking every entry one by one.", "Space complexity": "A measure of how much memory an algorithm requires as its input grows. Example: creating a full copy of a large client dataset just to filter it has worse space complexity than filtering in place.", "Algorithm tradeoffs": "The balance between speed, memory use, and code simplicity when choosing an approach. Example: choosing a slightly slower but far simpler sorting method because the dataset is small enough that speed doesn't matter.", "Context API": "A React feature for sharing state across components without manually passing props through every level. Example: sharing the logged-in user's info across every page of an app via Context, instead of passing it down manually.", "State management libraries": "Tools built to manage complex application state beyond what React's built-in state handles well. Example: reaching for a state library once a booking app's shared state gets too tangled for plain useState to handle cleanly.", "Component architecture": "The overall structure and organization of how components are broken down and composed together. Example: splitting a big 'Dashboard' component into smaller 'StatsCard', 'ClientList', and 'Calendar' pieces is component architecture.", "Lifting state up": "Moving shared state to the closest common parent component so multiple children can access it. Example: moving a selected date from a calendar component up to the parent so a booking form can also read it.", "Unidirectional data flow": "React's pattern where data flows one direction, from parent to child, making state easier to trace. Example: a parent passing client data down to child components, rather than children directly modifying the parent's state.", "Bundlers": "Tools that combine and optimize a project's JavaScript, CSS, and assets into files a browser can efficiently load. Example: Vite bundling dozens of component files into a handful of optimized files for production.", "Dev server": "A local server used during development that reflects code changes instantly in the browser. Example: running 'npm run dev' spins up Vite's dev server so you can see changes live as you code.", "Hot module replacement": "A development feature that updates code in the browser without a full page reload. Example: editing a component's styling and seeing it update instantly in the browser, without losing your current app state.", "Build optimization": "Techniques used to reduce the size and improve the load performance of production code. Example: Vite automatically minifying and code-splitting your app during 'npm run build' is build optimization at work.", "Environment variables": "Configuration values, like API keys or URLs, kept outside the codebase and injected at build or runtime. Example: storing your Supabase API key in a '.env' file instead of hardcoding it directly into the source code.", "Component libraries": "Prebuilt, reusable UI components, like buttons, modals, and forms, used to speed up interface development. Example: pulling in a prebuilt modal component instead of building the open/close/focus-trap logic from scratch.", "Tailwind CSS": "A utility-first CSS framework for building custom designs directly in markup without writing separate CSS files. Example: 'className=\"flex gap-4 p-6 rounded-lg\"' styles an element entirely through Tailwind utility classes.", "Accessibility (a11y)": "Designing and building interfaces usable by people with disabilities, including screen reader and keyboard support. Example: making sure every button is reachable and operable using only a keyboard, not just a mouse.", "Reusable UI patterns": "Interface solutions designed to be used consistently across a product rather than rebuilt each time. Example: using the same card-and-badge pattern for both client progress and program completion across your apps.", "REST principles": "An architectural style for designing APIs around resources and standard HTTP verbs. Example: 'GET /clients/12' fetching a specific client follows REST's resource-based URL convention.", "HTTP methods": "The standard verbs — GET, POST, PUT, DELETE — that define what action an API request performs. Example: using POST to create a new client record, and DELETE to remove one, follows standard HTTP method conventions.", "API endpoints": "The specific URLs an API exposes for clients to interact with a particular resource or action. Example: '/api/bookings' might be the specific endpoint your frontend calls to fetch or create appointments.", "Request/response cycle": "The full round trip of a client sending a request and a server returning a response. Example: your app requesting a client's records and Supabase responding with the matching data is one full request/response cycle.", "Status codes": "Standardized numeric codes, like 200, 404, or 500, that indicate the result of an HTTP request. Example: a 401 status code tells your app the request failed specifically because the user isn't authenticated.", "Relational modeling": "Structuring data into related tables, designed around how information connects to itself. Example: a 'clients' table linked to a separate 'sessions' table via a client ID is relational modeling.", "SQL queries": "Statements written in SQL to retrieve, insert, update, or delete data in a relational database. Example: 'SELECT * FROM clients WHERE active = true' is a SQL query pulling every active client.", "Joins": "SQL operations that combine rows from two or more tables based on a related column. Example: joining 'clients' and 'sessions' tables to pull a client's name alongside every session they've booked.", "Indexing": "A database structure that speeds up data retrieval at the cost of extra storage and write overhead. Example: indexing the 'email' column makes looking up a client by email much faster once you have thousands of rows.", "Normalization": "Structuring a database to reduce data duplication and improve consistency. Example: storing a client's address once in a 'clients' table instead of repeating it on every single session record.", "Supabase client": "The library used to connect a frontend application to a Supabase backend for data, auth, and storage. Example: 'supabase.from(\"clients\").select(\"*\")' is a Supabase client call fetching every client row.", "PostgreSQL": "The open-source relational database that powers Supabase under the hood. Example: every table you create in your Supabase dashboard is really a table living in a full PostgreSQL database.", "Row-level security": "A PostgreSQL feature restricting which rows a given user can access, enforced at the database level. Example: a policy ensuring a client can only see their own session records, never another client's, even if they tried querying directly.", "Real-time subscriptions": "A Supabase feature that pushes live database changes to connected clients instantly. Example: a coach's dashboard updating instantly the moment a client completes a workout, without needing a page refresh.", "Database migrations": "Version-controlled scripts that track and apply changes to a database schema over time. Example: a migration file that adds a new 'notes' column to the clients table, tracked and reversible in version control.", "Sessions": "A way of tracking a logged-in user's state across multiple requests to a server. Example: staying logged into your web app between page visits relies on a session token stored after you sign in.", "JWT (JSON Web Tokens)": "A compact, signed token format (RFC 7519) with three Base64URL-encoded parts — header, payload, signature — used to transmit identity and auth claims. Important security nuance: the payload is encoded, not encrypted — anyone can decode and read it, the signature only proves it wasn't tampered with. Example: Supabase issuing a JWT after login that your app includes on every request; never put secrets or sensitive data directly in the payload, since it's readable by anyone who has the token. (Source: RFC 7519, IETF)", "OAuth": "A standard protocol allowing users to log in via a third-party provider, like Google or GitHub, without sharing passwords. Example: a 'Sign in with Google' button on your app is powered by OAuth.", "Row-level security policies": "The specific rules defining who can read or write which rows in a Supabase/PostgreSQL table. Example: a policy stating 'auth.uid() = client_id' only lets a logged-in user see rows matching their own ID.", "Auth providers": "Third-party or built-in services that handle user sign-up, login, and identity verification. Example: enabling both email/password and Google as auth providers in your Supabase project's settings.", "Stripe Checkout": "Stripe's prebuilt, hosted payment page for accepting payments without building a custom checkout flow. Example: redirecting a client to a Stripe Checkout page to pay for a program, instead of building your own card form.", "Webhooks": "Automated HTTP callbacks a service sends to notify your app when an event, like a payment, happens. Example: Stripe sending a webhook to your app the instant a client's subscription payment succeeds, so access unlocks automatically.", "Subscription billing": "Recurring payment logic — plans, billing cycles, upgrades/downgrades — typically handled through Stripe. Example: a client automatically billed monthly for a coaching subscription, managed through Stripe's subscription billing tools.", "Payment intents": "Stripe's object representing the full lifecycle of a single payment attempt, including confirmation and errors. Example: creating a payment intent lets you handle a failed card gracefully before the charge ever completes.", "Idempotency": "Ensuring an operation, like a payment request, produces the same result even if accidentally repeated. Practical detail: Stripe idempotency keys expire after 24 hours and should be UUIDs (up to 255 chars) — never use sensitive data like emails as the key itself. Example: using a fresh UUID as an idempotency key on a Stripe charge so a network retry doesn't accidentally charge a client twice. (Source: Stripe API documentation, docs.stripe.com/api/idempotent_requests)", "Input validation": "Checking that user-submitted data meets expected format and constraints before it's processed or stored. Example: rejecting a signup form submission if the email field doesn't actually contain a valid email address.", "Rate limiting": "Restricting how many requests a client can make in a given time window to prevent abuse. Example: limiting login attempts to 5 per minute per IP address to prevent a brute-force password attack.", "SQL injection": "A security vulnerability where untrusted input is used to manipulate a database query maliciously. Example: never directly inserting raw user input into a SQL string is the core defense against SQL injection attacks.", "XSS (cross-site scripting)": "A security vulnerability where malicious scripts get injected into content viewed by other users. Example: allowing an unsanitized client comment to render as raw HTML could let someone inject a malicious script into your app.", "Environment secrets management": "Securely storing and accessing sensitive keys and credentials outside of source code. Example: storing your Stripe secret key in Vercel's environment variables settings, never committed to GitHub.", "CI/CD pipelines": "Automated workflows that build, test, and deploy code whenever changes are pushed. Example: pushing to your main branch automatically triggers a build and deploy to Vercel through a CI/CD pipeline.", "Vercel deployment": "Deploying a web application to Vercel's hosting platform, typically connected directly to a Git repository. Example: connecting your GitHub repo to Vercel so every push to main automatically deploys the live site.", "GitHub Actions": "GitHub's built-in automation tool for running workflows like tests and deployments on code changes. Example: a GitHub Action that automatically runs your test suite every time a pull request is opened.", "Environment management": "Maintaining separate configurations — dev, staging, production — so code behaves correctly in each context. Example: pointing your dev environment at a test Supabase project so you never risk touching real client data while building.", "Preview deployments": "Temporary, shareable deployments automatically generated for a specific branch or pull request. Example: Vercel spinning up a live preview URL for a feature branch so you can test it before merging to main.", "Unit testing": "Testing individual functions or components in isolation to confirm they behave correctly. Example: a unit test confirming your 'calculateMacros()' function returns the right numbers for a given input, in isolation from the rest of the app.", "Integration testing": "Testing how multiple parts of a system work together, not just in isolation. Example: testing that submitting a booking form actually creates the correct row in Supabase, not just that the form itself renders.", "Test coverage": "A measure of how much of a codebase is exercised by its automated tests. Example: 80% test coverage means the automated tests actually execute roughly 80% of your codebase's lines.", "Debugging methodology": "A systematic approach to isolating and fixing the root cause of a bug, rather than guessing. Example: bisecting recent commits to find exactly which change introduced a bug, instead of guessing randomly.", "Error handling": "Code written specifically to anticipate, catch, and gracefully respond to failures. Example: wrapping a Supabase call in a try/catch so a failed request shows a friendly error instead of crashing the app.", "Caching": "Temporarily storing data or responses to avoid recomputing or refetching them unnecessarily. Example: caching a client's dashboard data for 60 seconds so switching tabs doesn't refetch from Supabase every single time.", "Lazy loading": "Deferring the loading of resources, like images, code, or data, until they're actually needed. Example: only loading a client's full workout history when they scroll down to view it, not on initial page load.", "Database indexing at scale": "Applying indexing strategy specifically to keep queries fast as a database grows large. Example: adding an index on 'created_at' once your sessions table grows past tens of thousands of rows.", "CDN (content delivery network)": "A distributed network of servers that delivers content from a location close to the user for speed. Example: Vercel automatically serving your app's static assets from a CDN edge node closest to each visitor.", "Load time optimization": "Techniques used to reduce how long a page takes to become usable for a visitor. Example: compressing images before upload is a simple load time optimization that noticeably speeds up a page.", "System architecture": "The high-level structure of how an application's components are organized and interact. Example: deciding that Stripe handles billing, Supabase handles data, and Vercel handles hosting is a system architecture decision.", "Scaling patterns": "Established approaches for handling growth in traffic, data, or complexity without a full rebuild. Example: moving expensive report generation to a background job is a common scaling pattern as usage grows.", "Load balancing": "Distributing incoming traffic across multiple servers to avoid overloading any single one. Example: a platform like Vercel automatically load balancing traffic across edge servers during a sudden spike in visitors.", "Microservices vs monolith": "The tradeoff between one unified application (monolith) versus many small, independent services. Example: a single Next.js app handling everything is a monolith; splitting billing into its own separate service would move toward microservices.", "Database scaling": "Techniques — replication, sharding, caching — for handling database growth without performance loss. Example: Supabase's built-in connection pooling is one database scaling feature that helps as concurrent users grow.", "AI coding agents": "AI tools capable of writing, editing, and reasoning about code with varying degrees of autonomy. Example: using an AI coding agent to scaffold a new booking feature's components before you refine the logic yourself.", "Prompt-driven development": "Building software by describing intent to an AI tool rather than writing every line manually. Example: describing 'a client card component with name, next session, and progress bar' and having the AI generate a first draft.", "Code review of AI output": "Critically evaluating AI-generated code for correctness, security, and fit before shipping it. Example: checking that AI-generated Supabase queries actually respect your row-level security setup before merging them.", "Iterative app building": "Building a product in small, testable increments rather than attempting it all at once. Example: shipping a basic booking form first, then layering on payment and reminders in separate follow-up iterations.", "Human-in-the-loop development": "A workflow where a human reviews and directs AI output at key decision points rather than fully automating it. Example: letting an AI draft a database schema, then personally reviewing and adjusting it before it's ever applied.", "Full product build": "Taking a product from concept through implementation to a working, deployed application. Example: taking 'Known and Loved' from an idea to a live, deployed app is a full product build.", "Deployment pipeline": "The full sequence of steps that take code from a repository to a live, running application. Example: commit → GitHub Actions test → Vercel build → live deploy is a complete deployment pipeline.", "Launch checklist": "A structured list of technical and operational items to verify before a product goes live. Example: confirming environment variables, payment testing, and error monitoring are all set before flipping a new app live.", "Post-launch monitoring": "Tracking a live application's performance, errors, and usage after release. Example: watching Vercel's logs closely for the first week after launch to catch any errors real users are hitting.", "Product documentation": "Written material explaining how a product works, for users, developers, or both. Example: a short README explaining how to set up environment variables so a future collaborator can run the project locally."};
+const QUIZ = {"CS 101": {"question": "'let clientCount = 12;' followed by 'clientCount = 13;' works, but reassigning a value declared with 'const' throws an error. What's happening?", "options": ["Scope rules", "Different variable declaration behavior (let vs const)", "A closures issue", "An async/await issue"], "correctIndex": 1, "explanation": "'let' allows reassignment while 'const' does not — basic variable declaration behavior."}, "CS 110": {"question": "You use '<button>' instead of a clickable '<div>' so screen readers understand it's interactive. What practice is this?", "options": ["CSS box model", "Semantic HTML", "Flexbox", "Responsive layout"], "correctIndex": 1, "explanation": "Using HTML elements that describe their actual meaning, like button for a button, is semantic HTML."}, "CS 120": {"question": "You create a 'feature/stripe-checkout' branch to build payments without risking the live app. What Git concept are you using?", "options": ["A commit", "Branching", "A pull request", "A merge conflict"], "correctIndex": 1, "explanation": "Creating a separate line of development to work on a feature without affecting the main codebase is branching."}, "CS 102": {"question": "'const data = await fetch(url);' waits for the response before running the next line. What JavaScript feature makes this possible?", "options": ["Closures", "Async/await", "Prototypal inheritance", "The DOM"], "correctIndex": 1, "explanation": "Async/await lets asynchronous code, like a network request, be written so it reads in sequential order."}, "CS 130": {"question": "A slow database call doesn't freeze the rest of your app's UI while it waits. What JavaScript mechanism explains this?", "options": ["The DOM", "The event loop", "HTTP status codes", "CSS specificity"], "correctIndex": 1, "explanation": "The event loop lets JavaScript handle asynchronous operations without blocking the rest of the program."}, "CS 140": {"question": "Searching a sorted list of 1,000 clients with a smart algorithm stays fast, while checking each one individually slows down as the list grows. What describes this relationship?", "options": ["Scope", "Time complexity", "A closure", "An HTTP method"], "correctIndex": 1, "explanation": "How an algorithm's runtime grows as input size grows is exactly what time complexity measures."}, "FE 201": {"question": "'<ClientCard name={client.name} />' passes data into a component from its parent. What is 'name' here?", "options": ["State", "A prop", "A hook", "JSX syntax only, with no functional role"], "correctIndex": 1, "explanation": "Data passed into a React component from its parent, used to configure how it renders, is a prop."}, "FE 210": {"question": "'display: flex; justify-content: space-between' evenly spreads nav items across the top of a page. What layout system is this?", "options": ["CSS Grid", "Flexbox", "Media queries", "The box model"], "correctIndex": 1, "explanation": "Arranging elements in a single row or column with flexible spacing is exactly what Flexbox is designed for."}, "CS 210": {"question": "A function calls itself on a smaller slice of an array each time to sum its values. What technique is this?", "options": ["A loop", "Recursion", "A closure", "An event listener"], "correctIndex": 1, "explanation": "A function that calls itself to solve a smaller instance of the same problem is recursion."}, "FE 202": {"question": "You share the logged-in user's info across every page of an app without passing it down manually through every component. What React feature enables this?", "options": ["Props drilling", "The Context API", "CSS Grid", "A closure"], "correctIndex": 1, "explanation": "A React feature for sharing state across components without manually passing props through every level is the Context API."}, "FE 220": {"question": "You edit a component's styling and see it update instantly in the browser without losing your app's current state. What Vite feature is responsible?", "options": ["Build optimization", "Hot module replacement", "Environment variables", "A CDN"], "correctIndex": 1, "explanation": "Updating code in the browser without a full page reload, and without losing state, is hot module replacement."}, "FE 230": {"question": "'className=\"flex gap-4 p-6 rounded-lg\"' styles an element entirely through utility classes in markup. What tool is this?", "options": ["CSS Grid", "Tailwind CSS", "A component library", "Vanilla CSS"], "correctIndex": 1, "explanation": "Building designs directly in markup through utility classes, without separate CSS files, is exactly how Tailwind CSS works."}, "BE 301": {"question": "'GET /clients/12' fetches a specific client resource by ID. What architectural style is this URL following?", "options": ["SQL query syntax", "REST principles", "OAuth", "A webhook"], "correctIndex": 1, "explanation": "Designing an API around resources and standard HTTP verbs, like GET for a specific client, follows REST principles."}, "BE 310": {"question": "You join a 'clients' table with a 'sessions' table to pull a client's name alongside every session they've booked. What operation are you using?", "options": ["A migration", "A join", "Normalization alone", "An index"], "correctIndex": 1, "explanation": "Combining rows from two or more tables based on a related column is exactly what a SQL join does."}, "BE 320": {"question": "A policy ensures a client can only see their own session records, never another client's, enforced directly at the database level. What Supabase/Postgres feature is this?", "options": ["Real-time subscriptions", "Row-level security", "A database migration", "The Supabase client library"], "correctIndex": 1, "explanation": "Restricting which rows a given user can access, enforced at the database level, is row-level security."}, "BE 302": {"question": "Supabase issues a signed token after login that your app includes on every subsequent request to prove who's asking. What is this token?", "options": ["A session cookie only", "A JWT (JSON Web Token)", "An OAuth provider", "An API endpoint"], "correctIndex": 1, "explanation": "A compact, signed token format used to securely transmit identity and auth claims is a JWT."}, "BE 330": {"question": "A network retry accidentally sends the same charge request twice, but Stripe still only charges the client once. What Stripe concept prevents the double charge?", "options": ["Webhooks", "Idempotency (using an idempotency key)", "Subscription billing", "Payment intents alone"], "correctIndex": 1, "explanation": "Ensuring an operation produces the same result even if accidentally repeated is idempotency."}, "BE 340": {"question": "Never directly inserting raw user input into a SQL query string is the core defense against which vulnerability?", "options": ["XSS", "SQL injection", "Rate limiting failures", "A CDN outage"], "correctIndex": 1, "explanation": "SQL injection is a vulnerability where untrusted input maliciously manipulates a database query — avoiding raw insertion is the core defense."}, "DEV 401": {"question": "Pushing to your main branch automatically triggers a build and deploy to your live site. What have you set up?", "options": ["A database migration", "A CI/CD pipeline", "A unit test", "Row-level security"], "correctIndex": 1, "explanation": "An automated workflow that builds, tests, and deploys code whenever changes are pushed is a CI/CD pipeline."}, "DEV 410": {"question": "A test confirms your 'calculateMacros()' function returns the right numbers for a given input, in isolation from the rest of the app. What kind of test is this?", "options": ["Integration testing", "Unit testing", "Load testing", "Manual testing only"], "correctIndex": 1, "explanation": "Testing an individual function in isolation to confirm it behaves correctly is unit testing."}, "DEV 420": {"question": "You only load a client's full workout history when they scroll down to view it, not on initial page load. What technique is this?", "options": ["Caching", "Lazy loading", "Database indexing", "CI/CD"], "correctIndex": 1, "explanation": "Deferring the loading of resources until they're actually needed is lazy loading."}, "DEV 402": {"question": "You decide Stripe handles billing, Supabase handles data, and Vercel handles hosting, as separate coordinated pieces. What are you defining?", "options": ["A single monolith with no separation", "The system architecture", "A unit test", "An index"], "correctIndex": 1, "explanation": "The high-level structure of how an application's components are organized and interact is system architecture."}, "DEV 430": {"question": "You review AI-generated Supabase queries to confirm they actually respect your row-level security setup before merging them. What practice is this?", "options": ["Prompt-driven development only", "Code review of AI output", "Iterative app building", "A CI/CD pipeline"], "correctIndex": 1, "explanation": "Critically evaluating AI-generated code for correctness and security before shipping it is code review of AI output."}, "DEV 490": {"question": "You confirm environment variables, payment testing, and error monitoring are all set before flipping a new app live. What are you completing?", "options": ["A database migration", "A launch checklist", "A unit test", "A wireframe"], "correctIndex": 1, "explanation": "A structured list of technical and operational items to verify before a product goes live is a launch checklist."}};
+
+let completed = new Set();
+let mastered = new Set();
+let activeYear = 1;
+let openCourse = null;
+let activeTerm = null;
+let mode = 'study';
+
+const TOTAL = CURRICULUM.reduce((s,y)=>s+y.semesters.reduce((s2,sem)=>s2+sem.courses.length,0),0);
+const COMPLETED_KEY = 'swe-degree-completed';
+const MASTERED_KEY = 'swe-degree-completed-mastered';
+
+function yearCount(y){
+  const yr = CURRICULUM.find(x=>x.year===y);
+  let total=0, done=0;
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>{
+    total++;
+    if(completed.has(c.code)) done++;
+  }));
+  return {done, total};
+}
+
+function drawSeal(){
+  const pct = TOTAL ? completed.size/TOTAL : 0;
+  const svg = document.getElementById('sealSvg');
+  const cx=50, cy=50, bumps=14, rOuter=44, rInner=37;
+  let pts = [];
+  for(let i=0;i<bumps*2;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = (Math.PI*2*i)/(bumps*2) - Math.PI/2;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
+  }
+  const ringColor = "#3a3226";
+  const fillColor = pct>0 ? "#b98b3e" : "#232b25";
+  svg.innerHTML = `
+    <polygon points="${pts.join(' ')}" fill="${fillColor}" stroke="${ringColor}" stroke-width="1"/>
+    <circle cx="50" cy="50" r="30" fill="#171d18" stroke="#3a3226" stroke-width="1"/>
+    <text x="50" y="56" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" fill="#d9a94f">${Math.round(pct*100)}%</text>
+  `;
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-mode')===m);
+  });
+  document.getElementById('studyMode').style.display = m==='study' ? '' : 'none';
+  document.getElementById('quizMode').style.display = m==='quiz' ? '' : 'none';
+  document.getElementById('reviewMode').style.display = m==='review' ? '' : 'none';
+  if(m==='quiz') renderQuizTabs();
+  if(m==='review') renderReview();
+}
+
+document.getElementById('modeRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.mode-btn');
+  if(btn) setMode(btn.getAttribute('data-mode'));
+});
+
+function render(){
+  document.getElementById('doneCount').textContent = completed.size;
+  document.getElementById('pctLine').textContent = `${Math.round((TOTAL?completed.size/TOTAL:0)*100)}% of the program`;
+  drawSeal();
+
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const {done,total} = yearCount(yr.year);
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===activeYear ? ' active' : '');
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-selected', yr.year===activeYear ? 'true':'false');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span><span class="tfrac">${done}/${total}</span>`;
+    btn.onclick = ()=>{ activeYear = yr.year; openCourse=null; render(); };
+    tabsEl.appendChild(btn);
+  });
+
+  const yr = CURRICULUM.find(x=>x.year===activeYear);
+  document.getElementById('yearTitle').textContent = yr.title;
+
+  const semEl = document.getElementById('semesters');
+  semEl.innerHTML = '';
+  yr.semesters.forEach(sem=>{
+    const block = document.createElement('div');
+    block.className = 'semester';
+    const credits = sem.courses.length*3;
+    block.innerHTML = `<div class="sem-head"><h2>${sem.term}</h2><span class="sem-credits">${credits} credits</span></div>`;
+    const list = document.createElement('div');
+    sem.courses.forEach(c=>{
+      const isDone = completed.has(c.code);
+      const isOpen = openCourse === c.code;
+      const row = document.createElement('div');
+      row.className = 'course' + (isDone?' done':'') + (isOpen?' open':'');
+      row.innerHTML = `
+        <div class="course-head" data-code="${c.code}">
+          <button class="seal-toggle ${isDone?'done':''}" aria-label="Mark ${c.code} complete" data-code="${c.code}">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-6" stroke="#0e120f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="course-main">
+            <div class="course-code">${c.code} · ${c.credits} cr${c.current?'<span class="current-flag">In progress</span>':''}</div>
+            <div class="course-title">${c.title}</div>
+          </div>
+          <span class="chev">▸</span>
+        </div>
+        <div class="course-body">
+          <p class="course-desc">${c.desc}</p>
+          <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
+          ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+    block.appendChild(list);
+    semEl.appendChild(block);
+  });
+}
+
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const tag = e.target.closest('.concept-tag');
+  if(tag){
+    const term = tag.getAttribute('data-term');
+    activeTerm = activeTerm===term ? null : term;
+    render();
+    return;
+  }
+  const seal = e.target.closest('.seal-toggle');
+  if(seal){
+    const code = seal.getAttribute('data-code');
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress();
+    render();
+    return;
+  }
+  const head = e.target.closest('.course-head');
+  if(head){
+    const code = head.getAttribute('data-code');
+    openCourse = openCourse===code ? null : code;
+    render();
+  }
+});
+
+/* ---------- Quiz mode ---------- */
+let quizYear = 1;
+let quizQueue = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizTabs(){
+  const el = document.getElementById('quizTabs');
+  el.innerHTML = '';
+  const roman = {1:'I',2:'II',3:'III',4:'IV'};
+  CURRICULUM.forEach(yr=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (yr.year===quizYear ? ' active' : '');
+    btn.innerHTML = `<span class="tnum">YEAR ${roman[yr.year]}</span>`;
+    btn.onclick = ()=>{ quizYear = yr.year; startQuiz(); };
+    el.appendChild(btn);
+  });
+  startQuiz();
+}
+
+function startQuiz(){
+  const yr = CURRICULUM.find(x=>x.year===quizYear);
+  const codes = [];
+  yr.semesters.forEach(sem=>sem.courses.forEach(c=>codes.push(c.code)));
+  quizQueue = codes.filter(code=>QUIZ[code]).map(code=>({code, q:QUIZ[code]}));
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const el = document.getElementById('quizArea');
+  if(quizQueue.length===0){
+    el.innerHTML = `<div class="quiz-summary"><p>No quiz questions available for this year yet.</p></div>`;
+    return;
+  }
+  if(quizIdx >= quizQueue.length){
+    el.innerHTML = `
+      <div class="quiz-summary">
+        <p class="big">${quizScore} / ${quizQueue.length}</p>
+        <p>correct on Year ${quizYear}</p>
+        <button class="quiz-btn" id="quizRestart">Retake This Year</button>
+      </div>`;
+    document.getElementById('quizRestart').onclick = startQuiz;
+    return;
+  }
+  const item = quizQueue[quizIdx];
+  const course = findCourse(item.code);
+  el.innerHTML = `
+    <div class="quiz-progress"><span>Question ${quizIdx+1} of ${quizQueue.length}</span><span class="quiz-score">${quizScore} correct</span></div>
+    <div class="quiz-card">
+      <p class="quiz-course-tag">${item.code} \u2014 ${course ? course.title : ''}</p>
+      <p class="quiz-question">${item.q.question}</p>
+      <div class="quiz-options">
+        ${item.q.options.map((opt,i)=>`<button class="quiz-option" data-idx="${i}">${opt}</button>`).join('')}
+      </div>
+      <div id="quizExplainSlot"></div>
+      <div class="quiz-nav" id="quizNavSlot"></div>
+    </div>
+  `;
+  quizAnswered = false;
+  el.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.onclick = ()=>answerQuiz(parseInt(btn.getAttribute('data-idx'),10));
+  });
+}
+
+function findCourse(code){
+  for(const yr of CURRICULUM){
+    for(const sem of yr.semesters){
+      const c = sem.courses.find(c=>c.code===code);
+      if(c) return c;
+    }
+  }
+  return null;
+}
+
+function answerQuiz(idx){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQueue[quizIdx];
+  const correct = item.q.correctIndex;
+  const isRight = idx === correct;
+  if(isRight) quizScore++;
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===correct) btn.classList.add('correct');
+    else if(i===idx) btn.classList.add('incorrect');
+  });
+  document.getElementById('quizExplainSlot').innerHTML =
+    `<p class="quiz-explain"><strong>${isRight ? 'Correct.' : 'Not quite.'}</strong> ${item.q.explanation}</p>`;
+  document.getElementById('quizNavSlot').innerHTML =
+    `<button class="quiz-btn" id="quizNextBtn">${quizIdx+1 < quizQueue.length ? 'Next Question' : 'See Results'}</button>`;
+  document.getElementById('quizNextBtn').onclick = ()=>{ quizIdx++; renderQuiz(); };
+}
+
+/* ---------- Review mode ---------- */
+let reviewQueue = [];
+let reviewFlipped = false;
+
+function buildReviewQueue(){
+  reviewQueue = Object.keys(GLOSSARY).filter(term=>!mastered.has(term));
+}
+
+function renderReview(){
+  buildReviewQueue();
+  const el = document.getElementById('reviewArea');
+  const progEl = document.getElementById('reviewProgress');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  progEl.textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+
+  if(reviewQueue.length===0){
+    el.innerHTML = `
+      <div class="flash-empty">
+        <p class="big">All terms mastered</p>
+        <p>Every glossary term across this transcript is marked as known.</p>
+        <button class="quiz-btn" id="reviewReset">Reset Review Progress</button>
+      </div>`;
+    document.getElementById('reviewReset').onclick = ()=>{
+      mastered = new Set();
+      saveMastered();
+      renderReview();
+    };
+    return;
+  }
+
+  const term = reviewQueue[0];
+  reviewFlipped = false;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    const el2 = document.getElementById('reviewArea');
+    const nextTerm = reviewQueue[0];
+    renderReviewCard(nextTerm);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+function renderReviewCard(term){
+  reviewFlipped = false;
+  const el = document.getElementById('reviewArea');
+  const totalTerms = Object.keys(GLOSSARY).length;
+  document.getElementById('reviewProgress').textContent = `${mastered.size} / ${totalTerms} terms mastered \u2014 ${reviewQueue.length} left in rotation`;
+  el.innerHTML = `
+    <div class="flash-card" id="flashCard">
+      <span class="flash-term">${term}</span>
+    </div>
+    <p class="flash-hint">Tap card to reveal definition</p>
+    <div class="flash-actions">
+      <button class="flash-btn learning" id="flashLearning">Still Learning</button>
+      <button class="flash-btn got-it" id="flashGotIt">Got It</button>
+    </div>
+  `;
+  document.getElementById('flashCard').onclick = ()=>{
+    reviewFlipped = !reviewFlipped;
+    const card = document.getElementById('flashCard');
+    card.innerHTML = reviewFlipped
+      ? `<span class="flash-def"><strong style="color:var(--gold-bright);">${term}:</strong> ${GLOSSARY[term]}</span>`
+      : `<span class="flash-term">${term}</span>`;
+  };
+  document.getElementById('flashLearning').onclick = ()=>{
+    reviewQueue.push(reviewQueue.shift());
+    renderReviewCard(reviewQueue[0]);
+  };
+  document.getElementById('flashGotIt').onclick = ()=>{
+    mastered.add(term);
+    saveMastered();
+    renderReview();
+  };
+}
+
+/* ---------- Persistence ---------- */
+async function loadProgress(){
+  try{
+    const r = await window.storage.get(COMPLETED_KEY, false);
+    if(r && r.value){ completed = new Set(JSON.parse(r.value)); }
+  }catch(e){ completed = new Set(); }
+  try{
+    const r2 = await window.storage.get(MASTERED_KEY, false);
+    if(r2 && r2.value){ mastered = new Set(JSON.parse(r2.value)); }
+  }catch(e){ mastered = new Set(); }
+  render();
+  setMode('study');
+}
+async function saveProgress(){
+  try{
+    await window.storage.set(COMPLETED_KEY, JSON.stringify([...completed]), false);
+  }catch(e){ /* non-fatal */ }
+}
+async function saveMastered(){
+  try{
+    await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
+  }catch(e){ /* non-fatal */ }
+}
+
+loadProgress();
+</script>
+</body>
+</html>
