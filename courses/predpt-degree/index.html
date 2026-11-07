@@ -1025,6 +1025,12 @@ loadProgress();
    return s+'<path d="M26 66 80 52 118 38 176 10" stroke-dasharray="4 4"/>'},
   compass:function(){return '<circle class="f" cx="100" cy="72" r="56"/><circle cx="100" cy="72" r="46"/><path d="M100 14v12M100 118v12M42 72h12M146 72h12"/><path class="a f" d="M100 30 113 72H87z"/><path class="f" d="M100 114 113 72H87z"/><circle class="a f" cx="100" cy="72" r="4"/>'},
   pulse:function(){return '<path class="f" d="M100 124C42 86 40 34 74 34c12 0 22 6 26 15 4-9 14-15 26-15 34 0 32 52-26 90z"/><path class="a" d="M10 78H62l10-24 14 46 12-34 9 12H190"/>'},
+  rings:function(){return '<circle class="f" cx="76" cy="88" r="32"/><circle class="f" cx="124" cy="88" r="32"/><circle class="a f" cx="100" cy="50" r="32"/><path d="M100 14v8M92 18h16" />'},
+  book:function(){var s='<path class="f" d="M100 38C80 26 50 26 22 34V118C50 110 80 110 100 122C120 110 150 110 178 118V34C150 26 120 26 100 38z"/><path d="M100 38V122"/>';
+   [50,64,78,92].forEach(function(y,i){s+='<path d="M36 '+y+'H'+(i==3?70:86)+'M114 '+y+'H'+(i==3?150:164)+'"/>'});
+   return s+'<path class="a f" d="M168 8 124 72l-4 12 12-4 44-64z"/>'},
+  gear:function(){var n=10,p=[],i,a;for(i=0;i<n;i++){a=i*2*Math.PI/n;[[-.17,42],[-.1,52],[.1,52],[.17,42]].forEach(function(k){p.push((100+k[1]*Math.cos(a+k[0])).toFixed(1)+' '+(72+k[1]*Math.sin(a+k[0])).toFixed(1))})}
+   return '<path class="f" d="M'+p.join('L')+'z"/><circle cx="100" cy="72" r="26"/><path class="a" d="M78 72h10l5-12 8 26 6-14h15"/>'},
   truss:function(){return '<path d="M8 132H192"/><path class="f" d="M16 118 100 38 184 118z"/><path d="M16 118H184"/><path d="M100 38V118M58 78l42 40M142 78l-42 40"/><path class="a f" d="M12 112h14v10H12zM174 112h14v10h-14zM94 34h12v10H94z"/><path d="M16 122v10M184 122v10"/>'}
  };
  var animated=false;

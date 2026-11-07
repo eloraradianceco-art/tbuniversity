@@ -19,6 +19,9 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Residential Construction & Building Science** — `courses/construction-degree/`
 - **Personal Finance & Wealth Building** — `courses/finance-degree/`
 - **Emergency Preparedness & Survival** — `courses/survival-degree/`
+- **Marriage, Family & Parenting** — `courses/family-degree/`
+- **Writing & Publishing** — `courses/writing-degree/`
+- **Biomedical Engineering Foundations** — `courses/bme-degree/`
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
 ## Use
