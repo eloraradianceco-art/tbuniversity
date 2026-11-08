@@ -1031,6 +1031,12 @@ loadProgress();
    return s+'<path class="a f" d="M168 8 124 72l-4 12 12-4 44-64z"/>'},
   gear:function(){var n=10,p=[],i,a;for(i=0;i<n;i++){a=i*2*Math.PI/n;[[-.17,42],[-.1,52],[.1,52],[.17,42]].forEach(function(k){p.push((100+k[1]*Math.cos(a+k[0])).toFixed(1)+' '+(72+k[1]*Math.sin(a+k[0])).toFixed(1))})}
    return '<path class="f" d="M'+p.join('L')+'z"/><circle cx="100" cy="72" r="26"/><path class="a" d="M78 72h10l5-12 8 26 6-14h15"/>'},
+  quote:function(){return '<g transform="translate(22 0)"><path class="f" d="M30 80V54a22 22 0 0 1 22-22h4v14h-4a8 8 0 0 0-8 8v6h12v22z"/><path class="a f" d="M90 80V54a22 22 0 0 1 22-22h4v14h-4a8 8 0 0 0-8 8v6h12v22z"/></g><path d="M30 100H170M30 112H146M30 124H112"/>'},
+  column:function(){var s='<path class="f" d="M24 54 100 16l76 38z"/><circle class="a f" cx="100" cy="40" r="7"/><path d="M30 60H170M30 68H170"/>';[40,76,112,148].forEach(function(x){s+='<rect class="f" x="'+x+'" y="74" width="14" height="40"/>'});
+   return s+'<path d="M26 114H174M20 124H180M14 134H186"/>'},
+  sprout:function(){return '<path d="M20 120H180"/><path d="M36 132H164" stroke-dasharray="4 4"/><circle class="f" cx="162" cy="28" r="11"/><path d="M162 8v6M182 28h-6M148 14l4 4M176 14l-4 4"/><path d="M100 120V60"/><path class="f" d="M100 88C100 64 76 52 50 54c0 24 22 38 50 34z"/><path class="a f" d="M100 72C100 48 124 36 150 38c0 24-22 38-50 34z"/>'},
+  graph:function(){return '<path d="M30 120H180"/><path class="f" d="M34 120C70 120 82 28 106 28s36 92 72 92z"/><path class="a" d="M106 18V120" stroke-dasharray="4 4"/><path d="M70 120v-7M142 120v-7M30 20v100"/>'},
+  staff:function(){return '<path d="M20 40H180M20 56H180M20 72H180M20 88H180M20 104H180"/><ellipse class="f" cx="70" cy="96" rx="10" ry="7" transform="rotate(-20 70 96)"/><ellipse class="f" cx="120" cy="80" rx="10" ry="7" transform="rotate(-20 120 80)"/><path d="M79 94V36M129 78V28"/><path class="a f" d="M79 36 129 28V40L79 48z"/><ellipse class="f" cx="160" cy="64" rx="10" ry="7" transform="rotate(-20 160 64)"/><path d="M169 62V22"/>'},
   truss:function(){return '<path d="M8 132H192"/><path class="f" d="M16 118 100 38 184 118z"/><path d="M16 118H184"/><path d="M100 38V118M58 78l42 40M142 78l-42 40"/><path class="a f" d="M12 112h14v10H12zM174 112h14v10h-14zM94 34h12v10H94z"/><path d="M16 122v10M184 122v10"/>'}
  };
  var animated=false;

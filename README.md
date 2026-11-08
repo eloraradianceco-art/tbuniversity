@@ -22,6 +22,11 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Marriage, Family & Parenting** — `courses/family-degree/`
 - **Writing & Publishing** — `courses/writing-degree/`
 - **Biomedical Engineering Foundations** — `courses/bme-degree/`
+- **English, Literature & Composition** — `courses/english-degree/`
+- **History: American & World** — `courses/history-degree/`
+- **Agriculture & Homesteading** — `courses/agriculture-degree/`
+- **Mathematics & Statistics Foundations** — `courses/math-degree/`
+- **Music & Worship Leadership** — `courses/worship-degree/`
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
 ## Use
