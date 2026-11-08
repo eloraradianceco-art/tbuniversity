@@ -30,7 +30,7 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
 ## Full lessons
-Some courses include full lessons (reading, diagrams, worked examples, labs, practice and a self-check). Tap **Open lesson** inside a course. Currently available: Writing & Publishing (24 of 24 courses), Biomedical Engineering Foundations (24 of 24 courses), English, Literature & Composition (24 of 24 courses), History: American & World (24 of 24 courses), Agriculture & Homesteading (24 of 24 courses), Mathematics & Statistics Foundations (24 of 24 courses), Music & Worship Leadership (24 of 24 courses)
+Some courses include full lessons (reading, diagrams, worked examples, labs, practice and a self-check). Tap **Open lesson** inside a course. Currently available: Marriage, Family & Parenting (6 of 24 courses), Writing & Publishing (24 of 24 courses), Biomedical Engineering Foundations (24 of 24 courses), English, Literature & Composition (24 of 24 courses), History: American & World (24 of 24 courses), Agriculture & Homesteading (24 of 24 courses), Mathematics & Statistics Foundations (24 of 24 courses), Music & Worship Leadership (24 of 24 courses)
 
 ## Use
 1. In GitHub: **Settings → Pages → Deploy from a branch → `main` / root → Save**.
