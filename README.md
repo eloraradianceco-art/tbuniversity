@@ -27,6 +27,10 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Agriculture & Homesteading** — `courses/agriculture-degree/`
 - **Mathematics & Statistics Foundations** — `courses/math-degree/`
 - **Music & Worship Leadership** — `courses/worship-degree/`
+- **Microbiology** — `courses/microbiology-degree/`
+- **Human Anatomy & Physiology** — `courses/anatomy-degree/`
+- **Chemistry & Biochemistry** — `courses/chemistry-degree/`
+- **Public Health & Epidemiology** — `courses/publichealth-degree/`
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
 ## Full lessons
