@@ -30,7 +30,7 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
 ## Full lessons
-Some courses include full lessons (reading, diagrams, worked examples, labs, practice and a self-check). Tap **Open lesson** inside a course. Currently available: Agriculture & Homesteading (18 of 24 courses)
+Some courses include full lessons (reading, diagrams, worked examples, labs, practice and a self-check). Tap **Open lesson** inside a course. Currently available: Agriculture & Homesteading (24 of 24 courses)
 
 ## Use
 1. In GitHub: **Settings → Pages → Deploy from a branch → `main` / root → Save**.
