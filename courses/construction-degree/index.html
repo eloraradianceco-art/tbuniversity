@@ -1123,7 +1123,7 @@ function openLesson(code){
   el.setAttribute('aria-modal','true');
   el.setAttribute('aria-label', course.title + ' lesson');
   el.tabIndex = -1;
-  el.innerHTML = `<div class="lv-bar"><button type="button" class="lv-back">← Courses</button><span class="lv-meta">${code} · ${L.min} min read</span></div>
+  el.innerHTML = `<div class="lv-bar"><button type="button" class="lv-back">← Courses</button><span class="lv-meta">${code} · about ${L.min} min of study</span></div>
   <article class="lv-body"><p class="lv-code">${code} · ${course.credits} credits</p><h1>${course.title}</h1><p class="lv-desc">${course.desc}</p>${L.html}
   <section class="lv-check" id="lvCheck"></section>
   <div class="lv-foot"><button type="button" class="lv-done"></button><button type="button" class="lv-back lv-back2">Back to courses</button></div></article>`;

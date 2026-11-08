@@ -29,6 +29,9 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Music & Worship Leadership** — `courses/worship-degree/`
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 
+## Full lessons
+Some courses include full lessons (reading, diagrams, worked examples, labs, practice and a self-check). Tap **Open lesson** inside a course. Currently available: Agriculture & Homesteading (6 of 24 courses)
+
 ## Use
 1. In GitHub: **Settings → Pages → Deploy from a branch → `main` / root → Save**.
 2. Open `https://<your-username>.github.io/<repo-name>/` on your phone.
