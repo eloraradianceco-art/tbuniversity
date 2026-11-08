@@ -586,6 +586,66 @@ h1 .h1sub{display:block;font:600 clamp(21px,6vw,27px)/1 var(--font-display);lett
 code,pre,.diagram-frame svg text{font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
 @media (prefers-reduced-motion:reduce){#tbuRect,.seal-row .bar>i{transition:none!important}}
 @media (max-width:380px){.seal-row{grid-template-columns:112px 1fr}.seal-row svg.motif{width:112px}.seal-value span{font-size:38px}}
+</style><style id="tbu-lesson">.lesson-btn{margin-top:14px;display:inline-block;font:800 17px/1 var(--font-display);letter-spacing:.05em;color:#1b1500;background:var(--pencil);border:0;padding:10px 16px 9px;cursor:pointer;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.lesson-btn:focus-visible,.lv button:focus-visible,.lv summary:focus-visible{outline:2px solid var(--chalk);outline-offset:3px}
+.lv{position:fixed;inset:0;z-index:1000;background:var(--ink);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;outline:none}
+.lv-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:rgba(11,26,40,.95);border-bottom:1px solid var(--line)}
+.lv-back{font:700 17px/1 var(--font-display);letter-spacing:.04em;color:var(--cyan);background:none;border:1px solid var(--line);padding:9px 12px 8px;cursor:pointer;border-radius:2px}
+.lv-back:hover{border-color:var(--cyan)}
+.lv-meta{font:600 16px var(--font-display);letter-spacing:.03em;color:var(--faint)}
+.lv-body{max-width:700px;margin:0 auto;padding:26px 18px 90px;font:400 18px/1.72 var(--font-body);color:var(--chalk)}
+.lv-body h1{font:800 clamp(36px,10vw,54px)/.98 var(--font-display);margin:6px 0 14px;color:var(--chalk)}
+.lv-body h2{font:800 clamp(27px,6.6vw,34px)/1.05 var(--font-display);margin:46px 0 12px;letter-spacing:.01em;color:var(--chalk)}
+.lv-body h3{font:700 23px/1.2 var(--font-display);margin:0 0 10px;color:var(--chalk)}
+.lv-code{font:800 19px/1 var(--font-display);color:var(--cyan);letter-spacing:.03em;margin:0}
+.lv-desc{color:var(--dim)}
+.lv-body p{margin:0 0 16px}
+.lv-body ul,.lv-body ol{padding-left:22px;margin:0 0 18px}
+.lv-body li{margin:0 0 8px}
+.lv-body strong{color:#fff}
+.lv-body blockquote{margin:22px 0;padding:2px 0 2px 18px;border-left:3px solid var(--lumber);color:var(--dim);font-style:italic}
+.lv-body blockquote p{margin:0 0 8px}
+.lv-body table{width:100%;border-collapse:collapse;margin:22px 0;font-size:15px;line-height:1.4;display:block;overflow-x:auto}
+.lv-body th,.lv-body td{border:1px solid var(--line);padding:8px 10px;text-align:left;white-space:nowrap}
+.lv-body th{background:var(--plan);font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--cyan)}
+.lv-obj{background:var(--plan);border:1px solid var(--line);border-left:4px solid var(--cyan);padding:16px 18px 6px;margin:24px 0}
+.lv-obj h2{margin:0 0 10px;font-size:25px}
+.lv-box{margin:30px 0;padding:18px 18px 4px;background:var(--plan);border:1px solid var(--line);border-left:4px solid var(--cyan)}
+.lv-box.lab{border-left-color:var(--pencil)}
+.lv-box.fld{border-left-color:var(--hazard)}
+.lv-box.ref{border-left-color:var(--lumber);background:transparent}
+.lv-box.tk{border-left-color:#5fbf8a}
+.lv-fig{margin:28px 0;padding:14px 10px 10px;background:var(--plan);border:1px solid var(--line)}
+.lv-fig svg{display:block;width:100%;height:auto}
+.lv-fig figcaption{font-size:15px;color:var(--dim);margin-top:10px;line-height:1.45}
+.lv-fig .tx{fill:var(--chalk);font:600 14.5px var(--font-body)}
+.lv-fig .tx.b{font-weight:700;font-size:15.5px}
+.lv-fig .tx.d{fill:var(--dim);font-weight:400;font-size:13.5px}
+.lv-fig .tx.c{text-anchor:middle}
+.lv-fig .tk path{stroke:var(--line);stroke-width:1.5;fill:none}
+.lv-fig .bar.a1{fill:#d9a441}
+.lv-fig .bar.a2{fill:#7fb58a}
+.lv-prac details{border:1px solid var(--line);background:var(--plan);margin:0 0 10px}
+.lv-prac summary{cursor:pointer;padding:14px 16px;list-style:none;font-size:17px;line-height:1.55}
+.lv-prac summary::-webkit-details-marker{display:none}
+.lv-prac summary .n{font:800 19px var(--font-display);color:var(--pencil);margin-right:6px}
+.lv-prac details[open] summary{border-bottom:1px solid var(--line)}
+.lv-prac .ans{padding:14px 16px 2px;background:var(--plan2);font-size:17px}
+.lv-note{color:var(--faint);font-size:15px;margin:0 0 14px}
+.lv-check{margin-top:46px;border-top:1px solid var(--line);padding-top:4px}
+.lv-q{font-size:20px;line-height:1.5;margin:0 0 14px}
+.lv-opts{display:grid;gap:10px}
+.lv-opt{text-align:left;font:400 17px/1.45 var(--font-body);color:var(--chalk);background:var(--plan);border:1px solid var(--line);padding:13px 14px;cursor:pointer;border-radius:2px}
+.lv-opt:hover:not(:disabled){border-color:var(--cyan)}
+.lv-opt.right{border-color:#5fbf8a;background:rgba(95,191,138,.14)}
+.lv-opt.wrong{border-color:var(--hazard);background:rgba(255,122,47,.12)}
+.lv-opt:disabled{cursor:default;color:var(--chalk)}
+.lv-exp{margin-top:14px;padding:12px 14px;background:var(--plan2);border-left:3px solid var(--cyan);font-size:16.5px;line-height:1.55}
+.lv-next,.lv-done{font:800 17px/1 var(--font-display);letter-spacing:.05em;color:#1b1500;background:var(--pencil);border:0;padding:11px 16px 10px;cursor:pointer;margin-top:12px;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.lv-done.on{background:#5fbf8a}
+.lv-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:44px}
+.lv-foot .lv-done{margin-top:0}
+@media (prefers-reduced-motion:reduce){.lv *{scroll-behavior:auto!important}}
 </style></head>
 <body><a class="tbu-back" href="../../" aria-label="Back to the TB University library"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 11 12 3l9 8M6 9v11h12V9M10 20v-6h4v6"/></svg>Library</a><style>.tbu-back{position:absolute;top:10px;right:12px;z-index:50;display:inline-flex;align-items:center;gap:6px;font:600 16px/1 'Big Shoulders Display','Arial Narrow','Helvetica Neue',sans-serif;letter-spacing:.04em;color:#eaf2f5;text-decoration:none;background:rgba(7,19,30,.92);box-shadow:inset 0 0 0 1.5px #2b516f;border-radius:2px;padding:7px 11px 7px 9px;margin-top:env(safe-area-inset-top)}.tbu-back:hover{box-shadow:inset 0 0 0 1.5px #6fc3df}body>.wrap{padding-top:calc(54px + env(safe-area-inset-top))!important}.tbu-back:focus-visible{outline:2px solid #f6c61a;outline-offset:2px}</style>
 <div class="wrap">
@@ -740,6 +800,7 @@ function render(){
           <p class="course-desc">${c.desc}</p>
           <div class="concepts">${c.concepts.map(k=>`<span class="concept-tag${k===activeTerm?' active':''}" data-term="${k}">${k}</span>`).join('')}</div>
           ${activeTerm && c.concepts.includes(activeTerm) ? `<p class="term-def"><strong>${activeTerm}:</strong> ${GLOSSARY[activeTerm] || 'Definition coming soon.'}</p>` : ''}
+${lessonButton(c.code)}
         </div>
       `;
       list.appendChild(row);
@@ -988,6 +1049,118 @@ async function saveMastered(){
     await window.storage.set(MASTERED_KEY, JSON.stringify([...mastered]), false);
   }catch(e){ /* non-fatal */ }
 }
+
+const LESSONS = {"AGR 101": {"min": 45, "html": "<div class=\"lv-obj\"><h2>What you will be able to do<\/h2><ul>\n<li>Describe what healthy soil is made of and why pore space matters as much as the minerals<\/li>\n<li>Identify your soil texture with a jar test and a ribbon test<\/li>\n<li>Explain pH, organic matter and cation exchange capacity in plain terms<\/li>\n<li>Read a soil test report and turn a lime recommendation into pounds for your own bed<\/li>\n<li>Recognize the soil problems common on the Mississippi Gulf Coast and choose a sensible first fix<\/li>\n<\/ul><\/div><h2>Start here: soil is a living system<\/h2>\n<p>Most people treat soil as the stuff plants stand in. It is closer to a working organ. A spoonful of healthy topsoil holds billions of microbes, along with fungi, worms and insects, and together they break down dead material, release nutrients and glue loose particles into crumbs that roots can move through.<\/p>\n<p>By volume, a good topsoil is roughly <strong>45% mineral particles, about 5% organic matter, and about 50% open space<\/strong> (pores). Those pores hold air and water in roughly equal shares when the soil is moist but not soggy. Roots need both. Water without air drowns them, and air without water starves them. Nearly every soil problem you will meet is a problem with one of those three pieces: the minerals, the organic matter or the pore space.<\/p>\n<blockquote>\n<p>Then the LORD God formed the man of the dust of the ground. (Genesis 2:7)<\/p>\n<p>The LORD God took the man and put him in the garden of Eden to work it and keep it. (Genesis 2:15)<\/p>\n<\/blockquote>\n<p>Notice the order. The first farmer is made from the ground, then handed the ground to work and keep. That pairing, <em>work it and keep it<\/em>, is the whole discipline of agriculture: produce something from the land without wearing the land out. Soil is where that stewardship either succeeds or fails, which is why this is the first course.<\/p>\n<h2>Texture: sand, silt and clay<\/h2>\n<p>Mineral particles come in three size classes. By the USDA system:<\/p>\n<ul>\n<li><strong>Sand:<\/strong> 2.0 to 0.05 mm. Gritty. You can see and feel individual grains.<\/li>\n<li><strong>Silt:<\/strong> 0.05 to 0.002 mm. Feels like flour or talc when dry and smooth when wet.<\/li>\n<li><strong>Clay:<\/strong> smaller than 0.002 mm. Too fine to see, sticky and plastic when wet, hard when dry.<\/li>\n<\/ul>\n<p><strong>Texture<\/strong> is the proportion of the three. It is the single most stable fact about your soil. You can add compost and change its structure, but you will not realistically change its texture across an acre. So learn it first.<\/p>\n<table>\n<thead>\n<tr>\n<th>Soil<\/th>\n<th>Drains<\/th>\n<th>Holds water<\/th>\n<th>Holds nutrients<\/th>\n<th>Warms in spring<\/th>\n<th>Compacts<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>Sand<\/td>\n<td>Very fast<\/td>\n<td>Poorly<\/td>\n<td>Poorly<\/td>\n<td>Quickly<\/td>\n<td>Rarely<\/td>\n<\/tr>\n<tr>\n<td>Silt<\/td>\n<td>Moderate<\/td>\n<td>Well<\/td>\n<td>Moderately<\/td>\n<td>Moderately<\/td>\n<td>Crusts easily<\/td>\n<\/tr>\n<tr>\n<td>Clay<\/td>\n<td>Slowly<\/td>\n<td>Very well<\/td>\n<td>Very well<\/td>\n<td>Slowly<\/td>\n<td>Easily<\/td>\n<\/tr>\n<tr>\n<td>Loam (a balanced mix)<\/td>\n<td>Good<\/td>\n<td>Good<\/td>\n<td>Good<\/td>\n<td>Good<\/td>\n<td>Moderately<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p>A <strong>loam<\/strong> is not a fourth particle. It is a name for a balanced blend of sand, silt and clay that behaves well, which is why gardeners prize it. Names such as sandy loam, silt loam and clay loam describe which direction a soil leans.<\/p>\n<p><strong>Gulf Coast pattern.<\/strong> Many soils near the Mississippi coast are sandy or sandy loam, acidic and low in organic matter, with some poorly drained flatwoods areas. That is a general pattern, not a promise about your lot. Look up your exact parcel in the free USDA Web Soil Survey, then confirm with a soil test and the jar test below.<\/p>\n<h2>Structure, pore space and compaction<\/h2>\n<p>Texture is the size of the pieces. <strong>Structure<\/strong> is how they are arranged. In a healthy soil, particles clump into crumbly aggregates held together by organic matter, fungal threads and root exudates. Between the aggregates are channels for air, water and roots. Gardeners call the result <em>tilth<\/em>: soil that crumbles in your hand and feels springy underfoot.<\/p>\n<p><strong>Compaction<\/strong> squeezes those channels shut. Heavy equipment, foot traffic and working soil when it is wet all do it. A compacted soil can have perfect nutrients and still grow poor plants, because roots cannot get through and water cannot get out.<\/p>\n<p>The squeeze test keeps you from causing it. Take a handful from a few inches down, squeeze it into a ball, then poke it. If it crumbles, the soil is ready to work. If it stays a slick, shiny ball, wait a few days. Digging or tilling wet clay creates clods that dry into bricks.<\/p>\n<h2>Organic matter: the part you can build<\/h2>\n<p>Organic matter is the decomposed remains of plants and animals plus the living organisms doing the decomposing. Even a small percentage does a lot:<\/p>\n<ul>\n<li>It builds the aggregates that create pore space.<\/li>\n<li>It holds water and nutrients, which matters most in sand.<\/li>\n<li>It feeds the soil life that cycles nutrients to your plants.<\/li>\n<li>It buffers pH swings.<\/li>\n<\/ul>\n<p>In warm, wet climates like the Gulf South, microbes burn through organic matter quickly, so a bed that was rich last year can be depleted by next year. You have to keep adding it: compost, leaves, aged manure, cover crops and mulch. Do not expect miracles in one season. Raising organic matter by even one percentage point usually takes years of consistent additions, which is why steady habits beat one big dump.<\/p>\n<h2>pH: the master switch<\/h2>\n<p><strong>pH<\/strong> measures acidity on a scale from 0 to 14, with 7 neutral. The scale is logarithmic: each whole number is a tenfold change. A soil at pH 5.0 is ten times more acidic than one at 6.0 and a hundred times more acidic than one at 7.0.<\/p>\n<p>pH matters mostly because it controls which nutrients plants can actually take up. Most vegetables do best between about 6.0 and 7.0. When soil is too acidic, aluminum and manganese can reach harmful levels while calcium, magnesium and phosphorus become harder to get. When it is too alkaline, iron and zinc lock up. Some crops are the exception: blueberries want an acidic 4.5 to 5.5.<\/p>\n<p>To raise pH, add <strong>lime<\/strong> (ground limestone). Dolomitic lime also supplies magnesium. To lower pH, use <strong>elemental sulfur<\/strong>, which works slowly because soil bacteria must convert it. Both take months to act, so apply them well before planting and according to a soil test. Guessing at lime is how people overshoot and create new problems. Soils with lots of clay or organic matter resist pH change (they are well <em>buffered<\/em>), so they need more lime than sandy soils to move the same amount.<\/p><figure class=\"lv-fig\"><svg viewBox=\"0 0 420 190\" role=\"img\" aria-label=\"pH scale from 4 to 9 with blueberries at 4.5 to 5.5 and most vegetables at 6.0 to 7.0\">\n<defs><linearGradient id=\"phg\" x1=\"0\" x2=\"1\"><stop offset=\"0\" stop-color=\"#c8643a\"/><stop offset=\".45\" stop-color=\"#d9a441\"/><stop offset=\".6\" stop-color=\"#7fb58a\"/><stop offset=\"1\" stop-color=\"#4a7fb0\"/><\/linearGradient><\/defs>\n<rect x=\"40\" y=\"46\" width=\"340\" height=\"26\" rx=\"3\" fill=\"url(#phg)\" stroke=\"var(--line)\"/>\n<g class=\"tk\"><path d=\"M40 72v8M108 72v8M176 72v8M244 72v8M312 72v8M380 72v8\"/><\/g>\n<g class=\"tx c\"><text x=\"40\" y=\"96\">4<\/text><text x=\"108\" y=\"96\">5<\/text><text x=\"176\" y=\"96\">6<\/text><text x=\"244\" y=\"96\">7<\/text><text x=\"312\" y=\"96\">8<\/text><text x=\"380\" y=\"96\">9<\/text><\/g>\n<text class=\"tx d c\" x=\"74\" y=\"38\">more acidic<\/text><text class=\"tx d c\" x=\"346\" y=\"38\">more alkaline<\/text>\n<text class=\"tx d c\" x=\"244\" y=\"38\">neutral<\/text>\n<rect x=\"74\" y=\"112\" width=\"68\" height=\"14\" rx=\"3\" class=\"bar a1\"/><text class=\"tx\" x=\"74\" y=\"146\">Blueberries<\/text><text class=\"tx d\" x=\"74\" y=\"162\">4.5 to 5.5<\/text>\n<rect x=\"176\" y=\"112\" width=\"68\" height=\"14\" rx=\"3\" class=\"bar a2\"/><text class=\"tx\" x=\"176\" y=\"146\">Most vegetables<\/text><text class=\"tx d\" x=\"176\" y=\"162\">6.0 to 7.0<\/text>\n<\/svg><figcaption>Where most vegetables and blueberries grow best on the pH scale<\/figcaption><\/figure><h2>Cation exchange capacity: how much the soil can hold<\/h2>\n<p>Think of clay and organic matter particles as having a negative charge, like tiny magnets. Many key nutrients, including calcium, magnesium, potassium and ammonium, carry a positive charge (they are <em>cations<\/em>), so they cling to those particles instead of washing away. <strong>Cation exchange capacity (CEC)<\/strong> is the measure of how much of that clinging soil can do.<\/p>\n<p>Sand has almost no charge. Clay and organic matter have a lot. Very roughly, sandy soils test below 5 and clay soils above 20 on the usual scale (cmolc/kg), with loams in between. The practical consequence for a sandy Gulf Coast garden: nutrients leave fast in heavy rain. The fix is not a bigger dose of fertilizer. It is smaller, more frequent feedings plus steady additions of compost, which raises CEC.<\/p>\n<h2>Reading the soil profile<\/h2>\n<p>Dig a hole 18 inches deep and look at the wall. You will see layers called <strong>horizons<\/strong>. Most of your garden's life happens in the top two.<\/p><figure class=\"lv-fig\"><svg viewBox=\"0 0 420 270\" role=\"img\" aria-label=\"Soil horizons O, A, B, C and bedrock stacked from surface down\">\n<rect x=\"14\" y=\"10\" width=\"90\" height=\"26\" fill=\"#4a3a24\" stroke=\"var(--line)\"/>\n<rect x=\"14\" y=\"36\" width=\"90\" height=\"54\" fill=\"#6b4f2c\" stroke=\"var(--line)\"/>\n<rect x=\"14\" y=\"90\" width=\"90\" height=\"72\" fill=\"#8a6a3a\" stroke=\"var(--line)\"/>\n<rect x=\"14\" y=\"162\" width=\"90\" height=\"58\" fill=\"#a08a64\" stroke=\"var(--line)\"/>\n<rect x=\"14\" y=\"220\" width=\"90\" height=\"40\" fill=\"#5d6770\" stroke=\"var(--line)\"/>\n<g class=\"tk\"><path d=\"M104 23h18M104 63h18M104 126h18M104 191h18M104 240h18\"/><\/g>\n<text class=\"tx b\" x=\"128\" y=\"21\">O: organic layer<\/text><text class=\"tx d\" x=\"128\" y=\"37\">Leaves and litter<\/text>\n<text class=\"tx b\" x=\"128\" y=\"61\">A: topsoil<\/text><text class=\"tx d\" x=\"128\" y=\"77\">Minerals + organic matter; most roots<\/text>\n<text class=\"tx b\" x=\"128\" y=\"124\">B: subsoil<\/text><text class=\"tx d\" x=\"128\" y=\"140\">Clay and minerals washed down<\/text>\n<text class=\"tx b\" x=\"128\" y=\"189\">C: parent material<\/text><text class=\"tx d\" x=\"128\" y=\"205\">Weathered rock or sediment<\/text>\n<text class=\"tx b\" x=\"128\" y=\"238\">R: bedrock<\/text><text class=\"tx d\" x=\"128\" y=\"254\">Solid rock below<\/text>\n<\/svg><figcaption>Soil horizons in a typical profile<\/figcaption><\/figure><p>If you see a sudden change, such as a gray, sticky clay layer under sandy topsoil, you have found why water stands in the bed after rain. That layer is perched above your roots and holds water in the zone where they live. Fixes include raised beds, drainage and choosing crops that tolerate wet feet.<\/p>\n<h2>Lab: the jar test<\/h2>\n<p>You need a clear quart jar with a lid, about a cup of soil, water, and a teaspoon of dish detergent. The detergent helps separate the particles. This is a rough check, not a lab result, but it is accurate enough to tell you which way your soil leans.<\/p>\n<ol>\n<li>Take soil from the top 6 inches of your bed. Remove roots, stones and trash. Crush clods. Let it air-dry if wet.<\/li>\n<li>Fill the jar about one-third with soil. Add the detergent, then fill with water to nearly full.<\/li>\n<li>Screw on the lid and shake hard for three minutes.<\/li>\n<li>Set the jar where it will not be moved. After <strong>one minute<\/strong>, mark the level of the settled layer. That is sand.<\/li>\n<li>After <strong>two hours<\/strong>, mark the new layer on top. That is silt.<\/li>\n<li>After <strong>24 to 48 hours<\/strong>, mark the top layer of settled clay. Organic matter may float on the surface. Do not count it.<\/li>\n<li>Measure each layer and divide by the total to get percentages.<\/li>\n<\/ol><figure class=\"lv-fig\"><svg viewBox=\"0 0 420 250\" role=\"img\" aria-label=\"Jar with water on top and settled clay, silt and sand layers\">\n<rect x=\"50\" y=\"20\" width=\"110\" height=\"210\" rx=\"6\" fill=\"rgba(111,195,223,.08)\" stroke=\"var(--cyan)\" stroke-width=\"2\"/>\n<rect x=\"52\" y=\"150\" width=\"106\" height=\"78\" fill=\"#a08a64\"/>\n<rect x=\"52\" y=\"112\" width=\"106\" height=\"38\" fill=\"#8a6a3a\"/>\n<rect x=\"52\" y=\"93\" width=\"106\" height=\"19\" fill=\"#c8643a\" opacity=\".85\"/>\n<g fill=\"#4a3a24\"><circle cx=\"70\" cy=\"36\" r=\"2.4\"/><circle cx=\"92\" cy=\"40\" r=\"2\"/><circle cx=\"118\" cy=\"35\" r=\"2.6\"/><circle cx=\"138\" cy=\"41\" r=\"2\"/><\/g>\n<g class=\"tk\"><path d=\"M160 189h30M160 131h30M160 102h30M160 38h30\"/><\/g>\n<text class=\"tx b\" x=\"198\" y=\"186\">Sand: 2.0 cm<\/text><text class=\"tx d\" x=\"198\" y=\"202\">Settles in about 1 minute<\/text>\n<text class=\"tx b\" x=\"198\" y=\"136\">Silt: 1.0 cm<\/text><text class=\"tx d\" x=\"198\" y=\"152\">Settles in about 2 hours<\/text>\n<text class=\"tx b\" x=\"198\" y=\"94\">Clay: 0.5 cm<\/text><text class=\"tx d\" x=\"198\" y=\"109\">Settles in 24 to 48 hours<\/text>\n<text class=\"tx d\" x=\"198\" y=\"42\">Floating organic matter (skip)<\/text>\n<\/svg><figcaption>A jar test after 24 to 48 hours (example from the worked problem below)<\/figcaption><\/figure><p>Then confirm with the <strong>ribbon test<\/strong>: wet a small ball of soil until it is workable, then press it between thumb and finger to push out a ribbon. Roughly, a soil that will not ribbon is sandy, a short ribbon (under an inch) points to a loam, a 1 to 2 inch ribbon suggests clay loam, and a ribbon over 2 inches is a clay. Use the ribbon as a second opinion, not as your only evidence.<\/p><aside class=\"lv-box ex\"><h3>Worked example: from jar to texture<\/h3><p>Suppose your jar shows 2.0 cm of sand, 1.0 cm of silt and 0.5 cm of clay.<\/p>\n<p><strong>Step 1.<\/strong> Add them: 2.0 + 1.0 + 0.5 = 3.5 cm total.<\/p>\n<p><strong>Step 2.<\/strong> Divide each by the total.<\/p>\n<ul>\n<li>Sand: 2.0 ÷ 3.5 = 57%<\/li>\n<li>Silt: 1.0 ÷ 3.5 = 29%<\/li>\n<li>Clay: 0.5 ÷ 3.5 = 14%<\/li>\n<\/ul>\n<p><strong>Step 3.<\/strong> Compare to a texture triangle. More than half sand with under 20% clay is a <strong>sandy loam<\/strong>.<\/p>\n<p><strong>Step 4.<\/strong> Translate it into management. It drains fast, warms early, holds few nutrients and will need compost and split fertilizer feedings. It will also dry out quickly, so mulch and drip irrigation will pay off.<\/p><\/aside><h2>Lab: take a proper soil sample<\/h2>\n<p>A soil test is only as good as the sample. A bad sample wastes your money and can lead you to bad decisions.<\/p>\n<ol>\n<li>Use a clean plastic bucket (not galvanized) and a trowel or spade.<\/li>\n<li>For a garden, sample the top 6 to 8 inches. For a lawn, sample 3 to 4 inches.<\/li>\n<li>Walk the area in a zigzag and take 10 to 15 small slices from different spots. Skip odd places like the corner where you dumped ashes.<\/li>\n<li>Mix them well in the bucket. Let the mix air-dry, then fill the lab's bag or box with about a pint.<\/li>\n<li>Submit it through your county Extension office. In Mississippi, that goes through the MSU Extension soil testing lab. Label the sample with what you plan to grow, so the report matches the crop.<\/li>\n<\/ol>\n<p>Sample separately wherever soil, drainage or past treatment differ, such as the vegetable garden, the blueberries and the lawn.<\/p><aside class=\"lv-box ex\"><h3>Worked example: from lime recommendation to pounds<\/h3><p>Here is an invented soil report for practice. Your sample reports <strong>pH 5.4<\/strong>, <strong>organic matter 1.8%<\/strong>, <strong>phosphorus: low<\/strong>, <strong>potassium: medium<\/strong>. You plan to grow tomatoes, which like about 6.2 to 6.8. The lab recommends <strong>1 ton of lime per acre<\/strong>.<\/p>\n<p>You are not farming an acre, so convert.<\/p>\n<p><strong>Step 1.<\/strong> One acre is 43,560 square feet and one ton is 2,000 pounds.<\/p>\n<p><strong>Step 2.<\/strong> Rate per square foot: 2,000 ÷ 43,560 = 0.0459 lb per sq ft.<\/p>\n<p><strong>Step 3.<\/strong> Rate per 100 square feet: 0.0459 × 100 = <strong>4.6 lb<\/strong>.<\/p>\n<p><strong>Step 4.<\/strong> Apply it to your beds.<\/p>\n<ul>\n<li>A 4 × 8 ft raised bed is 32 sq ft: 0.0459 × 32 = <strong>1.5 lb<\/strong>.<\/li>\n<li>A 20 × 30 ft garden is 600 sq ft: 0.0459 × 600 = <strong>27.5 lb<\/strong>.<\/li>\n<\/ul>\n<p><strong>Step 5.<\/strong> Spread it evenly and work it into the top 6 inches, ideally two to three months before planting, because lime reacts slowly. Retest in about a year.<\/p>\n<p><strong>Why the phosphorus note matters.<\/strong> At pH 5.4, phosphorus can be hard for plants to get. Correcting the pH often improves availability, so apply the lime first and follow the lab's phosphorus recommendation rather than guessing at extra fertilizer.<\/p><\/aside><aside class=\"lv-box fld\"><h3>Gulf Coast field notes<\/h3><ul>\n<li><strong>Heavy rain leaches sandy soil.<\/strong> The coast gets well over 50 inches of rain a year. Feed lightly and often, and keep soil covered with mulch or a cover crop.<\/li>\n<li><strong>Heat burns organic matter.<\/strong> Plan to add compost or leaves every season. Mulch also cools the soil and slows evaporation.<\/li>\n<li><strong>Root-knot nematodes love warm, sandy soil.<\/strong> They are microscopic worms that cause knotted, stunted roots. Organic matter, crop rotation, resistant varieties and, in some cases, solarizing help. Ask Extension about a nematode assay if plants decline for no clear reason.<\/li>\n<li><strong>Saltwater flooding is a soil event, not just a flood.<\/strong> After storm surge, test for soluble salts and sodium before replanting. Do not guess. Well-drained sandy soil can flush with fresh rain or irrigation, but tight clay soils may need specific treatment based on the lab report.<\/li>\n<li><strong>Poor drainage is common in flatwoods.<\/strong> Raised beds, drainage swales and tolerant crops are all easier than fighting standing water in the ground.<\/li>\n<\/ul><\/aside><aside class=\"lv-box ref\"><h3>Stewardship: the ground you were made from<\/h3><p>In Genesis, the human and the ground share a name in Hebrew: <em>adam<\/em> from <em>adamah<\/em>. Man is made from the soil and then placed in it to serve it. Scripture never lets us treat land as a disposable input. Leviticus 25:23 has God saying, \"the land is mine,\" so we are tenants and caretakers, not owners in the final sense.<\/p>\n<p>Jesus used soil as a teaching tool in the parable of the sower (Matthew 13:1 to 9): seed on a hard path, thin rocky ground, thorny ground and good soil. Farmers hear that story differently, because they know ground can be changed. A path can be broken up, rocks removed, thorns pulled. Good soil is often made, not found. Proverbs 12:11 says, \"Whoever works his land will have plenty of bread.\" Work here means patient, informed effort, and this course is the information part.<\/p>\n<p><em>Question to sit with:<\/em> Where on your own land, or in your own life, is the ground compacted because it has been worked wet or walked on too often, and what would rest or repair look like?<\/p><\/aside><section class=\"lv-prac\"><h2>Practice problems<\/h2><p class=\"lv-note\">Try each one on paper first, then open the answer.<\/p><details><summary><span class=\"n\">1.<\/span> A jar test gives 1.5 cm sand, 2.0 cm silt and 1.5 cm clay. What are the percentages, and what texture is this?<\/summary><div class=\"ans\"><p>The total is 5.0 cm. Sand is 1.5 ÷ 5.0 = 30%, silt is 2.0 ÷ 5.0 = 40% and clay is 1.5 ÷ 5.0 = 30%. With about 30% clay and balanced silt, this is a <strong>clay loam<\/strong>. It holds water and nutrients well but drains slowly and compacts easily. Avoid working it when wet and add organic matter.<\/p><\/div><\/details><details><summary><span class=\"n\">2.<\/span> How much more acidic is soil at pH 5.0 than soil at pH 7.0?<\/summary><div class=\"ans\"><p>Each pH unit is a tenfold change, and 5.0 is two units below 7.0, so it is <strong>100 times more acidic<\/strong>.<\/p><\/div><\/details><details><summary><span class=\"n\">3.<\/span> Your lab recommends 2 tons of lime per acre. How many pounds does an 8 × 12 ft bed need?<\/summary><div class=\"ans\"><p>The bed is 8 × 12 = 96 sq ft. Two tons is 4,000 lb per 43,560 sq ft, or 0.0918 lb per sq ft. Multiply by 96 to get <strong>about 8.8 lb<\/strong>, so round to 9 lb and spread it evenly.<\/p><\/div><\/details><details><summary><span class=\"n\">4.<\/span> Why does a sandy garden need smaller, more frequent fertilizer feedings than a clay garden?<\/summary><div class=\"ans\"><p>Sand has a <strong>low cation exchange capacity<\/strong>, so it cannot hold nutrients well, and its large pores drain fast. A big dose washes out in the next heavy rain. Small, frequent doses plus compost keep nutrients available.<\/p><\/div><\/details><details><summary><span class=\"n\">5.<\/span> Your soil test reads pH 6.2 and you want to grow blueberries. What is your plan?<\/summary><div class=\"ans\"><p>Blueberries prefer about 4.5 to 5.5, so the soil is too high. Use elemental sulfur at the rate the lab recommends, applied months ahead, mulch with pine bark or pine straw, and retest. Another option is growing them in a raised bed or container with an acidic mix, which is easier to control.<\/p><\/div><\/details><details><summary><span class=\"n\">6.<\/span> After a rain, you squeeze a handful of garden soil. It forms a smooth, shiny ball that does not crumble when you poke it. What should you do?<\/summary><div class=\"ans\"><p>Wait. The soil is too wet to work, and digging or tilling it now will cause compaction and clods. Try again in a few days.<\/p><\/div><\/details><\/section><aside class=\"lv-box tk\"><h3>Key takeaways<\/h3><ul>\n<li>Healthy topsoil is about half solids and half pores, and roots need both air and water.<\/li>\n<li>Texture (sand, silt, clay) rarely changes, so learn it first. Structure and organic matter you can improve.<\/li>\n<li>pH is logarithmic and controls nutrient availability. Never add lime or sulfur without a soil test.<\/li>\n<li>Organic matter is the lever you control, and in Gulf South heat you must keep adding it.<\/li>\n<li>Low CEC means nutrients leach. Feed small and often, and build organic matter.<\/li>\n<li>Take a proper sample, and let the soil test lead your decisions.<\/li>\n<li>After a storm surge, test for salts before you replant.<\/li>\n<\/ul><\/aside>", "quiz": [{"q": "Which describes healthy topsoil by volume?", "o": ["About half solids and half pore space for air and water", "Mostly water with a little air", "Almost entirely solid mineral particles", "Mostly organic matter"], "c": 0, "e": "Roughly 45% minerals, 5% organic matter and 50% pore space, split between air and water. Roots need both air and water."}, {"q": "Which soil particles are the smallest?", "o": ["Sand", "Silt", "Gravel", "Clay"], "c": 3, "e": "Clay particles are smaller than 0.002 mm, finer than silt and sand."}, {"q": "A soil at pH 5.0 compared with a soil at pH 6.0 is how much more acidic?", "o": ["Two times", "One hundred times", "Ten times", "The same"], "c": 2, "e": "The pH scale is logarithmic, so each whole number is a tenfold change."}, {"q": "A lab recommends 1 ton of lime per acre. About how many pounds is that per 100 square feet?", "o": ["46 lb", "4.6 lb", "0.46 lb", "22 lb"], "c": 1, "e": "2,000 lb divided by 43,560 sq ft is 0.0459 lb per sq ft, so about 4.6 lb per 100 sq ft."}, {"q": "Why do sandy soils leach nutrients so easily?", "o": ["They contain too much organic matter", "They have a low cation exchange capacity and large pores", "They hold too much water", "They are always too alkaline"], "c": 1, "e": "Sand has little negative charge to hold nutrient cations, and water drains quickly through large pores."}, {"q": "After saltwater flooding, what should you do before replanting?", "o": ["Add extra fertilizer right away", "Plant salt-sensitive crops to see what happens", "Till the soil deeply while wet", "Test the soil for soluble salts and sodium"], "c": 3, "e": "Salts can damage crops, and the right response depends on the test results and the soil type."}, {"q": "Which horizon is generally called topsoil?", "o": ["The B horizon", "The C horizon", "The A horizon", "Bedrock"], "c": 2, "e": "The A horizon is the mineral topsoil mixed with organic matter, where most roots and soil life are found."}, {"q": "In warm, humid climates, why must you keep adding organic matter?", "o": ["Microbes break it down quickly", "It turns into sand", "It raises pH permanently", "It stops water from draining"], "c": 0, "e": "Heat and moisture speed decomposition, so organic matter is used up fast and must be replaced."}]}};
+/* ---------- Lessons ---------- */
+const LESSON_KEY = COMPLETED_KEY + '-lessons';
+let lessonScores = {};
+let lvEl = null;
+function lessonButton(code){
+  const L = LESSONS[code];
+  if(!L) return '';
+  const best = lessonScores[code];
+  return `<button type="button" class="lesson-btn" data-lesson="${code}">Open lesson · ${L.min} min${best!=null?` · best check ${best}/${L.quiz.length}`:''}</button>`;
+}
+function lvKey(e){ if(e.key==='Escape') lvClose(); }
+function lvHide(){
+  if(!lvEl) return;
+  lvEl.remove(); lvEl = null;
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', lvKey);
+  render();
+}
+function lvClose(){
+  if(history.state && history.state.tbuLesson){ history.back(); } else { lvHide(); }
+}
+window.addEventListener('popstate', ()=>{ if(lvEl) lvHide(); });
+function renderCheck(code){
+  const L = LESSONS[code];
+  const box = lvEl.querySelector('#lvCheck');
+  let i = 0, score = 0;
+  function show(){
+    if(i >= L.quiz.length){ finish(); return; }
+    const q = L.quiz[i];
+    box.innerHTML = `<h2>Check yourself</h2><p class="lv-note">Question ${i+1} of ${L.quiz.length}</p><p class="lv-q">${q.q}</p><div class="lv-opts">${q.o.map((o,k)=>`<button type="button" class="lv-opt" data-k="${k}">${o}</button>`).join('')}</div><div class="lv-exp" hidden></div>`;
+    box.querySelectorAll('.lv-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        const k = +btn.getAttribute('data-k');
+        box.querySelectorAll('.lv-opt').forEach(b=>{
+          b.disabled = true;
+          const bk = +b.getAttribute('data-k');
+          if(bk === q.c) b.classList.add('right');
+          else if(bk === k) b.classList.add('wrong');
+        });
+        if(k === q.c) score++;
+        const ex = box.querySelector('.lv-exp');
+        ex.hidden = false;
+        ex.innerHTML = `<strong>${k===q.c?'Correct.':'Not quite.'}</strong> ${q.e}<div><button type="button" class="lv-next">${i+1<L.quiz.length?'Next question':'See result'}</button></div>`;
+        ex.querySelector('.lv-next').onclick = ()=>{ i++; show(); };
+        ex.querySelector('.lv-next').focus();
+      };
+    });
+  }
+  function finish(){
+    const prev = lessonScores[code];
+    if(prev == null || score > prev){
+      lessonScores[code] = score;
+      try{ window.storage.set(LESSON_KEY, JSON.stringify(lessonScores), false); }catch(e){}
+    }
+    const n = L.quiz.length;
+    const msg = score === n ? 'Perfect. You have this lesson.' : score >= n*0.75 ? 'Solid. Review what you missed, then mark the course complete.' : 'Reread the sections behind the questions you missed, then try again.';
+    box.innerHTML = `<h2>Check yourself</h2><p class="lv-q">You scored ${score} of ${n}. ${msg}</p><div><button type="button" class="lv-next lv-retry">Try again</button></div>`;
+    box.querySelector('.lv-retry').onclick = ()=>{ i = 0; score = 0; show(); };
+  }
+  show();
+}
+function openLesson(code){
+  const L = LESSONS[code];
+  if(!L || lvEl) return;
+  let course = null;
+  CURRICULUM.forEach(y=>y.semesters.forEach(s=>s.courses.forEach(c=>{ if(c.code===code) course = c; })));
+  const el = document.createElement('div');
+  el.className = 'lv';
+  el.setAttribute('role','dialog');
+  el.setAttribute('aria-modal','true');
+  el.setAttribute('aria-label', course.title + ' lesson');
+  el.tabIndex = -1;
+  el.innerHTML = `<div class="lv-bar"><button type="button" class="lv-back">← Courses</button><span class="lv-meta">${code} · ${L.min} min read</span></div>
+  <article class="lv-body"><p class="lv-code">${code} · ${course.credits} credits</p><h1>${course.title}</h1><p class="lv-desc">${course.desc}</p>${L.html}
+  <section class="lv-check" id="lvCheck"></section>
+  <div class="lv-foot"><button type="button" class="lv-done"></button><button type="button" class="lv-back lv-back2">Back to courses</button></div></article>`;
+  document.body.appendChild(el);
+  lvEl = el;
+  document.body.style.overflow = 'hidden';
+  history.pushState({tbuLesson:code}, '');
+  el.querySelectorAll('.lv-back').forEach(b=>{ b.onclick = lvClose; });
+  const doneBtn = el.querySelector('.lv-done');
+  const syncDone = ()=>{
+    const on = completed.has(code);
+    doneBtn.textContent = on ? 'Completed. Tap to undo' : 'Mark course complete';
+    doneBtn.classList.toggle('on', on);
+  };
+  doneBtn.onclick = ()=>{
+    if(completed.has(code)) completed.delete(code); else completed.add(code);
+    saveProgress(); syncDone();
+  };
+  syncDone();
+  renderCheck(code);
+  document.addEventListener('keydown', lvKey);
+  el.scrollTop = 0;
+  el.focus();
+}
+document.getElementById('semesters').addEventListener('click', (e)=>{
+  const lb = e.target.closest('.lesson-btn');
+  if(lb) openLesson(lb.getAttribute('data-lesson'));
+}, true);
+(async function(){
+  if(!Object.keys(LESSONS).length) return;
+  const fn = document.querySelector('#studyMode .footnote');
+  if(fn) fn.textContent = 'Tap a course to expand it. Courses with a full lesson show an Open lesson button. Tap the circle to mark a course complete. Progress saves automatically to this app.';
+  try{
+    const r = await window.storage.get(LESSON_KEY, false);
+    if(r && r.value){ lessonScores = JSON.parse(r.value); render(); }
+  }catch(e){}
+})();
 
 loadProgress();
 </script>
