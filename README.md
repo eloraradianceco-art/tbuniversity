@@ -4,17 +4,21 @@ Self-study course library, built as static web apps. Open the root page for the 
 
 ## Courses
 ### Health & Life Sciences
+- **Bodybuilding & Physique Development** — `courses/bodybuilding-degree/`
 - **Chemistry & Biochemistry** — `courses/chemistry-degree/`
 - **Corrective Exercise & Kinesiology** — `courses/kinesiology-degree/`
 - **Human Anatomy & Physiology** — `courses/anatomy-degree/`
 - **Kinesiology Visual Companion** — `courses/kinesiology-visual/`
 - **Microbiology** — `courses/microbiology-degree/`
+- **Neuroscience** — `courses/neuroscience-degree/`
 - **Nutrition Science** — `courses/nutrition-degree/`
 - **Pre-DPT & Health Sciences** — `courses/predpt-degree/`
 - **Public Health & Epidemiology** — `courses/publichealth-degree/`
 
 ### Business, Money & Career
 - **Applied Trading & Market Systems** — `courses/trading-degree/`
+- **Business Administration** — `courses/businessadmin-degree/`
+- **Digital Marketing & Social Media** — `courses/digitalmarketing-degree/`
 - **Economics** — `courses/economics-degree/`
 - **Leadership & Organizational Psychology** — `courses/leadership-degree/`
 - **Marketing & Brand Strategy** — `courses/marketing-degree/`
@@ -26,6 +30,7 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Applied Psychology & Behavioral Science** — `courses/psychology-degree/`
 - **Marriage, Family & Parenting** — `courses/family-degree/`
 - **Music & Worship Leadership** — `courses/worship-degree/`
+- **Sport & Exercise Psychology** — `courses/sportpsych-degree/`
 - **Theology & Biblical Studies** — `courses/theology-degree/`
 
 ### Math, Engineering & Code
