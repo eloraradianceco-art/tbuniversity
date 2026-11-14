@@ -33,6 +33,7 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Full-Stack Software Engineering** — `courses/swe-degree/`
 - **Learn to Code: A Computer Science Course** — `courses/learn-to-code/`
 - **Mathematics & Statistics Foundations** — `courses/math-degree/`
+- **Swift & Apple Platform Development** — `courses/swift-degree/`
 
 ### Language, History & Writing
 - **English, Literature & Composition** — `courses/english-degree/`
