@@ -35,9 +35,14 @@ Self-study course library, built as static web apps. Open the root page for the 
 
 ### Math, Engineering & Code
 - **Biomedical Engineering Foundations** — `courses/bme-degree/`
+- **Civil & Structural Engineering** — `courses/civil-degree/`
+- **Electrical & Computer Engineering** — `courses/electrical-degree/`
 - **Full-Stack Software Engineering** — `courses/swe-degree/`
 - **Learn to Code: A Computer Science Course** — `courses/learn-to-code/`
 - **Mathematics & Statistics Foundations** — `courses/math-degree/`
+- **Mechanical Engineering** — `courses/mechanical-degree/`
+- **Mechatronics & Robotics** — `courses/mechatronics-degree/`
+- **Product Design & Manufacturing** — `courses/productdesign-degree/`
 - **Swift & Apple Platform Development** — `courses/swift-degree/`
 
 ### Language, History & Writing
