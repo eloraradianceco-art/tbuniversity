@@ -50,6 +50,10 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **History: American & World** — `courses/history-degree/`
 - **Writing & Publishing** — `courses/writing-degree/`
 
+### Law & Justice
+- **Law: Mississippi (Family & Criminal Focus)** — `courses/mslaw-degree/`
+- **Law: Texas (Family & Criminal Focus)** — `courses/txlaw-degree/`
+
 ### Land, Building & Readiness
 - **Agriculture & Homesteading** — `courses/agriculture-degree/`
 - **Emergency Preparedness & Survival** — `courses/survival-degree/`
