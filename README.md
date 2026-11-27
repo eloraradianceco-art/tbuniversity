@@ -16,6 +16,7 @@ Self-study course library, built as static web apps. Open the root page for the 
 - **Public Health & Epidemiology** — `courses/publichealth-degree/`
 
 ### Business, Money & Career
+- **Accounting & Taxation** — `courses/accounting-degree/`
 - **Applied Trading & Market Systems** — `courses/trading-degree/`
 - **Business Administration** — `courses/businessadmin-degree/`
 - **Digital Marketing & Social Media** — `courses/digitalmarketing-degree/`
